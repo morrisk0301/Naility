@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>네일리티 </title>
+
+    <!-- Bootstrap -->
+    <link href="./vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="./vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="./vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="./vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="./vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="./vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="./vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="./vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="./vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="./build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="/" class="site_title"> <span>네일리티</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>환영합니다,</span>
+                        <h2><%=userID%></h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu">
+                            <li><a href="/"><i class="fa fa-home"></i> 홈 화면 </a>
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> 회원관리 </a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/member">회원 관리 </a></li>
+                                    <li><a href="#">블랙리스트 관리 </a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-desktop"></i> 예약 관리</a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#">금일 예약 관리 </a></li>
+                                    <li><a href="/add_appointment">예약 추가 </a></li>
+                                    <li><a href="/end_appointment">예약 마감</a></li>
+                                    <li><a href="/appointment">예약 검색</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-table"></i> 시술 관리 </a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/procedure">시술 관리 </a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-envelope-o"></i> 회원권 관리 </a>
+                                <ul class="nav child_menu">
+                                    <li><a href="#">회원권 관리 </a></li>
+                                    <li><a href="#">회원권 조회 </a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/user"><i class="fa fa-user"></i> 관리자 승인 </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="images/img.jpg" alt=""><%=userID%>
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:"> 회원정보 수정</a></li>
+                                <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> 로그아웃 </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>예약 </h3>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>예약 추가</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form data-parsley-validate class="form-horizontal form-label-left">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class='input-group'>
+                                                <input type="text" class="form-control" name="name" id="ap_name" placeholder="회원 이름을 입력하세요 " >
+                                                <span class="input-group-btn">
+                                                    <button id="btn_search_member" type="button" class="btn btn-primary">검색 </button>
+                                                    <button id="btn_add" type="button" class="btn btn-primary">추가 </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">시술 검색<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class='input-group'>
+                                                <input type="text" class="form-control" name="procedure" id="ap_procedure"placeholder="시술 이름을 입력하세요 ">
+                                                <span class="input-group-btn">
+                                                    <button id="btn_search_procedure" type="button" class="btn btn-primary">검색 </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">예약 시간<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class='input-group date' id='datetimepicker'>
+                                                <input type='text' id="date" required="required" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">가격<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" name="price" disabled="disabled" id="ap_price">
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                            <button type="submit" id="btn_appointment" class="btn btn-success">추가하기 </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                네일리티 웹페이지 by KKI
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="./vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="./vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="./vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="./vendors/nprogress/progress.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="./vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="./vendors/iCheck/icheck.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="./vendors/moment/min/moment.min.js"></script>
+<script src="./vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="./vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="./vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<script src="./vendors/google-code-prettify/src/prettify.js"></script>
+<!-- jQuery Tags Input -->
+<script src="./vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+<!-- Switchery -->
+<script src="./vendors/switchery/dist/switchery.min.js"></script>
+<!-- Select2 -->
+<script src="./vendors/select2/dist/js/select2.full.min.js"></script>
+<!-- Parsley -->
+<script src="./vendors/parsleyjs/dist/parsley.min.js"></script>
+<!-- Autosize -->
+<script src="./vendors/autosize/dist/autosize.min.js"></script>
+<!-- jQuery autocomplete -->
+<script src="./vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+<!-- starrr -->
+<script src="./vendors/starrr/dist/starrr.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="./build/js/custom.min.js"></script>
+<script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+    $("#btn_search_procedure").on("click", function(event){
+        window.open("/procedure/search?name="+$("#ap_procedure").val(), "시술 추가", "width=500,height=600");
+        return false;
+    })
+    $("#btn_search_member").on("click", function(event){
+        window.open("/member/search?name="+$("#ap_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    })
+
+    $(function () {
+        $('#datetimepicker').datetimepicker();
+    });
+
+    $("#btn_appointment").on("click", function(event){
+        if(!window.procedure){
+            alert("시술을 선택해 주세요")
+            return false
+        }
+        else if(!$("#date").val()){
+            alert("날짜를 선택해 주세요")
+            return false;
+        }
+        const query = {
+            member_id: window.member_id,
+            procedure: JSON.stringify(window.procedure),
+            date: $("#date").val(),
+            price: $("#ap_price").val()
+        }
+        $.ajax({
+            url: '/appointment',
+            type: 'POST',
+            data: query,
+            success: function (data) {
+                document.write(data);
+            }
+        });
+        return false;
+    })
+
+    $("#btn_add").on("click", function(event){
+        window.open("/add_member?ap=true", "회원 추가", "width=500,height=600");
+        return false;
+    })
+
+</script>
+
+</body>
+</html>

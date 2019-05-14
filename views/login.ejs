@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>네일리티 로그인</title>
+
+    <!-- Bootstrap -->
+    <link href="./vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="./vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="./vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="./vendors/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="./build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="login">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <%if(err){
+                    if(err==="auth_fail"){%>
+                    <a class="red">관리자 승인 미완료 아이디입니다. <br>
+                        네일리티 관리자에게 문의해주시기 바랍니다. </a>
+                <%}else{%>
+                    <a class="red">죄송합니다. 로그인에 실패했습니다.<br>
+                        아이디(ID)와 비밀번호를 확인하고 다시 로그인해주세요.</a>
+                <%}}%>
+                <form method="post" action="/login">
+                    <h1>로그인 </h1>
+                    <div>
+                        <input type="text" class="form-control" placeholder="아이디" name="userID" required="" />
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" placeholder="비밀번호" name="password" required="" />
+                    </div>
+                    <div>
+                        <button id="login_btn" class="btn btn-default submit">로그인 </button>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <a href="#signup" class="to_register"> 비밀번호 찾기 </a>
+                        <a href="#signup" class="to_register"> 회원가입 </a>
+
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <h1> 네일리티 </h1>
+                            <p>©2019 All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <div id="register" class="animate form registration_form">
+            <section class="login_content">
+                <a class="red" id="warning_id"></a>
+                <form method="post" action="/signup" id="form_signup">
+                    <h1>회원가입 </h1>
+                    <div>
+                        <input type="text" class="form-control" placeholder="아이디" id="userID" name="userID" required=""/>
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" placeholder="비밀번호" id="password" name="password" required="" />
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" placeholder="비밀번호 확인" id="password_confirm" required="" />
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" placeholder="이름" name="name" required="" />
+                    </div>
+                    <div>
+                        <button class="btn btn-default submit">회원가입 </button>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">이미 회원이신가요?
+                            <a href="#signin" class="to_register"> 로그인 </a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <h1>네일리티 </h1>
+                            <p>©2019 All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    const host = location.host;
+
+    function verifyID(userID){
+        return new Promise(function(resolve, reject){
+            if(!userID)
+                resolve(false);
+            else {
+                fetch('http://' + host + '/user/' + userID)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data)
+                            resolve(true);
+                        else
+                            resolve(false);
+                    })
+            }
+        })
+    }
+
+    $("#login_btn").on("click", function(event){
+        $.ajax({
+            url: '/login',    //Your api url
+            type: 'POST',   //type is any HTTP method
+            data: {userID:"iluvubtch", password:"453mor3013"},      //Data as js object
+            success: function () {
+                window.location = "/"
+            }
+        });
+    })
+
+    $("#userID").on('input', async function(event){
+        const is_registered = await verifyID($("#userID").val());
+        if(is_registered)
+            $("#warning_id").text("이미 회원가입한 아이디 입니다.");
+        else
+            $("#warning_id").text("");
+    })
+
+    $("#form_signup").on('submit', function(event){
+        const password = $("#password").val();
+        const password_cf = $("#password_confirm").val();
+
+        if(password !== password_cf) {
+            alert('비밀번호 확인 값이 올바르지 않습니다.');
+            return false;
+        }
+
+        if(password.length < 8){
+            alert('비밀번호는 최소 8자리 이상이어야 합니다.');
+            return false;
+        }
+    })
+</script>
+</body>
+</html>
