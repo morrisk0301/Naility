@@ -9,10 +9,15 @@ module.exports = function (router) {
 
         database.ProcedureModel.paginate({
             'procedure_name': {$regex: new RegExp(search, "i")}
-        }, {page: page, limit: 15, sort: {created_at : -1}}, function (err, results) {
+        }, {page: page, limit: 15, sort: {created_at: -1}}, function (err, results) {
             if (err)
                 throw err;
-            res.render('procedure', {userID: req.user.user_userID, procedure: results.docs, page: page});
+            res.render('procedure', {
+                userID: req.user.user_userID,
+                procedure: results.docs,
+                page: page,
+                num: results.total
+            });
         })
     });
 
@@ -21,23 +26,19 @@ module.exports = function (router) {
         const name = req.query.name ? req.query.name : "";
         const page = req.query.page ? req.query.page : 1;
 
-        database.ProcedureModel.paginate({'procedure_name': {$regex: new RegExp(name, "i")}}, {page: page, limit: 15, sort: {created_at : -1}}, function (err, results) {
-            if(err)
+        database.ProcedureModel.paginate({'procedure_name': {$regex: new RegExp(name, "i")}}, {
+            page: page,
+            limit: 15,
+            sort: {created_at: -1}
+        }, function (err, results) {
+            if (err)
                 throw err;
-            res.render('search_procedure', {procedure: results.docs, page: page});
+            res.render('search_procedure', {procedure: results.docs, page: page, num: results.total});
         })
     });
 
     router.get('/add_procedure', checkLogin, function (req, res) {
         res.render('add_procedure', {userID: req.user.user_userID, modify: false, procedure: null});
-    });
-
-    router.get('/procedure_num', checkLogin, function (req, res) {
-        const database = req.app.get('database');
-
-        database.ProcedureModel.find().count(function (err, count) {
-            res.json(count);
-        })
     });
 
     router.get('/procedure/:id', checkLogin, function (req, res) {

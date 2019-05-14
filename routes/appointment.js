@@ -1,13 +1,14 @@
 const checkLogin = require('../utils/check_login');
+const member_data = require('../utils/member_data');
 
 module.exports = function (router) {
 
-    function convertProcedureName(database, procedure){
-        return new Promise(function(resolve, reject){
+    function convertProcedureName(database, procedure) {
+        return new Promise(function (resolve, reject) {
             let procedure_name = "";
             procedure.reduce(function (total, item, counter) {
                 return getProcedureName(database, item).then(function (procedure_result) {
-                    if(counter === procedure.length-1)
+                    if (counter === procedure.length - 1)
                         procedure_name = procedure_name + procedure_result;
                     else
                         procedure_name = procedure_name + procedure_result + ", ";
@@ -18,28 +19,15 @@ module.exports = function (router) {
         });
     }
 
-    function getProcedureName(database, procedure_id){
-        return new Promise(function(resolve, reject){
+    function getProcedureName(database, procedure_id) {
+        return new Promise(function (resolve, reject) {
             database.ProcedureModel.findOne({
                 'procedure_id': procedure_id
-            }, function(err, result){
-                if(err)
-                    reject(err);
-                else
-                    resolve(result.procedure_name);
-            })
-        })
-    }
-
-    function getNamePhone(database, member_id) {
-        return new Promise(function (resolve, reject) {
-            database.MemberModel.findOne({
-                'member_id': member_id
-            }).select("member_name member_phone").exec(function (err, result) {
+            }, function (err, result) {
                 if (err)
                     reject(err);
                 else
-                    resolve(result);
+                    resolve(result.procedure_name);
             })
         })
     }
@@ -51,7 +39,11 @@ module.exports = function (router) {
         const query = req.query.query;
         const searchQuery = query === "name" ? {'ap_member_name': {$regex: new RegExp(search, "i")}} : {'ap_member_phone': {$regex: new RegExp(search, "i")}};
 
-        database.AppointmentModel.paginate(searchQuery, {page: page, limit: 15, sort: {created_at : -1}}, function (err, results) {
+        database.AppointmentModel.paginate(searchQuery, {
+            page: page,
+            limit: 15,
+            sort: {created_at: -1}
+        }, function (err, results) {
             if (err)
                 throw err;
             res.render('appointment', {userID: req.user.user_userID, appointment: results.docs, page: page});
@@ -68,7 +60,7 @@ module.exports = function (router) {
 
         database.AppointmentModel.paginate({
             'ap_is_finished': false
-        }, {page: page, limit: 5, sort: {created_at : -1}}, function (err, results) {
+        }, {page: page, limit: 5, sort: {created_at: -1}}, function (err, results) {
             res.render('end_appointment', {userID: req.user.user_userID, appointment: results.docs, page: page});
         });
     });
@@ -91,8 +83,24 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/view_appointment', checkLogin, function(req, res){
-        res.render('view_appointment', {userID: req.user.user_userID, modify:false});
+    router.get('/appointment_month', checkLogin, function (req, res) {
+        const database = req.app.get('database');
+        const date = new Date();
+        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+        database.AppointmentModel.find({
+            "created_at": {
+                "$gte": firstDay,
+                "$lt": lastDay
+            }
+        }).count(function (err, result) {
+            res.json(result);
+        })
+    });
+
+    router.get('/view_appointment', checkLogin, function (req, res) {
+        res.render('view_appointment', {userID: req.user.user_userID, modify: false});
     });
 
     router.get('/appointment/:id', checkLogin, function (req, res) {
@@ -103,20 +111,14 @@ module.exports = function (router) {
         database.AppointmentModel.findOne({
             'ap_id': ap_id
         }, async function (err, result) {
-            if(!query)
+            if (!query)
                 return res.json({ap: result});
             else
-                return res.render("view_appointment", {userID: req.user.user_userID, modify:query==="modify", ap: result});
-        })
-    });
-
-    router.get('/appointment/member/:id', checkLogin, function(req, res){
-        const database = req.app.get('database');
-        const member_id = req.params.id;
-        database.AppointmentModel.find({
-            'ap_member_id': member_id
-        }, function(err, results){
-            res.json(results);
+                return res.render("view_appointment", {
+                    userID: req.user.user_userID,
+                    modify: query === "modify",
+                    ap: result
+                });
         })
     });
 
@@ -126,7 +128,7 @@ module.exports = function (router) {
         const procedure = JSON.parse(req.body.procedure);
         const date = req.body.date;
         const price = req.body.price;
-        const namePhone = await getNamePhone(database, member_id);
+        const namePhone = await member_data.getNamePhone(database, member_id);
         const procedure_name = await convertProcedureName(database, procedure);
 
         const newAppointment = new database.AppointmentModel({
@@ -149,19 +151,19 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const query = req.query.query ? req.query.query : false;
         const ap_id = req.params.id;
-        const procedure = req.body.procedure? JSON.parse(req.body.procedure) : "";
+        const procedure = req.body.procedure ? JSON.parse(req.body.procedure) : "";
         const date = req.body.date;
         const price = req.body.price;
         const real_price = req.body.real_price;
         const method = req.body.method;
         const detail = req.body.detail;
         const blacklist = req.body.blacklist;
-        const procedure_name = typeof(procedure)=== "string" ? procedure : await convertProcedureName(database, procedure);
+        const procedure_name = typeof (procedure) === "string" ? procedure : await convertProcedureName(database, procedure);
 
         database.AppointmentModel.findOne({
             'ap_id': ap_id
         }, function (err, result) {
-            if(query !== "modify"){
+            if (query !== "modify") {
                 result.ap_date = date;
                 result.ap_procedure_name = procedure_name;
                 result.ap_price = price;
@@ -173,7 +175,7 @@ module.exports = function (router) {
             result.ap_is_finished = true;
             result.save(function (err, result) {
                 res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                if(query !== "modify")
+                if (query !== "modify")
                     res.write('<script type="text/javascript">alert("예약이 마감되었습니다.");window.location.reload();</script>');
                 else
                     res.write('<script type="text/javascript">alert("예약이 수정되었습니다.");window.opener.location.reload();window.close();</script>');

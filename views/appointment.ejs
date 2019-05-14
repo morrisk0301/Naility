@@ -261,7 +261,8 @@
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
 <script type="text/javascript">
     const host = location.host;
-    const page = location.search.split("=")[1];
+    const page = location.search.includes("page") ? location.search.split("page")[1][1] : 1;
+    const url_string = location.search.split("&page="+page)[0].replace("?", "");
     let id;
 
     function getMemberNum(){
@@ -280,7 +281,7 @@
             total: Math.ceil(memberNum/15),
             page: page
         }).on("page", function(event, num){
-            window.location = "/appointment?page="+num.toString();
+            window.location = "/appointment?"+url_string+"&page="+num.toString();
         });
     };
 

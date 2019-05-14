@@ -126,7 +126,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>회원</h3>
+                        <h3>회원권 </h3>
                     </div>
 
                     <div class="title_right">
@@ -137,7 +137,7 @@
                                     <option>휴대폰 번호 </option>
                                 </select>
                                 <span class="input-group-btn"></span>
-                                <input type="text" class="form-control" id="search_text" placeholder="회원 검색(이름, 휴대폰 번호 등)">
+                                <input type="text" class="form-control" id="search_text" placeholder="회원권 검색(이름, 휴대폰 번호 등)">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" id="btn_search" type="button">검색 </button>
                                 </span>
@@ -150,86 +150,51 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>회원 관리</h2>
+                                <h2>회원권 조회</h2>
                                 <div class="clearfix"></div>
                             </div>
 
                             <div class="x_content">
                                 <div class="table-responsive">
-                                    <table class="table table-striped jambo_table">
+                                    <table class="table table-striped jambo_table bulk_action">
                                         <thead>
                                         <tr class="headings">
-                                            <th class="column-title">선택</th>
                                             <th class="column-title">번호 </th>
                                             <th class="column-title">회원 이름 </th>
-                                            <th class="column-title">휴대폰 번호</th>
-                                            <th class="column-title">회원권 잔액</th>
-                                            <th class="column-title no-link last"><span class="nobr">생성일 </span></th>
+                                            <th class="column-title">휴대폰 번호 </th>
+                                            <th class="column-title">금액 </th>
+                                            <th class="column-title">종류 </th>
+                                            <th class="column-title no-link last"><span class="nobr">생성일 </span>
+                                            </th>
+                                            <th class="bulk-actions" colspan="7">
+                                                <a class="antoo" style="color:#fff; font-weight:500;">시술 선택 <i class="fa fa-chevron-down"></i></a>
+                                            </th>
                                         </tr>
                                         </thead>
 
                                         <tbody>
-                                        <%for(var i=0;i<member.length;i++){
+                                        <%for(let i=0;i<membership.length;i++){
                                         if(i%2===0){%>
                                         <tr class="even pointer">
-                                            <td class="a-center">
-                                                <input type="radio" class="flat checkbox_procedure" name="table_records" id="<%=member[i].member_id%>">
-                                            </td>
-                                            <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                            <td class=" "><%=member[i].member_name%></td>
-                                            <td class=" "><%=member[i].member_phone%></td>
-                                            <td class=" "><%=member[i].membership%></td>
-                                            <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
+                                            <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
+                                            <td class=" "><%=membership[i].ms_member_name%></td>
+                                            <td class=" "><%=membership[i].ms_member_phone%></td>
+                                            <td class=" "><%=membership[i].ms_value%></td>
+                                            <td class=" "><%=membership[i].ms_type%></td>
+                                            <td class="a-right a-right "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 '%></td>
                                             </td>
                                         </tr>
                                         <%}else{%>
                                         <tr class="odd pointer">
-                                            <td class="a-center ">
-                                                <input type="radio" class="flat checkbox_procedure" name="table_records" id="<%=member[i].member_id%>">
-                                            </td>
-                                            <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                            <td class=" "><%=member[i].member_name%></td>
-                                            <td class=" "><%=member[i].member_phone%></td>
-                                            <td class=" "><%=member[i].membership%></td>
-                                            <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
+                                            <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
+                                            <td class=" "><%=membership[i].ms_member_name%></td>
+                                            <td class=" "><%=membership[i].ms_member_phone%></td>
+                                            <td class=" "><%=membership[i].ms_value%></td>
+                                            <td class=" "><%=membership[i].ms_type%></td>
+                                            <td class="a-right a-right "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 '%></td>
                                             </td>
                                         </tr>
                                         <%}}%>
-                                        </tbody>
-                                    </table>
-                                    <button class="btn btn-dark alignright" id="btn_member">회원 추가</button>
-                                    <button class="btn btn-dark alignright" id="btn_member_modify">회원 수정</button>
-                                    <div class="text-center"id="page-selection"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>예약 기록</h2>
-                                <div class="clearfix"></div>
-                            </div>
-
-                            <div class="x_content">
-                                <div class="table-responsive">
-                                    <table class="table table-striped jambo_table" id="ap_table">
-                                        <thead>
-                                        <tr class="headings">
-                                            <th class="column-title">번호 </th>
-                                            <th class="column-title">회원 이름 </th>
-                                            <th class="column-title">휴대폰 번호</th>
-                                            <th class="column-title">마감 여부 </th>
-                                            <th class="column-title">불편 손님 여부 </th>
-                                            <th class="column-title">예약일 </th>
-                                            <th class="column-title">상세 </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="ap_tbody">
                                         </tbody>
                                     </table>
                                     <div class="text-center"id="page-selection"></div>
@@ -292,80 +257,19 @@
 <script type="text/javascript">
     const page = location.search.includes("page") ? location.search.split("page")[1][1] : 1;
     const url_string = location.search.split("&page="+page)[0].replace("?", "");
-    const host = location.host;
-    let id;
-
-    function getMemberInfo(id){
-        return new Promise(function(resolve, reject){
-            fetch('http://'+host+'/appointment/member/'+id)
-                .then((res) => res.json())
-                .then((data) => {
-                    resolve(data);
-                })
-        })
-    }
 
     window.onload = async function () {
         $('#page-selection').bootpag({
-            total: Math.ceil(parseInt("<%=num%>")/5),
+            total: Math.ceil(parseInt("<%=num%>")/15),
             page: page
         }).on("page", function(event, num){
-            window.location = "/member?"+url_string+"&page="+num.toString();
+            window.location = "/membership?"+url_string+"&page="+num.toString();
         });
     };
 
-    $("#btn_member").on("click", function(event){
-        window.open("/add_member", "회원 추가", "width=500,height=600");
-    })
-
-
     $("#btn_search").on("click", function(event){
         const query = $("#search_query").val() === "이름" ? "name" : "phone"
-        window.location = "/member?search="+$("#search_text").val()+"&query="+ query;
-    })
-
-    $(".flat").on("ifClicked", async function(event){
-        id = this.id;
-        $("#ap_tbody").empty();
-
-        const member_data = await getMemberInfo(id);
-        member_data.forEach(function(item, counter){
-            const done = item.ap_is_finished ? "마감": "미 마감";
-            const blacklist = item.ap_blacklist ? "MMMMMMM" : "일반";
-            const date = new Date(item.ap_date);
-            if(counter%2===0){
-                $("#ap_tbody").append('<tr class="odd pointer">' +
-                    '<td class=" ">'+(counter+1)+'</td>' +
-                    '<td class=" ">'+item.ap_member_name+'</td>' +
-                    '<td class=" ">'+item.ap_member_phone+'</td>' +
-                    '<td class=" ">'+done+'</td>' +
-                    '<td class=" ">'+blacklist+'</td>' +
-                    '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
-                    '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
-            } else{
-                $("#ap_tbody").append('<tr class="even pointer">' +
-                    '<td class=" ">'+(counter+1)+'</td>' +
-                    '<td class=" ">'+item.ap_member_name+'</td>' +
-                    '<td class=" ">'+item.ap_member_phone+'</td>' +
-                    '<td class=" ">'+done+'</td>' +
-                    '<td class=" ">'+blacklist+'</td>' +
-                    '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
-                    '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
-            }
-        })
-    })
-
-    $("#btn_member_modify").on('click', function(event){
-        let check = false;
-        $(".checkbox_procedure").each(function(index, obj){
-            if(this.checked){
-                check = true;
-                window.open("/member/"+id, "회원 수정", "width=500,height=600");
-                return false;
-            }
-        })
-        if(!check)
-            alert("회원을 선택해주세요");
+        window.location = "/membership?search="+$("#search_text").val()+"&query="+ query;
     })
 </script>
 

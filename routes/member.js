@@ -1,4 +1,5 @@
 const checkLogin = require('../utils/check_login');
+const ms_data = require('../utils/membership_data');
 
 module.exports = function (router) {
 
@@ -9,10 +10,32 @@ module.exports = function (router) {
         const query = req.query.query;
         const searchQuery = query === "name" ? {'member_name': {$regex: new RegExp(search, "i")}} : {'member_phone': {$regex: new RegExp(search, "i")}};
 
-        database.MemberModel.paginate(searchQuery, {page: page, limit: 5, sort: {created_at : -1}}, function (err, results) {
+        database.MemberModel.paginate(searchQuery, {
+            page: page,
+            limit: 5,
+            sort: {created_at: -1}
+        }, function (err, results) {
             if (err)
                 throw err;
-            res.render('member', {userID: req.user.user_userID, member: results.docs, page: page});
+            results.docs.reduce(function (total, item, counter) {
+                return ms_data.checkMembershipLeft(database, item.member_id).then(async function (value) {
+                    results.docs[counter].membership = value;
+                })
+            }, Promise.resolve()).then(function () {
+                res.render('member', {
+                    userID: req.user.user_userID,
+                    member: results.docs,
+                    page: page,
+                    num: results.total
+                });
+            });
+        })
+    });
+
+    router.get('/member_num', checkLogin, function(req, res){
+        const database = req.app.get('database');
+        database.MemberModel.find({}).count(function(err, result){
+            res.json(result);
         })
     });
 
@@ -20,25 +43,22 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const name = req.query.name ? req.query.name : "";
         const page = req.query.page ? req.query.page : 1;
+        const query = req.query.query ? req.query.query : "";
 
-        database.MemberModel.paginate({'member_name': {$regex: new RegExp(name, "i")}}, {page: page, limit: 15, sort: {created_at : -1}}, function (err, results) {
-            if(err)
+        database.MemberModel.paginate({'member_name': {$regex: new RegExp(name, "i")}}, {
+            page: page,
+            limit: 15,
+            sort: {created_at: -1}
+        }, function (err, results) {
+            if (err)
                 throw err;
-            res.render('search_member', {member: results.docs, page: page});
+            res.render('search_member', {member: results.docs, page: page, query: query, num: results.total});
         })
     });
 
     router.get('/add_member', checkLogin, function (req, res) {
         const ap = req.query.ap ? req.query.ap : false;
         res.render('add_member', {userID: req.user.user_userID, modify: false, member: null, ap: ap});
-    });
-
-    router.get('/member_num', function (req, res) {
-        const database = req.app.get('database');
-
-        database.MemberModel.find().count(function (err, count) {
-            res.json(count);
-        })
     });
 
     router.get('/member/:id', checkLogin, function (req, res) {
@@ -63,12 +83,11 @@ module.exports = function (router) {
         });
 
         newMember.save(function (err, save_result) {
-            if(!ap){
+            if (!ap) {
                 res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
                 res.write('<script type="text/javascript">alert("회원이 저장되었습니다.");window.opener.location.reload();window.close();</script>');
                 res.end();
-            }
-            else
+            } else
                 res.json(save_result.member_id);
         })
     });

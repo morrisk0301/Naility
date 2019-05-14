@@ -1,107 +1,110 @@
 const checkLogin = require('../utils/check_login');
+const member_data = require('../utils/member_data');
+const ms_data = require('../utils/membership_data');
 
 module.exports = function (router) {
 
-    router.get('/procedure', checkLogin, function (req, res) {
+    router.get('/membership', checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
+        const query = req.query.query ? req.query.query : "";
+        let searchQuery;
+        console.log(query);
+        if(query==="name")
+            searchQuery = {'ms_member_name': {$regex: new RegExp(search, "i")}};
+        else if(query==="phone")
+            searchQuery = {'ms_member_phone': {$regex: new RegExp(search, "i")}};
 
-        database.ProcedureModel.paginate({
-            'procedure_name': {$regex: new RegExp(search, "i")}
-        }, {page: page, limit: 15, sort: {created_at : -1}}, function (err, results) {
+        database.MembershipModel.paginate(searchQuery, {
+            page: page,
+            limit: 15,
+            sort: {created_at: -1}
+        }, function (err, results) {
+            console.log(results.docs);
             if (err)
                 throw err;
-            res.render('procedure', {userID: req.user.user_userID, procedure: results.docs, page: page});
+            res.render('membership', {
+                userID: req.user.user_userID,
+                membership: results.docs,
+                page: page,
+                num: results.total
+            });
         })
     });
 
-    router.get('/procedure/search', checkLogin, function (req, res) {
-        const database = req.app.get('database');
-        const name = req.query.name ? req.query.name : "";
-        const page = req.query.page ? req.query.page : 1;
-
-        database.ProcedureModel.paginate({'procedure_name': {$regex: new RegExp(name, "i")}}, {page: page, limit: 15, sort: {created_at : -1}}, function (err, results) {
-            if(err)
-                throw err;
-            res.render('search_procedure', {procedure: results.docs, page: page});
-        })
+    router.get('/edit_membership', checkLogin, function (req, res) {
+        res.render('edit_membership', {userID: req.user.user_userID});
     });
 
-    router.get('/', checkLogin, function (req, res) {
-        res.render('add_procedure', {userID: req.user.user_userID, modify: false, procedure: null});
-    });
-
-    router.get('/procedure_num', checkLogin, function (req, res) {
+    router.post('/membership', checkLogin, async function (req, res) {
         const database = req.app.get('database');
+        const member_id = req.body.member_id;
+        const get_member_id = req.body.get_member_id;
+        const type = req.body.type;
+        const namePhone = await member_data.getNamePhone(database, member_id);
+        const get_namePhone = await member_data.getNamePhone(database, get_member_id);
+        const fee = req.body.fee ? req.body.fee : 0;
+        const membership_value = await ms_data.checkMembershipLeft(database, member_id);
+        let value;
+        let get_value;
 
-        database.ProcedureModel.find().count(function (err, count) {
-            res.json(count);
-        })
-    });
+        if (type === "충전")
+            value = req.body.value;
+        else if (type === "양도") {
+            value = -req.body.value;
+            get_value = req.body.value;
+            if(membership_value + value < 0)
+                return res.json(false);
+        }
+        else if(type==="환불"){
+            value = -(req.body.value - fee);
+            if(membership_value - req.body.value < 0)
+                return res.json(false);
+        }
 
-    router.get('/procedure/:id', checkLogin, function (req, res) {
-        const database = req.app.get('database');
-        const procedure_id = req.params.id;
-        database.ProcedureModel.findOne({
-            'procedure_id': procedure_id
-        }, function (err, result) {
-            res.render('add_procedure', {userID: req.user.user_userID, modify: true, procedure: result});
-        })
-    });
-
-    router.post('/procedure', checkLogin, function (req, res) {
-        const database = req.app.get('database');
-        const name = req.body.name;
-        const category = req.body.category;
-        const price = req.body.price;
-
-        const newProcedure = new database.ProcedureModel({
-            'procedure_name': name,
-            'procedure_category': category,
-            'procedure_price': price
+        const newMembership = new database.MembershipModel({
+            'ms_member_id': member_id,
+            'ms_member_name': namePhone.member_name,
+            'ms_member_phone': namePhone.member_phone,
+            'ms_value': value,
+            'ms_type': type
         });
 
-        newProcedure.save(function (err) {
-            res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-            res.write('<script type="text/javascript">alert("시술이 저장되었습니다.");window.opener.location.reload();window.close();</script>');
-            res.end();
-        })
-    });
-
-    router.put('/procedure/:id', checkLogin, function (req, res) {
-        const database = req.app.get('database');
-        const procedure_id = req.params.id;
-        const name = req.body.name;
-        const category = req.body.category;
-        const price = req.body.price;
-
-        database.ProcedureModel.findOne({
-            'procedure_id': procedure_id
-        }, function (err, result) {
-            result.procedure_name = name;
-            result.procedure_category = category;
-            result.procedure_price = price;
-            result.save(function (err) {
-                res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                res.write('<script type="text/javascript">alert("시술이 수정되었습니다.");window.opener.location.reload();window.close();</script>');
-                res.end();
-            })
-        })
-    });
-
-    router.delete('/procedure/:id', checkLogin, function (req, res) {
-        const database = req.app.get('database');
-        const procedure_id = req.params.id;
-
-        database.ProcedureModel.deleteOne({
-            'procedure_id': procedure_id
-        }, function (err) {
+        newMembership.save(function (err) {
             if (err)
                 throw err;
-            res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-            res.write('<script type="text/javascript">alert("시술이 삭제되었습니다.");window.location.reload();</script>');
-            res.end();
-        });
-    })
+            if (type === "양도") {
+                const newMembership2 = new database.MembershipModel({
+                    'ms_member_id': get_member_id,
+                    'ms_member_name': namePhone.member_name,
+                    'ms_member_phone': namePhone.member_phone,
+                    'ms_value': get_value,
+                    'ms_type': "양수"
+                });
+                newMembership2.save(function (err) {
+                    if (err)
+                        throw err;
+                    res.json(true);
+                });
+            } else if (type === "환불") {
+                const newMembership2 = new database.MembershipModel({
+                    'ms_member_id': member_id,
+                    'ms_member_name': namePhone.member_name,
+                    'ms_member_phone': namePhone.member_phone,
+                    'ms_value': -fee,
+                    'ms_type': "수수료"
+                });
+                newMembership2.save(function (err) {
+                    if (err)
+                        throw err;
+                    res.json(true);
+                });
+            } else {
+                process.nextTick(function () {
+                    res.json(true);
+                })
+            }
+        })
+    });
 };

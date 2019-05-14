@@ -144,7 +144,7 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                             <div class='input-group'>
-                                                <input type="text" class="form-control" name="name" id="ap_name" placeholder="회원 이름을 입력하세요 " >
+                                                <input type="text" class="form-control" name="name" id="add_name" placeholder="회원 이름을 입력하세요 " >
                                                 <span class="input-group-btn">
                                                     <button id="btn_search_member" type="button" class="btn btn-primary">검색 </button>
                                                 </span>
@@ -152,15 +152,117 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">가격<span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">충전 금액<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="price" id="ap_price">
+                                            <input type="number" class="form-control" name="price" id="add_value">
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                            <button type="submit" id="btn_appointment" class="btn btn-success">추가하기 </button>
+                                            <button type="submit" id="btn_add" class="btn btn-success">추가하기 </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>회원권 양도 </h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form data-parsley-validate class="form-horizontal form-label-left">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">양도 회원 검색<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class='input-group'>
+                                                <input type="text" class="form-control" name="name" id="give_name" placeholder="회원 이름을 입력하세요 " >
+                                                <span class="input-group-btn">
+                                                    <button id="btn_search_member2" type="button" class="btn btn-primary">검색 </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">양수 회원 검색<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class='input-group'>
+                                                <input type="text" class="form-control" name="name" id="get_name" placeholder="회원 이름을 입력하세요 " >
+                                                <span class="input-group-btn">
+                                                    <button id="btn_search_member3" type="button" class="btn btn-primary">검색 </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">양도 금액 <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" name="price" id="give_value">
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                            <button type="submit" id="btn_give" class="btn btn-success">양도하기 </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>회원권 환불 </h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form data-parsley-validate class="form-horizontal form-label-left">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class='input-group'>
+                                                <input type="text" class="form-control" name="name" id="refund_name" placeholder="회원 이름을 입력하세요 " >
+                                                <span class="input-group-btn">
+                                                    <button id="btn_search_member4" type="button" class="btn btn-primary">검색 </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">환불 금액<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" name="price" id="refund_value">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">환불 수수료<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" name="price" id="fee">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">실 환불 금액<small>(환불 금액 - 환불 수수료)</small></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" disabled="disabled" id="refund_real">
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                            <button type="submit" id="btn_refund" class="btn btn-success">환불하기 </button>
                                         </div>
                                     </div>
                                 </form>
@@ -221,48 +323,113 @@
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
-    $("#btn_search_procedure").on("click", function(event){
-        window.open("/procedure/search?name="+$("#ap_procedure").val(), "시술 추가", "width=500,height=600");
-        return false;
-    })
+
     $("#btn_search_member").on("click", function(event){
-        window.open("/member/search?name="+$("#ap_name").val(), "회원 검색", "width=500,height=600");
+        window.open("/member/search?query=membership_add&name="+$("#add_name").val(), "회원 검색", "width=500,height=600");
         return false;
     })
 
-    $(function () {
-        $('#datetimepicker').datetimepicker();
-    });
+    $("#btn_search_member2").on("click", function(event){
+        window.open("/member/search?query=membership_give&name="+$("#give_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    })
 
-    $("#btn_appointment").on("click", function(event){
-        if(!window.procedure){
-            alert("시술을 선택해 주세요")
-            return false
-        }
-        else if(!$("#date").val()){
-            alert("날짜를 선택해 주세요")
+    $("#btn_search_member3").on("click", function(event){
+        window.open("/member/search?query=membership_get&name="+$("#get_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    })
+
+    $("#btn_search_member4").on("click", function(event){
+        window.open("/member/search?query=membership_refund&name="+$("#refund_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    })
+
+    $("#btn_add").on("click", function(event){
+        if(!window.add_searched){
+            alert("회원을 선택해 주세요");
             return false;
         }
         const query = {
-            member_id: window.member_id,
-            procedure: JSON.stringify(window.procedure),
-            date: $("#date").val(),
-            price: $("#ap_price").val()
-        }
+            'member_id': window.add_member_id,
+            'value': $("#add_value").val(),
+            'type': "충전"
+        };
         $.ajax({
-            url: '/appointment',
+            url: '/membership',
             type: 'POST',
             data: query,
             success: function (data) {
-                document.write(data);
+                if(data){
+                    alert("회원권 충전이 완료되었습니다")
+                    window.location.reload();
+                }
+                else
+                    alert("회원권 충전에 실패하였습니다.")
             }
         });
         return false;
     })
 
-    $("#btn_add").on("click", function(event){
-        window.open("/add_member?ap=true", "회원 추가", "width=500,height=600");
+    $("#btn_give").on("click", function(event){
+        if(!window.get_searched || !window.give_searched){
+            alert("회원을 선택해 주세요");
+            return false;
+        }
+        const query = {
+            'member_id': window.give_member_id,
+            'get_member_id': window.get_member_id,
+            'value': $("#give_value").val(),
+            'type': "양도"
+        };
+        $.ajax({
+            url: '/membership',
+            type: 'POST',
+            data: query,
+            success: function (data) {
+                if(data){
+                    alert("회원권 양도가 완료되었습니다")
+                    window.location.reload();
+                }
+                else
+                    alert("회원권 잔액이 부족합니다.")
+           }
+        });
         return false;
+    })
+
+    $("#btn_refund").on("click", function(event){
+        if(!window.refund_searched){
+            alert("회원을 선택해 주세요");
+            return false;
+        }
+        const query = {
+            'member_id': window.refund_member_id,
+            'value': $("#refund_value").val(),
+            'type': "환불",
+            'fee': $("#fee").val()
+        };
+        $.ajax({
+            url: '/membership',
+            type: 'POST',
+            data: query,
+            success: function (data) {
+                if(data){
+                    alert("회원권 환불이 완료되었습니다")
+                    window.location.reload();
+                }
+                else
+                    alert("회원권 잔액이 부족합니다.")
+            }
+        });
+        return false;
+    })
+
+    $("#refund_value").on("input", function(event){
+        $("#refund_real").val(parseInt($("#refund_value").val()) - parseInt($("#fee").val()));
+    })
+
+    $("#fee").on("input", function(event){
+        $("#refund_real").val(parseInt($("#refund_value").val()) - parseInt($("#fee").val()));
     })
 
 </script>
