@@ -13,7 +13,7 @@ module.exports = function (router, passport) {
         })
     });
 
-    router.get('/user/:userID', function (req, res) {
+    router.get('/user/:userID', checkLogin, function (req, res) {
         const userID = req.params.userID;
         const database = req.app.get('database');
 
@@ -27,7 +27,7 @@ module.exports = function (router, passport) {
         })
     });
 
-    router.get('/user_num', function (req, res) {
+    router.get('/user_num', checkLogin, function (req, res) {
         const database = req.app.get('database');
 
         database.UserModel.find().count(function (err, count) {
@@ -113,7 +113,7 @@ module.exports = function (router, passport) {
         })
     });
 
-    router.put('/user/approve/:id', function (req, res) {
+    router.put('/user/approve/:id', checkLogin, function (req, res) {
         const database = req.app.get('database');
         const userID = req.params.id;
 
@@ -131,7 +131,7 @@ module.exports = function (router, passport) {
         })
     });
 
-    router.put('/user/disprove/:id', function (req, res) {
+    router.put('/user/disprove/:id', checkLogin, function (req, res) {
         const database = req.app.get('database');
         const userID = req.params.id;
 

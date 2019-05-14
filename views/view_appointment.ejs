@@ -93,7 +93,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">실제 가격 <small> (할인, 추가 가격 포함) </small></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" required="required" name="real_price"  id="real_price" value="<%=ap.ap_discount_price%>"/>
+                                            <input type="text" class="form-control" disabled="disabled" name="real_price"  id="real_price" value="<%=ap.ap_discount_price%>"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -264,12 +264,7 @@
     };
 
     $("#btn_appointment").on("click", function(event){
-        if(!$("#real_price").val()){
-            alert("실제 가격을 입력해 주세요")
-            return false;
-        }
         let query = {
-            'real_price': $("#real_price").val(),
             'method': $("#payment_method").val(),
             'detail': $("#detail").val(),
             'blacklist': isBlacklist

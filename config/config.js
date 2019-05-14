@@ -5,5 +5,6 @@ module.exports = {
         {file:'./procedure_schema', collection:'procedure', schemaName:'ProcedureSchema', modelName:'ProcedureModel'},
         {file:'./member_schema', collection:'member', schemaName:'MemberSchema', modelName:'MemberModel'},
         {file:'./appointment_schema', collection:'appointment', schemaName:'AppointmentSchema', modelName:'AppointmentModel'},
+        {file:'./membership_schema', collection:'membership', schemaName:'MembershipSchema', modelName:'MembershipModel'},
     ],
 };

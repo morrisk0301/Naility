@@ -66,7 +66,6 @@
                             <li><a><i class="fa fa-edit"></i> 회원관리 </a>
                                 <ul class="nav child_menu">
                                     <li><a href="/member">회원 관리 </a></li>
-                                    <li><a href="#">블랙리스트 관리 </a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-desktop"></i> 예약 관리</a>
@@ -84,8 +83,8 @@
                             </li>
                             <li><a><i class="fa fa-envelope-o"></i> 회원권 관리 </a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#">회원권 관리 </a></li>
-                                    <li><a href="#">회원권 조회 </a></li>
+                                    <li><a href="/edit_membership">회원권 관리 </a></li>
+                                    <li><a href="/membership">회원권 조회 </a></li>
                                 </ul>
                             </li>
                             <li><a href="/user"><i class="fa fa-user"></i> 관리자 승인 </a>
@@ -219,7 +218,12 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">예약 시간<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type='text' id="date" required="required" class="form-control" disabled="disabled"/>
+                                            <div class='input-group date' id='datetimepicker'>
+                                                <input type='text' id="date" required="required" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -321,10 +325,13 @@
 <!-- Custom Theme Scripts -->
 <script src="./build/js/custom.min.js"></script>
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
     const host = location.host;
     const page = location.search.split("=")[1];
     let blacklist = false;
+    let rawDate;
+    let date;
 
     function getMemberNum(){
         return new Promise(function(resolve, reject){
@@ -357,8 +364,8 @@
             url: '/appointment/'+id,
             type: 'GET',
             success: function (data) {
-                const rawDate = new Date(data.ap.ap_date);
-                const date = rawDate.getFullYear() + '년 '+ (rawDate.getMonth() + 1).toString() + '월 ' + rawDate.getDate() + '일 ' + rawDate.getHours() + '시 ' + rawDate.getMinutes() + '분 ';
+                rawDate = new Date(data.ap.ap_date);
+                date = rawDate.getFullYear() + '년 '+ (rawDate.getMonth() + 1).toString() + '월 ' + rawDate.getDate() + '일 ' + rawDate.getHours() + '시 ' + rawDate.getMinutes() + '분 ';
                 window.procedure = data.ap.ap_procedure_name;
                 $("#name").val(data.ap.ap_member_name);
                 $("#ap_procedure").val(data.ap.ap_procedure_name);
@@ -370,7 +377,6 @@
     })
 
     $("#btn_appointment").on('click', function(event){
-
         if(!$("#name").val()){
             alert("회원을 선택해 주세요")
             return false;
@@ -383,6 +389,7 @@
             return false;
         }
         let query = {
+            'date': $("#date").val()!==date ? $("#date").val() : rawDate,
             'procedure': JSON.stringify(window.procedure),
             'price': $("#ap_price").val(),
             'real_price': $("#real_price").val(),
@@ -403,20 +410,21 @@
         return false;
     })
 
-    $("#btn_appointment").on('click', function(event){
-
+    $("#btn_appointment_delete").on('click', function(event){
         if(!$("#name").val()){
             alert("회원을 선택해 주세요")
             return false;
         }
+        $("#real_price").val(0);
 
         let query = {
-            'procedure': "예약 취소",
+            'date': rawDate,
+            'procedure': JSON.stringify("예약 취소"),
             'price': 0,
             'real_price': 0,
-            'method': $("#method").val(),
-            'detail': $("#detail").val(),
-            'blacklist': blacklist
+            'method': "예약 취소",
+            'detail': "노쇼 회원입니다.",
+            'blacklist': true
         }
         if(confirm("마감 하시겠습니까?")){
             $.ajax({
@@ -434,6 +442,11 @@
     $("#blacklist").on("ifChanged", function(event){
         blacklist = event.target.checked;
     })
+
+    $(function () {
+        $('#datetimepicker').datetimepicker();
+    });
+
 
 
 </script>

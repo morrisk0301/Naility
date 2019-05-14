@@ -56,12 +56,10 @@ module.exports = function (router) {
         const name = req.body.name;
         const phone = req.body.phone;
         const ap = req.body.ap;
-        const membership = req.body.membership;
 
         const newMember = new database.MemberModel({
             'member_name': name,
-            'member_phone': phone,
-            'member_membership': membership
+            'member_phone': phone
         });
 
         newMember.save(function (err, save_result) {
@@ -80,14 +78,12 @@ module.exports = function (router) {
         const member_id = req.params.id;
         const name = req.body.name;
         const phone = req.body.phone;
-        const membership = req.body.membership;
 
         database.MemberModel.findOne({
             'member_id': member_id
         }, function (err, result) {
             result.member_name = name;
             result.member_phone = phone;
-            result.member_membership = membership;
             result.save(function (err) {
                 res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
                 res.write('<script type="text/javascript">alert("회원이 수정되었습니다.");window.opener.location.reload();window.close();</script>');

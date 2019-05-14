@@ -28,7 +28,7 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/add_procedure', checkLogin, function (req, res) {
+    router.get('/', checkLogin, function (req, res) {
         res.render('add_procedure', {userID: req.user.user_userID, modify: false, procedure: null});
     });
 

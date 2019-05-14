@@ -150,6 +150,7 @@ module.exports = function (router) {
         const query = req.query.query ? req.query.query : false;
         const ap_id = req.params.id;
         const procedure = req.body.procedure? JSON.parse(req.body.procedure) : "";
+        const date = req.body.date;
         const price = req.body.price;
         const real_price = req.body.real_price;
         const method = req.body.method;
@@ -161,10 +162,11 @@ module.exports = function (router) {
             'ap_id': ap_id
         }, function (err, result) {
             if(query !== "modify"){
+                result.ap_date = date;
                 result.ap_procedure_name = procedure_name;
                 result.ap_price = price;
+                result.ap_discount_price = real_price;
             }
-            result.ap_discount_price = real_price;
             result.ap_payment_method = method;
             result.ap_detail = detail;
             result.ap_blacklist = blacklist;
