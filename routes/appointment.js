@@ -122,6 +122,16 @@ module.exports = function (router) {
         })
     });
 
+    router.get('/appointment_member/:id', checkLogin, function(req, res){
+        const database = req.app.get('database');
+        const member_id = req.params.id;
+        database.AppointmentModel.find({
+            'ap_member_id': member_id
+        }, function(err, results){
+            res.json(results);
+        })
+    });
+
     router.post('/appointment', checkLogin, async function (req, res) {
         const database = req.app.get('database');
         const member_id = req.body.member_id;

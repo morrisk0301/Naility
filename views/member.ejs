@@ -289,85 +289,9 @@
 <!-- Custom Theme Scripts -->
 <script src="./build/js/custom.min.js"></script>
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
-<script type="text/javascript">
-    const page = location.search.includes("page") ? location.search.split("page")[1][1] : 1;
-    const url_string = location.search.split("&page="+page)[0].replace("?", "");
-    const host = location.host;
-    let id;
-
-    function getMemberInfo(id){
-        return new Promise(function(resolve, reject){
-            fetch('http://'+host+'/appointment/member/'+id)
-                .then((res) => res.json())
-                .then((data) => {
-                    resolve(data);
-                })
-        })
-    }
-
-    window.onload = async function () {
-        $('#page-selection').bootpag({
-            total: Math.ceil(parseInt("<%=num%>")/5),
-            page: page
-        }).on("page", function(event, num){
-            window.location = "/member?"+url_string+"&page="+num.toString();
-        });
-    };
-
-    $("#btn_member").on("click", function(event){
-        window.open("/add_member", "회원 추가", "width=500,height=600");
-    })
-
-
-    $("#btn_search").on("click", function(event){
-        const query = $("#search_query").val() === "이름" ? "name" : "phone"
-        window.location = "/member?search="+$("#search_text").val()+"&query="+ query;
-    })
-
-    $(".flat").on("ifClicked", async function(event){
-        id = this.id;
-        $("#ap_tbody").empty();
-
-        const member_data = await getMemberInfo(id);
-        member_data.forEach(function(item, counter){
-            const done = item.ap_is_finished ? "마감": "미 마감";
-            const blacklist = item.ap_blacklist ? "MMMMMMM" : "일반";
-            const date = new Date(item.ap_date);
-            if(counter%2===0){
-                $("#ap_tbody").append('<tr class="odd pointer">' +
-                    '<td class=" ">'+(counter+1)+'</td>' +
-                    '<td class=" ">'+item.ap_member_name+'</td>' +
-                    '<td class=" ">'+item.ap_member_phone+'</td>' +
-                    '<td class=" ">'+done+'</td>' +
-                    '<td class=" ">'+blacklist+'</td>' +
-                    '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
-                    '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
-            } else{
-                $("#ap_tbody").append('<tr class="even pointer">' +
-                    '<td class=" ">'+(counter+1)+'</td>' +
-                    '<td class=" ">'+item.ap_member_name+'</td>' +
-                    '<td class=" ">'+item.ap_member_phone+'</td>' +
-                    '<td class=" ">'+done+'</td>' +
-                    '<td class=" ">'+blacklist+'</td>' +
-                    '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
-                    '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
-            }
-        })
-    })
-
-    $("#btn_member_modify").on('click', function(event){
-        let check = false;
-        $(".checkbox_procedure").each(function(index, obj){
-            if(this.checked){
-                check = true;
-                window.open("/member/"+id, "회원 수정", "width=500,height=600");
-                return false;
-            }
-        })
-        if(!check)
-            alert("회원을 선택해주세요");
-    })
+<script src="./js/custom/member.js"></script>
+<script>
+    const page_num = "<%=num%>"
 </script>
-
 </body>
 </html>
