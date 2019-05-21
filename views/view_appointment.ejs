@@ -69,31 +69,49 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 이름 </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" name="name" id="name" disabled="disabled" value="<%=ap.ap_member_name%>">
+                                        <div class="form-control">
+                                            <%=ap.ap_member_name%>
+                                        </div>
                                     </div>
                                 </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">시술 내용 </label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="procedure" id="ap_procedure" disabled="disabled" value="<%=ap.ap_procedure_name%>">
+                                            <div class="form-control">
+                                                <%=ap.ap_procedure_name%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">예약 시간</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type='text' id="date" required="required" class="form-control" disabled="disabled" value="<%=ap.ap_date.getFullYear() + '년 '+ (ap.ap_date.getMonth() + 1).toString() + '월 ' + ap.ap_date.getDate() + '일 ' + ap.ap_date.getHours() + '시 ' + ap.ap_date.getMinutes() + '분 '%>"/>
+                                            <div class="form-control">
+                                                <%=ap.ap_date.getFullYear() + '년 '+ (ap.ap_date.getMonth() + 1).toString() + '월 ' + ap.ap_date.getDate() + '일 ' + ap.ap_date.getHours() + '시 ' + ap.ap_date.getMinutes() + '분 '%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">종료 시간</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="form-control">
+                                                <%=ap.ap_date_end.getFullYear() + '년 '+ (ap.ap_date_end.getMonth() + 1).toString() + '월 ' + ap.ap_date_end.getDate() + '일 ' + ap.ap_date_end.getHours() + '시 ' + ap.ap_date_end.getMinutes() + '분 '%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">가격 </label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="price" disabled="disabled" id="ap_price" value="<%=ap.ap_price%>">
+                                            <div class="form-control">
+                                                <%=ap.ap_price%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">실제 가격 <small> (할인, 추가 가격 포함) </small></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" disabled="disabled" name="real_price"  id="real_price" value="<%=ap.ap_discount_price%>"/>
+                                            <div class="form-control">
+                                                <%=ap.ap_discount_price%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -127,43 +145,65 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 이름 </label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="name" id="name" disabled="disabled" value="<%=ap.ap_member_name%>">
+                                            <div class="form-control">
+                                                <%=ap.ap_member_name%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">시술 내용 </label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="procedure" disabled="disabled" value="<%=ap.ap_procedure_name%>">
+                                            <div class="form-control">
+                                                <%=ap.ap_procedure_name%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">예약 시간</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type='text' id="date" required="required" class="form-control" disabled="disabled" value="<%=ap.ap_date.getFullYear() + '년 '+ (ap.ap_date.getMonth() + 1).toString() + '월 ' + ap.ap_date.getDate() + '일 ' + ap.ap_date.getHours() + '시 ' + ap.ap_date.getMinutes() + '분 '%>"/>
+                                            <div class="form-control">
+                                                <%=ap.ap_date.getFullYear() + '년 '+ (ap.ap_date.getMonth() + 1).toString() + '월 ' + ap.ap_date.getDate() + '일 ' + ap.ap_date.getHours() + '시 ' + ap.ap_date.getMinutes() + '분 '%>
+                                            </div>
                                         </div>
                                     </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">종료 시간</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="form-control">
+                                            <%=ap.ap_date_end.getFullYear() + '년 '+ (ap.ap_date_end.getMonth() + 1).toString() + '월 ' + ap.ap_date_end.getDate() + '일 ' + ap.ap_date_end.getHours() + '시 ' + ap.ap_date_end.getMinutes() + '분 '%>
+                                        </div>
+                                    </div>
+                                </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">가격 </label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="price" disabled="disabled" id="ap_price" value="<%=ap.ap_price%>">
+                                            <div class="form-control">
+                                                <%=ap.ap_price%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">실제 가격 <small> (할인, 추가 가격 포함) </small></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" disabled="disabled" name="real_price" value="<%=ap.ap_discount_price%>"/>
+                                            <div class="form-control">
+                                                <%=ap.ap_discount_price%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">결제 수단 </label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" disabled="disabled" name="method" value="<%=ap.ap_payment_method%>">
+                                            <div class="form-control">
+                                                <%=ap.ap_payment_method%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">특이사항 </label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <textarea id="detail" class="form-control" name="detail" disabled="disabled" data-parsley-trigger="keyup"><%=ap.ap_detail%></textarea>
+                                            <div class="form-control">
+                                                <%=ap.ap_detail%>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">

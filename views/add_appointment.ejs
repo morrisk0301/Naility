@@ -15,18 +15,18 @@
     <link href="./vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="./vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="./vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-wysiwyg -->
-    <link href="./vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="./vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="./vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-    <!-- starrr -->
-    <link href="./vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="./vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="./vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <!-- Ion.RangeSlider -->
+    <link href="./vendors/normalize-css/normalize.css" rel="stylesheet">
+    <link href="./vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="./vendors/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <!-- Bootstrap Colorpicker -->
+    <link href="./vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <link href="./vendors/cropper/dist/cropper.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="./build/css/custom.min.css" rel="stylesheet">
@@ -70,8 +70,7 @@
                             </li>
                             <li><a><i class="fa fa-desktop"></i> 예약 관리</a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#">금일 예약 관리 </a></li>
-                                    <li><a href="/add_appointment">예약 추가 </a></li>
+                                    <li><a href="/appointment_calendar">예약 스케줄 </a></li>
                                     <li><a href="/end_appointment">예약 마감</a></li>
                                     <li><a href="/appointment">예약 검색</a></li>
                                 </ul>
@@ -138,7 +137,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <br />
+                                <br/>
                                 <form data-parsley-validate class="form-horizontal form-label-left">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
@@ -177,7 +176,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">가격<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="price" disabled="disabled" id="ap_price">
+                                            <div class="form-control" id="ap_price">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>

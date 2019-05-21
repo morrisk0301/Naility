@@ -28,7 +28,8 @@ $("#btn_appointment").on("click", function(event){
         member_id: window.member_id,
         procedure: JSON.stringify(window.procedure),
         date: $("#date").val(),
-        price: $("#ap_price").val()
+        date_end: $("#date_end").val(),
+        price: $("#ap_price").text()
     }
     $.ajax({
         url: '/appointment',

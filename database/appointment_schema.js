@@ -9,6 +9,7 @@ Schema.createSchema = function(mongoose) {
         , ap_member_phone: {type: String, required: true}
         , ap_procedure_name: {type: String, required: true}
         , ap_date: {type: Date, required: true}
+        , ap_date_end: {type: Date, required: true}
         , ap_price: {type: Number, required: true}
         , ap_discount_price: {type: Number}
         , ap_payment_method: {type: String}

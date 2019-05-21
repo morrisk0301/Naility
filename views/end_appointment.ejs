@@ -70,8 +70,7 @@
                             </li>
                             <li><a><i class="fa fa-desktop"></i> 예약 관리</a>
                                 <ul class="nav child_menu">
-                                    <li><a href="#">금일 예약 관리 </a></li>
-                                    <li><a href="/add_appointment">예약 추가 </a></li>
+                                    <li><a href="/appointment_calendar">예약 스케줄 </a></li>
                                     <li><a href="/end_appointment">예약 마감</a></li>
                                     <li><a href="/appointment">예약 검색</a></li>
                                 </ul>
@@ -199,9 +198,9 @@
                                 <br />
                                 <form data-parsley-validate class="form-horizontal form-label-left">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 이름<span class="required">*</span> </label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 이름</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="name" id="name" disabled="disabled" placeholder="회원을 선택하세요" >
+                                            <div class="form-control" id="name"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -216,20 +215,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">예약 시간<span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">예약 시간</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <div class='input-group date' id='datetimepicker'>
-                                                <input type='text' id="date" required="required" class="form-control" />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
+                                            <div class="form-control" id="date"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">가격<span class="required">*</span> </label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">종료 시간</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" name="price" disabled="disabled" id="ap_price">
+                                            <div class="form-control" id="date_end"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">가격</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="form-control" id="ap_price">
+
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">

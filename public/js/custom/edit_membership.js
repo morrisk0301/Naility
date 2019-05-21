@@ -99,9 +99,9 @@ $("#btn_refund").on("click", function(event){
 })
 
 $("#refund_value").on("input", function(event){
-    $("#refund_real").val(parseInt($("#refund_value").val()) - parseInt($("#fee").val()));
+    $("#refund_real").text(parseInt($("#refund_value").val()) - parseInt($("#fee").val()));
 })
 
 $("#fee").on("input", function(event){
-    $("#refund_real").val(parseInt($("#refund_value").val()) - parseInt($("#fee").val()));
+    $("#refund_real").text(parseInt($("#refund_value").val()) - parseInt($("#fee").val()));
 })

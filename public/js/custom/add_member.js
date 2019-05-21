@@ -1,5 +1,4 @@
 const member_id = location.pathname.split('/')[2];
-const ap = "<%=ap%>" === "true"
 
 function checkPhone(phone){
     const regExp = /^\d{3}-\d{3,4}-\d{4}$/;
