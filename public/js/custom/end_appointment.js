@@ -23,7 +23,7 @@ window.onload = async function () {
 };
 
 $("#btn_search_procedure").on("click", function(event){
-    window.open("/procedure/search?name="+$("#ap_procedure").val(), "시술 추가", "width=500,height=600");
+    window.open("/procedure/search", "시술 추가", "width=500,height=600");
     return false;
 });
 

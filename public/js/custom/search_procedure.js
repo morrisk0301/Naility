@@ -10,6 +10,10 @@ window.onload = async function () {
     });
 };
 
+$("#btn_search").on("click", function(event){
+    window.location = "/procedure/search?name="+$("#search_text").val();
+});
+
 $("#btn_procedure").on("click", function(event){
     let check = false;
     let name = "";

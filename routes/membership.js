@@ -2,6 +2,27 @@ const checkLogin = require('../utils/check_login');
 const member_data = require('../utils/member_data');
 const ms_data = require('../utils/membership_data');
 
+function modifyProfit(database, ms_data, is_del){
+    return new Promise(function(resolve, reject){
+        const newProfit = new database.ProfitModel({
+            'pf_member_id': ms_data.ms_member_id,
+            'pf_member_name': ms_data.ms_member_name,
+            'pf_member_phone': ms_data.ms_member_phone,
+            'pf_category': '회원권',
+            'pf_type': is_del ? "환불" : "매출",
+            'pf_value': ms_data.ms_value
+        });
+        newProfit.save(function(err){
+            if(err)
+                reject(err);
+            else {
+                console.log("회원권 매출 등록 완료!");
+                resolve(true);
+            }
+        })
+    })
+}
+
 module.exports = function (router) {
 
     router.get('/membership', checkLogin, function (req, res) {
@@ -10,7 +31,7 @@ module.exports = function (router) {
         const search = req.query.search ? req.query.search : "";
         const query = req.query.query ? req.query.query : "";
         let searchQuery;
-        console.log(query);
+
         if(query==="name")
             searchQuery = {'ms_member_name': {$regex: new RegExp(search, "i")}};
         else if(query==="phone")
@@ -21,7 +42,6 @@ module.exports = function (router) {
             limit: 15,
             sort: {created_at: -1}
         }, function (err, results) {
-            console.log(results.docs);
             if (err)
                 throw err;
             res.render('membership', {
@@ -71,7 +91,7 @@ module.exports = function (router) {
             'ms_type': type
         });
 
-        newMembership.save(function (err) {
+        newMembership.save(async function (err, save_result) {
             if (err)
                 throw err;
             if (type === "양도") {
@@ -95,15 +115,18 @@ module.exports = function (router) {
                     'ms_value': -fee,
                     'ms_type': "수수료"
                 });
-                newMembership2.save(function (err) {
+                newMembership2.save(async function (err) {
                     if (err)
                         throw err;
+                    await modifyProfit(database, save_result, true);
                     res.json(true);
                 });
             } else {
-                process.nextTick(function () {
+                await modifyProfit(database, save_result, false);
+                process.nextTick(function(){
                     res.json(true);
                 })
+
             }
         })
     });

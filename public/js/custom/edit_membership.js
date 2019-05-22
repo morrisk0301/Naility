@@ -23,78 +23,82 @@ $("#btn_add").on("click", function(event){
         alert("회원을 선택해 주세요");
         return false;
     }
-    const query = {
-        'member_id': window.add_member_id,
-        'value': $("#add_value").val(),
-        'type': "충전"
-    };
-    $.ajax({
-        url: '/membership',
-        type: 'POST',
-        data: query,
-        success: function (data) {
-            if(data){
-                alert("회원권 충전이 완료되었습니다")
-                window.location.reload();
+    if(confirm("정말 충전 하시겠습니까?")) {
+        const query = {
+            'member_id': window.add_member_id,
+            'value': $("#add_value").val(),
+            'type': "충전"
+        };
+        $.ajax({
+            url: '/membership',
+            type: 'POST',
+            data: query,
+            success: function (data) {
+                if (data) {
+                    alert("회원권 충전이 완료되었습니다");
+                    window.location.reload();
+                } else
+                    alert("회원권 충전에 실패하였습니다.")
             }
-            else
-                alert("회원권 충전에 실패하였습니다.")
-        }
-    });
+        });
+    }
     return false;
-})
+});
 
 $("#btn_give").on("click", function(event){
     if(!window.get_searched || !window.give_searched){
         alert("회원을 선택해 주세요");
         return false;
     }
-    const query = {
-        'member_id': window.give_member_id,
-        'get_member_id': window.get_member_id,
-        'value': $("#give_value").val(),
-        'type': "양도"
-    };
-    $.ajax({
-        url: '/membership',
-        type: 'POST',
-        data: query,
-        success: function (data) {
-            if(data){
-                alert("회원권 양도가 완료되었습니다")
-                window.location.reload();
+    if(confirm("정말 양도 하시겠습니까??")) {
+        const query = {
+            'member_id': window.give_member_id,
+            'get_member_id': window.get_member_id,
+            'value': $("#give_value").val(),
+            'type': "양도"
+        };
+        $.ajax({
+            url: '/membership',
+            type: 'POST',
+            data: query,
+            success: function (data) {
+                if (data) {
+                    alert("회원권 양도가 완료되었습니다")
+                    window.location.reload();
+                } else
+                    alert("회원권 잔액이 부족합니다.")
             }
-            else
-                alert("회원권 잔액이 부족합니다.")
-        }
-    });
+        });
+    };
     return false;
-})
+});
 
 $("#btn_refund").on("click", function(event){
     if(!window.refund_searched){
         alert("회원을 선택해 주세요");
         return false;
     }
-    const query = {
-        'member_id': window.refund_member_id,
-        'value': $("#refund_value").val(),
-        'type': "환불",
-        'fee': $("#fee").val()
-    };
-    $.ajax({
-        url: '/membership',
-        type: 'POST',
-        data: query,
-        success: function (data) {
-            if(data){
-                alert("회원권 환불이 완료되었습니다")
-                window.location.reload();
+    if(confirm("정말 환불 하시겠습니까?")){
+        const query = {
+            'member_id': window.refund_member_id,
+            'value': $("#refund_value").val(),
+            'type': "환불",
+            'fee': $("#fee").val()
+        };
+        $.ajax({
+            url: '/membership',
+            type: 'POST',
+            data: query,
+            success: function (data) {
+                if(data){
+                    alert("회원권 환불이 완료되었습니다")
+                    window.location.reload();
+                }
+                else
+                    alert("회원권 잔액이 부족합니다.")
             }
-            else
-                alert("회원권 잔액이 부족합니다.")
-        }
-    });
+        });
+    }
     return false;
 })
 

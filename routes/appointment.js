@@ -1,57 +1,78 @@
 const checkLogin = require('../utils/check_login');
+const ms_data = require('../utils/membership_data');
 const member_data = require('../utils/member_data');
 
-module.exports = function (router) {
-
-    function convertProcedureName(database, procedure) {
-        return new Promise(function (resolve, reject) {
-            let procedure_name = "";
-            procedure.reduce(function (total, item, counter) {
-                return getProcedureName(database, item).then(function (procedure_result) {
-                    if (counter === procedure.length - 1)
-                        procedure_name = procedure_name + procedure_result;
-                    else
-                        procedure_name = procedure_name + procedure_result + ", ";
-                })
-            }, Promise.resolve()).then(function () {
-                resolve(procedure_name);
-            });
-        });
-    }
-
-    function getProcedureName(database, procedure_id) {
-        return new Promise(function (resolve, reject) {
-            database.ProcedureModel.findOne({
-                'procedure_id': procedure_id
-            }, function (err, result) {
-                if (err)
-                    reject(err);
+function convertProcedureName(database, procedure) {
+    return new Promise(function (resolve, reject) {
+        let procedure_name = "";
+        procedure.reduce(function (total, item, counter) {
+            return getProcedureName(database, item).then(function (procedure_result) {
+                if (counter === procedure.length - 1)
+                    procedure_name = procedure_name + procedure_result;
                 else
-                    resolve(result.procedure_name);
+                    procedure_name = procedure_name + procedure_result + ", ";
             })
-        })
-    }
+        }, Promise.resolve()).then(function () {
+            resolve(procedure_name);
+        });
+    });
+}
 
-    function addProfit(database, ap_data){
-        return new Promise(function(resolve, reject){
-            const newProfit = new database.ProfitModel({
-                'pf_member_id': ap_data.ap_member_id,
-                'pf_member_name': ap_data.ap_member_name,
-                'pf_member_phone': ap_data.ap_member_phone,
-                'pf_category': '시술',
-                'pf_type': '매출',
-                'pf_value': ap_data.ap_discount_price
-            });
-            newProfit.save(function(err){
-                if(err)
-                    reject(err);
-                else {
-                    console.log("시술 매출 등록 완료!");
-                    resolve(true);
-                }
-            })
+function getProcedureName(database, procedure_id) {
+    return new Promise(function (resolve, reject) {
+        database.ProcedureModel.findOne({
+            'procedure_id': procedure_id
+        }, function (err, result) {
+            if (err)
+                reject(err);
+            else
+                resolve(result.procedure_name);
         })
-    }
+    })
+}
+
+function addProfit(database, ap_data){
+    return new Promise(function(resolve, reject){
+        const newProfit = new database.ProfitModel({
+            'pf_member_id': ap_data.ap_member_id,
+            'pf_member_name': ap_data.ap_member_name,
+            'pf_member_phone': ap_data.ap_member_phone,
+            'pf_category': '시술',
+            'pf_type': '매출',
+            'pf_value': ap_data.ap_discount_price
+        });
+        newProfit.save(function(err){
+            if(err)
+                reject(err);
+            else {
+                console.log("시술 매출 등록 완료!");
+                resolve(true);
+            }
+        })
+    })
+}
+
+function modifyMembership(database, ap_data){
+    return new Promise(async function (resolve, reject){
+        const newMembership = new database.MembershipModel({
+            'ms_member_id': ap_data.ap_member_id,
+            'ms_member_name': ap_data.ap_member_name,
+            'ms_member_phone': ap_data.ap_member_phone,
+            'ms_type': '사용',
+            'ms_value': -ap_data.ap_discount_price
+        });
+        newMembership.save(function (err) {
+            if (err)
+                reject(err);
+            else {
+                console.log("회원권 매출 등록 완료!");
+                resolve(true);
+            }
+        })
+    })
+}
+
+module.exports = function (router) {
 
     router.get('/appointment', checkLogin, function (req, res) {
         const database = req.app.get('database');
@@ -216,49 +237,62 @@ module.exports = function (router) {
 
         database.AppointmentModel.findOne({
             'ap_id': ap_id
-        }, function (err, result) {
-            if(query === 'date'){
-                result.ap_date = date;
-                result.ap_date_end = date_end;
-                if(result.ap_is_finished) {
-                    return res.json(false);
-                }
-            }
-            else{
-                if (query !== "modify") {
-                    result.ap_procedure_name = procedure_name;
-                    result.ap_price = price;
-                    result.ap_discount_price = real_price;
-                }
-                result.ap_payment_method = method;
-                result.ap_detail = detail;
-                result.ap_blacklist = blacklist;
-                result.ap_is_finished = true;
-            }
-
-            result.save(async function (err, result) {
-                if(err)
-                    throw err;
-                if(query === 'date')
-                    return res.json(true);
-                else if(query === "modify") {
-                    process.nextTick(function () {
-                        res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                        res.write('<script type="text/javascript">alert("예약이 수정되었습니다.");window.opener.location.reload();window.close();</script>');
-                        res.end();
-                    })
-                }
-                else{
-                    const success = await addProfit(database, result);
-                        res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                    if(success){
-                        res.write('<script type="text/javascript">alert("예약이 마감되었습니다.");window.location.reload();</script>');
-                    }else{
-                        res.write('<script type="text/javascript">alert("예약이 마감에 실패하였습니다.");window.location.reload();</script>');
-                    }
+        }, async function (err, result) {
+            const membership_value = await ms_data.checkMembershipLeft(database, result.ap_member_id);
+            if(method==="회원권" && membership_value - real_price < 0){
+                process.nextTick(function(){
+                    res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                    res.write('<script type="text/javascript">alert("회원권 잔액이 부족합니다.");window.location.reload();</script>');
                     res.end();
+                })
+            }
+            else {
+                if (query === 'date') {
+                    result.ap_date = date;
+                    result.ap_date_end = date_end;
+                    if (result.ap_is_finished) {
+                        return res.json(false);
+                    }
+                } else {
+                    if (query !== "modify") {
+                        result.ap_procedure_name = procedure_name;
+                        result.ap_price = price;
+                        result.ap_discount_price = real_price;
+                    }
+                    result.ap_payment_method = method;
+                    result.ap_detail = detail;
+                    result.ap_blacklist = blacklist;
+                    result.ap_is_finished = true;
                 }
-            })
+
+                result.save(async function (err, result) {
+                    if (err)
+                        throw err;
+                    if (query === 'date')
+                        return res.json(true);
+                    else if (query === "modify") {
+                        process.nextTick(function () {
+                            res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                            res.write('<script type="text/javascript">alert("예약이 수정되었습니다.");window.opener.location.reload();window.close();</script>');
+                            res.end();
+                        })
+                    } else {
+                        let success;
+                        if (result.ap_payment_method === "회원권") {
+                            success = await modifyMembership(database, result);
+                        } else {
+                            success = await addProfit(database, result);
+                        }
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                        if (success) {
+                            res.write('<script type="text/javascript">alert("예약이 마감되었습니다.");window.location.reload();</script>');
+                        } else {
+                            res.write('<script type="text/javascript">alert("예약이 마감에 실패하였습니다.");window.location.reload();</script>');
+                        }
+                        res.end();
+                    }
+                })
+            }
         })
     });
 
