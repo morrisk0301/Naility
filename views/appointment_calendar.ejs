@@ -82,6 +82,12 @@
                                     <li><a href="/procedure">시술 관리 </a></li>
                                 </ul>
                             </li>
+                            <li><a><i class="fa fa-won"></i> 매출 관리 </a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/add_profit">매출 등록 </a></li>
+                                    <li><a href="/profit">매출 검색 </a></li>
+                                </ul>
+                            </li>
                             <li><a><i class="fa fa-envelope-o"></i> 회원권 관리 </a>
                                 <ul class="nav child_menu">
                                     <li><a href="/edit_membership">회원권 관리 </a></li>
@@ -237,7 +243,7 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel2">예약 수정 </h4>
+                <h4 class="modal-title" id="myModalLabel2">예약 조회 </h4>
             </div>
             <div class="modal-body">
 
@@ -250,14 +256,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">시술 검색<span class="required">*</span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">시술 이름</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <div class='input-group'>
-                                    <input type="text" class="form-control" name="procedure" id="ap_procedure2"placeholder="시술 이름을 입력하세요 ">
-                                    <span class="input-group-btn">
-                                        <button id="btn_search_procedure2" type="button" class="btn btn-primary">검색 </button>
-                                    </span>
-                                </div>
+                                <div class="form-control" id="ap_procedure2"></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -287,7 +288,6 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" id="btn_appointment_delete" class="btn btn-danger">삭제 </button>
-                <button type="submit" id="btn_appointment_modify" class="btn btn-primary">수정 </button>
                 <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">닫기 </button>
             </div>
         </div>
@@ -318,6 +318,7 @@
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
 <!-- FullCalendar -->
 <script src="./vendors/moment/min/moment.min.js"></script>
+<script src="./vendors/moment/locale/ko.js"></script>
 <script src="./vendors/fullcalendar/fullcalendar.min.js"></script>
 <script src="./vendors/fullcalendar/locale/ko.js"></script>
 <script src="./js/custom/appointment_calendar.js"></script>

@@ -80,6 +80,12 @@
                                     <li><a href="/procedure">시술 관리 </a></li>
                                 </ul>
                             </li>
+                            <li><a><i class="fa fa-won"></i> 매출 관리 </a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/add_profit">매출 등록 </a></li>
+                                    <li><a href="/profit">매출 검색 </a></li>
+                                </ul>
+                            </li>
                             <li><a><i class="fa fa-envelope-o"></i> 회원권 관리 </a>
                                 <ul class="nav child_menu">
                                     <li><a href="/edit_membership">회원권 관리 </a></li>
@@ -125,7 +131,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>회원</h3>
+                        <h3>회원 정보 </h3>
                     </div>
 
                     <div class="title_right">
@@ -169,27 +175,28 @@
 
                                         <tbody>
                                         <%for(var i=0;i<member.length;i++){
+                                            const ms = membership.find(ms_item => ms_item.member_id === member[i].member_id);
                                         if(i%2===0){%>
                                         <tr class="even pointer">
                                             <td class="a-center">
-                                                <input type="radio" class="flat checkbox_procedure" name="table_records" id="<%=member[i].member_id%>">
+                                                <input type="radio" class="flat checkbox_member" name="table_records" id="<%=member[i].member_id%>">
                                             </td>
                                             <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
                                             <td class=" "><%=member[i].member_name%></td>
                                             <td class=" "><%=member[i].member_phone%></td>
-                                            <td class=" "><%=member[i].membership%></td>
+                                            <td class=" "><%=ms.membership%></td>
                                             <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
                                             </td>
                                         </tr>
                                         <%}else{%>
                                         <tr class="odd pointer">
                                             <td class="a-center ">
-                                                <input type="radio" class="flat checkbox_procedure" name="table_records" id="<%=member[i].member_id%>">
+                                                <input type="radio" class="flat checkbox_member" name="table_records" id="<%=member[i].member_id%>">
                                             </td>
                                             <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
                                             <td class=" "><%=member[i].member_name%></td>
                                             <td class=" "><%=member[i].member_phone%></td>
-                                            <td class=" "><%=member[i].membership%></td>
+                                            <td class=" "><%=ms.membership%></td>
                                             <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
                                             </td>
                                         </tr>
@@ -222,7 +229,7 @@
                                             <th class="column-title">번호 </th>
                                             <th class="column-title">회원 이름 </th>
                                             <th class="column-title">휴대폰 번호</th>
-                                            <th class="column-title">마감 여부 </th>
+                                            <th class="column-title">시술 </th>
                                             <th class="column-title">불편 손님 여부 </th>
                                             <th class="column-title">예약일 </th>
                                             <th class="column-title">상세 </th>
@@ -231,7 +238,7 @@
                                         <tbody id="ap_tbody">
                                         </tbody>
                                     </table>
-                                    <div class="text-center"id="page-selection"></div>
+                                    <div class="text-center" id="page-selection"></div>
                                 </div>
                             </div>
                         </div>

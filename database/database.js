@@ -42,6 +42,7 @@ function createSchema(app, config) {
                 if (counter === 2) curSchema.plugin(autoIncrement.plugin, {model: 'MemberModel', field: 'member_id'});
                 if (counter === 3) curSchema.plugin(autoIncrement.plugin, {model: 'AppointmentModel', field: 'ap_id'});
                 if (counter === 4) curSchema.plugin(autoIncrement.plugin, {model: 'MembershipModel', field: 'ms_id'});
+                if (counter === 4) curSchema.plugin(autoIncrement.plugin, {model: 'ProfitModel', field: 'pf_id'});
 
                 let curModel = mongoose.model(item.collection, curSchema);
                 console.log('%s 컬렉션을 위해 모델 정의함.', item.collection);

@@ -13,7 +13,7 @@ window.onload = async function () {
 
 $("#btn_procedure").on("click", function(event){
     window.open("/add_procedure", "시술 추가", "width=500,height=600");
-})
+});
 
 $("#btn_delete").on('click', function(event){
     let check = false;

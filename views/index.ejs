@@ -78,6 +78,12 @@
                                     <li><a href="/procedure">시술 관리 </a></li>
                                 </ul>
                             </li>
+                            <li><a><i class="fa fa-won"></i> 매출 관리 </a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/add_profit">매출 등록 </a></li>
+                                    <li><a href="/profit">매출 검색 </a></li>
+                                </ul>
+                            </li>
                             <li><a><i class="fa fa-envelope-o"></i> 회원권 관리 </a>
                                 <ul class="nav child_menu">
                                     <li><a href="/edit_membership">회원권 관리 </a></li>
@@ -143,10 +149,9 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="dashboard_graph">
-
                         <div class="row x_title">
                             <div class="col-md-6">
-                                <h3> 날짜별 시술 수 <small>(단위 : 만원)</small></h3>
+                                <h3> 날짜별 예약 수</h3>
                             </div>
                             <div class="col-md-6">
                                 <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
@@ -168,7 +173,7 @@
                     <div class="dashboard_graph">
                         <div class="row x_title">
                             <div class="col-md-6">
-                                <h3> 날짜별 매출</h3>
+                                <h3> 날짜별 매출<small>(단위 : 만원)</small></h3>
                             </div>
                             <div class="col-md-6">
                                 <div id="reportrange2" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
@@ -462,10 +467,11 @@
 <script src="./vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 <!-- bootstrap-daterangepicker -->
 <script src="./vendors/moment/min/moment.min.js"></script>
+<script src="./vendors/moment/locale/ko.js"></script>
 <script src="./vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="./build/js/custom.min.js"></script>
+<script src="./build/js/custom.js"></script>
 <script src="./js/custom/index.js"></script>
 </body>
 </html>

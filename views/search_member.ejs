@@ -51,7 +51,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3> 회원 검색 </h3>
+                    <h3>회원 정보 </h3>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -59,12 +59,13 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>회원 정보</h2>
+                            <h2>회원 관리</h2>
                             <div class="clearfix"></div>
                         </div>
+
                         <div class="x_content">
                             <div class="table-responsive">
-                                <table class="table table-striped jambo_table bulk_action">
+                                <table class="table table-striped jambo_table">
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title">선택</th>
@@ -82,15 +83,16 @@
 
                                     <tbody>
                                     <%for(var i=0;i<member.length;i++){
+                                        const ms = membership.find(ms_item => ms_item.member_id === member[i].member_id);
                                     if(i%2===0){%>
                                     <tr class="even pointer">
                                         <td class="a-center">
                                             <input type="radio" class="flat checkbox_member" name="table_records" id="<%=member[i].member_id%>">
                                         </td>
-                                        <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
+                                        <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
                                         <td class=" " id="name_<%=member[i].member_id%>"><%=member[i].member_name%></td>
                                         <td class=" "><%=member[i].member_phone%></td>
-                                        <td class=" "><%=member[i].member_membership%></td>
+                                        <td class=" "><%=ms.membership%></td>
                                         <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
                                         </td>
                                     </tr>
@@ -99,18 +101,51 @@
                                         <td class="a-center ">
                                             <input type="radio" class="flat checkbox_member" name="table_records" id="<%=member[i].member_id%>">
                                         </td>
-                                        <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
+                                        <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
                                         <td class=" " id="name_<%=member[i].member_id%>"><%=member[i].member_name%></td>
                                         <td class=" "><%=member[i].member_phone%></td>
-                                        <td class=" "><%=member[i].member_membership%></td>
+                                        <td class=" "><%=ms.membership%></td>
                                         <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
                                         </td>
                                     </tr>
                                     <%}}%>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-dark alignright" id="btn_member">회원 선택 </button>
+                                <button class="btn btn-dark alignright" id="btn_member">회원 선택</button>
                                 <div class="text-center"id="page-selection"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>예약 기록</h2>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="x_content">
+                            <div class="table-responsive">
+                                <table class="table table-striped jambo_table" id="ap_table">
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">번호 </th>
+                                        <th class="column-title">회원 이름 </th>
+                                        <th class="column-title">휴대폰 번호</th>
+                                        <th class="column-title">시술 </th>
+                                        <th class="column-title">불편 손님 여부 </th>
+                                        <th class="column-title">예약일 </th>
+                                        <th class="column-title">상세 </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="ap_tbody">
+                                    </tbody>
+                                </table>
+                                <div class="text-center" id="page-selection"></div>
                             </div>
                         </div>
                     </div>

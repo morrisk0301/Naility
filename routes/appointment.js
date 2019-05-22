@@ -32,6 +32,27 @@ module.exports = function (router) {
         })
     }
 
+    function addProfit(database, ap_data){
+        return new Promise(function(resolve, reject){
+            const newProfit = new database.ProfitModel({
+                'pf_member_id': ap_data.ap_member_id,
+                'pf_member_name': ap_data.ap_member_name,
+                'pf_member_phone': ap_data.ap_member_phone,
+                'pf_category': '시술',
+                'pf_type': '매출',
+                'pf_value': ap_data.ap_discount_price
+            });
+            newProfit.save(function(err){
+                if(err)
+                    reject(err);
+                else {
+                    console.log("시술 매출 등록 완료!");
+                    resolve(true);
+                }
+            })
+        })
+    }
+
     router.get('/appointment', checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
@@ -58,10 +79,6 @@ module.exports = function (router) {
 
     });
 
-    router.get('/add_appointment', checkLogin, function (req, res) {
-        res.render('add_appointment', {userID: req.user.user_userID, modify: false, appointment: null});
-    });
-
     router.get('/end_appointment', checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
@@ -75,8 +92,17 @@ module.exports = function (router) {
 
     router.get('/appointment_num', checkLogin, function (req, res) {
         const database = req.app.get('database');
+        const query = req.query.query;
+        const start = req.query.start;
+        const end = req.query.end;
 
-        database.AppointmentModel.find().count(function (err, count) {
+        const searchQuery = query === 'date' ?
+            {"created_at": {
+                "$gte": start,
+                "$lt": end
+            }} : {};
+
+        database.AppointmentModel.find(searchQuery).count(function (err, count) {
             res.json(count);
         })
     });
@@ -210,17 +236,26 @@ module.exports = function (router) {
                 result.ap_is_finished = true;
             }
 
-            result.save(function (err, result) {
+            result.save(async function (err, result) {
                 if(err)
                     throw err;
                 if(query === 'date')
-                    res.json(true);
-                else {
-                    res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                    if (query !== "modify")
-                        res.write('<script type="text/javascript">alert("예약이 마감되었습니다.");window.location.reload();</script>');
-                    else
+                    return res.json(true);
+                else if(query === "modify") {
+                    process.nextTick(function () {
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
                         res.write('<script type="text/javascript">alert("예약이 수정되었습니다.");window.opener.location.reload();window.close();</script>');
+                        res.end();
+                    })
+                }
+                else{
+                    const success = await addProfit(database, result);
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                    if(success){
+                        res.write('<script type="text/javascript">alert("예약이 마감되었습니다.");window.location.reload();</script>');
+                    }else{
+                        res.write('<script type="text/javascript">alert("예약이 마감에 실패하였습니다.");window.location.reload();</script>');
+                    }
                     res.end();
                 }
             })

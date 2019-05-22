@@ -17,14 +17,19 @@ module.exports = function (router) {
         }, function (err, results) {
             if (err)
                 throw err;
+            let ms_array = [];
             results.docs.reduce(function (total, item, counter) {
-                return ms_data.checkMembershipLeft(database, item.member_id).then(async function (value) {
-                    results.docs[counter].membership = value;
-                })
+                return total.then(() => ms_data.checkMembershipLeft(database, item.member_id).then((ms) => {
+                    ms_array.push({
+                        membership: ms,
+                        member_id: item.member_id
+                    })
+                }));
             }, Promise.resolve()).then(function () {
                 res.render('member', {
                     userID: req.user.user_userID,
                     member: results.docs,
+                    membership: ms_array,
                     page: page,
                     num: results.total
                 });
@@ -47,12 +52,22 @@ module.exports = function (router) {
 
         database.MemberModel.paginate({'member_name': {$regex: new RegExp(name, "i")}}, {
             page: page,
-            limit: 15,
+            limit: 5,
             sort: {created_at: -1}
         }, function (err, results) {
             if (err)
                 throw err;
-            res.render('search_member', {member: results.docs, page: page, query: query, num: results.total});
+            let ms_array = [];
+            results.docs.reduce(function (total, item, counter) {
+                return total.then(() => ms_data.checkMembershipLeft(database, item.member_id).then((ms) => {
+                    ms_array.push({
+                        membership: ms,
+                        member_id: item.member_id
+                    })
+                }));
+            }, Promise.resolve()).then(function () {
+                res.render('search_member', {member: results.docs, page: page, query: query, num: results.total, membership: ms_array});
+            });
         })
     });
 

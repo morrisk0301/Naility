@@ -72,7 +72,6 @@ window.onload = async function() {
         selectHelper: true,
         select: function(start, end, allDay) {
             $('#fc_create').click();
-
             const start_date = new Date(start);
             const end_date = new Date(end);
             const ampm = parseInt(start_date.getHours()/12) === 0 ? 'AM' : 'PM';
@@ -103,7 +102,7 @@ window.onload = async function() {
             const ampm_end = parseInt(end_date.getHours()/12) === 0 ? 'AM' : 'PM';
 
             $("#ap_name2").text(ap_selected.ap_member_name);
-            $("#ap_procedure2").val(ap_selected.ap_procedure_name);
+            $("#ap_procedure2").text(ap_selected.ap_procedure_name);
             $("#ap_price2").text(ap_selected.ap_price);
             $("#date2").text(("0" + (start_date.getMonth() + 1)).slice(-2) + '/' + ("0" +
                 start_date.getDate()).slice(-2)+'/'+start_date.getFullYear()+' '+ (start_date.getHours()%12) + ":"+
@@ -177,8 +176,7 @@ $('.antoclose, .antoclose2').on("click", function(){
     $("#ap_price2").text('');
     $("#ap_procedure").val('');
     $("#ap_procedure").prop('disabled', false);
-    $("#ap_procedure2").val('');
-    $("#ap_procedure2").prop('disabled', false);
+    $("#ap_procedure2").text('');
 });
 
 $("#btn_appointment_delete").on("click", function(event){

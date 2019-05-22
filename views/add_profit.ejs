@@ -15,18 +15,18 @@
     <link href="./vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="./vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="./vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-wysiwyg -->
-    <link href="./vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="./vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="./vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-    <!-- starrr -->
-    <link href="./vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="./vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="./vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <!-- Ion.RangeSlider -->
+    <link href="./vendors/normalize-css/normalize.css" rel="stylesheet">
+    <link href="./vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
+    <link href="./vendors/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <!-- Bootstrap Colorpicker -->
+    <link href="./vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <link href="./vendors/cropper/dist/cropper.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="./build/css/custom.min.css" rel="stylesheet">
@@ -131,7 +131,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>예약 </h3>
+                        <h3>매출 </h3>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -139,142 +139,54 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>예약 마감 </h2>
-                                <div class="clearfix"></div>
-                            </div>
-
-                            <div class="x_content">
-                                <div class="table-responsive">
-                                    <table class="table table-striped jambo_table bulk_action">
-                                        <thead>
-                                        <tr class="headings">
-                                            <th class="column-title">선택</th>
-                                            <th class="column-title">번호 </th>
-                                            <th class="column-title">회원 이름 </th>
-                                            <th class="column-title">휴대폰 번호</th>
-                                            <th class="column-title">예약일 </th>
-                                            </th>
-                                            <th class="bulk-actions" colspan="7">
-                                                <a class="antoo" style="color:#fff; font-weight:500;">회원 선택 <i class="fa fa-chevron-down"></i></a>
-                                            </th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <%for(var i=0;i<appointment.length;i++){
-                                        if(i%2===0){%>
-                                        <tr class="even pointer">
-                                            <td class="a-center">
-                                                <input type="radio" class="checkbox_appointment flat" name="table_records" id="<%=appointment[i].ap_id%>">
-                                            </td>
-                                            <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                            <td class=" "><%=appointment[i].ap_member_name%></td>
-                                            <td class=" "><%=appointment[i].ap_member_phone%></td>
-                                            <td class="a-right a-right "><%=appointment[i].ap_date.getFullYear() + '년 '+ (appointment[i].ap_date.getMonth() + 1).toString() + '월 ' + appointment[i].ap_date.getDate() + '일 ' + appointment[i].ap_date.getHours() + '시 ' + appointment[i].ap_date.getMinutes() + '분 '%></td>
-                                        </tr>
-                                        <%}else{%>
-                                        <tr class="odd pointer">
-                                            <td class="a-center">
-                                                <input type="radio" class="checkbox_appointment flat" name="table_records" id="<%=appointment[i].ap_id%>">
-                                            </td>
-                                            <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                            <td class=" "><%=appointment[i].ap_member_name%></td>
-                                            <td class=" "><%=appointment[i].ap_member_phone%></td>
-                                            <td class="a-right a-right "><%=appointment[i].ap_date.getFullYear() + '년 '+ (appointment[i].ap_date.getMonth() + 1).toString() + '월 ' + appointment[i].ap_date.getDate() + '일 ' + appointment[i].ap_date.getHours() + '시 ' + appointment[i].ap_date.getMinutes() + '분 '%></td>
-                                        </tr>
-                                        <%}}%>
-                                        </tbody>
-                                    </table>
-                                    <div class="text-center"id="page-selection"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12" id="test">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>예약 상세정보 </h2>
+                                <h2>매출 등록</h2>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <br />
+                                <br/>
                                 <form data-parsley-validate class="form-horizontal form-label-left">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 이름</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <div class="form-control" id="name"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">시술 검색<span class="required">*</span> </label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <div class='input-group'>
-                                                <input type="text" class="form-control" name="procedure" id="ap_procedure"placeholder="시술 이름을 입력하세요 ">
+                                            <tediv class='input-group'>
+                                                <input type="text" class="form-control" name="name" id="ap_name" placeholder="회원 이름을 입력하세요 " >
                                                 <span class="input-group-btn">
-                                                    <button id="btn_search_procedure" type="button" class="btn btn-primary">검색 </button>
+                                                    <button id="btn_search_member" type="button" class="btn btn-primary">검색 </button>
+                                                    <button id="btn_add" type="button" class="btn btn-primary">추가 </button>
                                                 </span>
-                                            </div>
+                                            </tediv>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">예약 시간</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">매출 구분<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <div class="form-control" id="date"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">종료 시간</label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <div class="form-control" id="date_end"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">가격</label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <div class="form-control" id="ap_price">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">실제 가격<span class="required">*</span> <small> (할인, 추가 가격 포함) </small></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" required="required" name="real_price"  id="real_price">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">결제 수단<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <select class="form-control" name="method" id="method">
-                                                <option>현금 </option>
-                                                <option>카드 </option>
-                                                <option>회원권 </option>
-                                                <option>기타 </option>
+                                            <select class="form-control" id="pf_type">
+                                                <option>매출 구분을 선택하세요</option>
+                                                <option>매출</option>
+                                                <option>환불</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">특이사항 </label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">매출 종류 <span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <textarea id="detail" class="form-control" name="detail" data-parsley-trigger="keyup"></textarea>
+                                            <select class="form-control" id="pf_category">
+                                                <option>매출 종류를 선택하세요</option>
+                                                <option>판매</option>
+                                                <option>기타</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">불편 고객 여부 </label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">가격<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="checkbox" class="form-control flat" name="blacklist"  id="blacklist">
+                                            <input type="number" class="form-control" id="pf_value" placeholder="가격을 입력하세요 ">
                                         </div>
                                     </div>
-                                    <input type="hidden" id="ap_id"/>
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                            <button type="submit" id="btn_appointment" class="btn btn-success">마감하기 </button>
-                                            <button type="submit" id="btn_appointment_delete" class="btn btn-danger">취소하기 </button>
+                                            <button type="submit" id="btn_profit" class="btn btn-success">추가하기 </button>
                                         </div>
                                     </div>
                                 </form>
@@ -334,7 +246,6 @@
 <script src="./build/js/custom.min.js"></script>
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<script src="./js/custom/end_appointment.js"></script>
-
+<script src="./js/custom/add_profit.js"></script>
 </body>
 </html>

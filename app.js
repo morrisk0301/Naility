@@ -50,6 +50,7 @@ const procedureRouter = require('./routes/procedure');
 const memberRouter = require('./routes/member');
 const appointmentRouter = require('./routes/appointment');
 const membershipRouter = require('./routes/membership');
+const profitRouter = require('./routes/profit');
 
 userRouter(router, passport);
 viewRouter(router);
@@ -57,6 +58,7 @@ procedureRouter(router);
 memberRouter(router);
 appointmentRouter(router);
 membershipRouter(router);
+profitRouter(router);
 
 // catch 404 and forward to error handler
 /*

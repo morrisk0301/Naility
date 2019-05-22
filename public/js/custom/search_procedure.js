@@ -32,10 +32,8 @@ $("#btn_procedure").on("click", function(event){
     window.opener.procedure = id_array;
     window.opener.pd_searched = true;
     window.opener.document.getElementById('ap_procedure').value = name;
-    //window.opener.document.getElementById('ap_procedure2').value = name;
     window.opener.document.getElementById('ap_price').textContent = price;
-    //window.opener.document.getElementById('ap_price2').textContent = price;
     window.opener.document.getElementById('ap_procedure').disabled = true;
     window.close();
     return false;
-})
+});

@@ -24,13 +24,13 @@ window.onload = async function () {
 
 $("#btn_member").on("click", function(event){
     window.open("/add_member", "회원 추가", "width=500,height=600");
-})
+});
 
 
 $("#btn_search").on("click", function(event){
     const query = $("#search_query").val() === "이름" ? "name" : "phone"
     window.location = "/member?search="+$("#search_text").val()+"&query="+ query;
-})
+});
 
 $(".flat").on("ifClicked", async function(event){
     id = this.id;
@@ -38,15 +38,14 @@ $(".flat").on("ifClicked", async function(event){
 
     const member_data = await getMemberInfo(id);
     member_data.forEach(function(item, counter){
-        const done = item.ap_is_finished ? "마감": "미 마감";
-        const blacklist = item.ap_blacklist ? "MMMMMMM" : "일반";
+        const blacklist = item.ap_blacklist ? "MMMMMMM" : "XXXXXXX";
         const date = new Date(item.ap_date);
         if(counter%2===0){
             $("#ap_tbody").append('<tr class="odd pointer">' +
                 '<td class=" ">'+(counter+1)+'</td>' +
                 '<td class=" ">'+item.ap_member_name+'</td>' +
                 '<td class=" ">'+item.ap_member_phone+'</td>' +
-                '<td class=" ">'+done+'</td>' +
+                '<td class=" ">'+item.ap_procedure_name+'</td>' +
                 '<td class=" ">'+blacklist+'</td>' +
                 '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
                 '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
@@ -55,13 +54,13 @@ $(".flat").on("ifClicked", async function(event){
                 '<td class=" ">'+(counter+1)+'</td>' +
                 '<td class=" ">'+item.ap_member_name+'</td>' +
                 '<td class=" ">'+item.ap_member_phone+'</td>' +
-                '<td class=" ">'+done+'</td>' +
+                '<td class=" ">'+item.ap_procedure_name+'</td>' +
                 '<td class=" ">'+blacklist+'</td>' +
                 '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
                 '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
         }
     })
-})
+});
 
 $("#btn_member_modify").on('click', function(event){
     let check = false;
@@ -71,7 +70,7 @@ $("#btn_member_modify").on('click', function(event){
             window.open("/member/"+id, "회원 수정", "width=500,height=600");
             return false;
         }
-    })
+    });
     if(!check)
         alert("회원을 선택해주세요");
-})
+});

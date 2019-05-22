@@ -1,22 +1,21 @@
 const checkLogin = require('../utils/check_login');
 const member_data = require('../utils/member_data');
-const ms_data = require('../utils/membership_data');
 
 module.exports = function (router) {
 
-    router.get('/membership', checkLogin, function (req, res) {
+    router.get('/profit', checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
         const query = req.query.query ? req.query.query : "";
         let searchQuery;
-        console.log(query);
-        if(query==="name")
+
+        if (query === "name")
             searchQuery = {'ms_member_name': {$regex: new RegExp(search, "i")}};
-        else if(query==="phone")
+        else if (query === "phone")
             searchQuery = {'ms_member_phone': {$regex: new RegExp(search, "i")}};
 
-        database.MembershipModel.paginate(searchQuery, {
+        database.ProfitModel.paginate(searchQuery, {
             page: page,
             limit: 15,
             sort: {created_at: -1}
@@ -24,14 +23,42 @@ module.exports = function (router) {
             console.log(results.docs);
             if (err)
                 throw err;
-            res.render('membership', {
+            res.render('profit', {
                 userID: req.user.user_userID,
-                membership: results.docs,
+                profit: results.docs,
                 page: page,
                 num: results.total
             });
         })
     });
+
+    router.get('/add_profit', checkLogin, function (req, res) {
+        res.render('add_profit', {userID: req.user.user_userID});
+    });
+
+    router.post('/profit', checkLogin, async function (req, res) {
+        const database = req.app.get('database');
+        console.log(req.body);
+        const namePhone = await member_data.getNamePhone(database, req.body.member_id);
+
+        const newProfit = new database.ProfitModel({
+            'pf_member_id': req.body.member_id,
+            'pf_member_name': namePhone.member_name,
+            'pf_member_phone': namePhone.member_phone,
+            'pf_value': req.body.pf_value,
+            'pf_type': req.body.pf_type,
+            'pf_category': req.body.pf_category
+        });
+        newProfit.save(function(err){
+            if(err)
+                throw err;
+            res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+            res.write('<script type="text/javascript">alert("매출이 등록되었습니다.");window.location.reload();</script>');
+            res.end();
+        })
+    });
+
+
 
     router.get('/edit_membership', checkLogin, function (req, res) {
         res.render('edit_membership', {userID: req.user.user_userID});
@@ -54,12 +81,11 @@ module.exports = function (router) {
         else if (type === "양도") {
             value = -req.body.value;
             get_value = req.body.value;
-            if(membership_value + value < 0)
+            if (membership_value + value < 0)
                 return res.json(false);
-        }
-        else if(type==="환불"){
+        } else if (type === "환불") {
             value = -(req.body.value - fee);
-            if(membership_value - req.body.value < 0)
+            if (membership_value - req.body.value < 0)
                 return res.json(false);
         }
 
@@ -77,8 +103,8 @@ module.exports = function (router) {
             if (type === "양도") {
                 const newMembership2 = new database.MembershipModel({
                     'ms_member_id': get_member_id,
-                    'ms_member_name': get_namePhone.member_name,
-                    'ms_member_phone': get_namePhone.member_phone,
+                    'ms_member_name': namePhone.member_name,
+                    'ms_member_phone': namePhone.member_phone,
                     'ms_value': get_value,
                     'ms_type': "양수"
                 });

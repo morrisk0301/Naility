@@ -17,6 +17,7 @@ function verifyID(userID){
     })
 }
 
+
 $("#login_btn").on("click", function(event){
     $.ajax({
         url: '/login',    //Your api url
@@ -27,6 +28,8 @@ $("#login_btn").on("click", function(event){
         }
     });
 })
+
+
 
 $("#userID").on('input', async function(event){
     const is_registered = await verifyID($("#userID").val());
