@@ -17,29 +17,18 @@ module.exports = function (router) {
         }, function (err, results) {
             if (err)
                 throw err;
-            let ms_array = [];
-            results.docs.reduce(function (total, item, counter) {
-                return total.then(() => ms_data.checkMembershipLeft(database, item.member_id).then((ms) => {
-                    ms_array.push({
-                        membership: ms,
-                        member_id: item.member_id
-                    })
-                }));
-            }, Promise.resolve()).then(function () {
-                res.render('member', {
-                    userID: req.user.user_userID,
-                    member: results.docs,
-                    membership: ms_array,
-                    page: page,
-                    num: results.total
-                });
+            res.render('member', {
+                userID: req.user.user_userID,
+                member: results.docs,
+                page: page,
+                num: results.total
             });
         })
     });
 
-    router.get('/member_num', checkLogin, function(req, res){
+    router.get('/member_num', checkLogin, function (req, res) {
         const database = req.app.get('database');
-        database.MemberModel.find({}).count(function(err, result){
+        database.MemberModel.find({}).count(function (err, result) {
             res.json(result);
         })
     });
@@ -66,7 +55,13 @@ module.exports = function (router) {
                     })
                 }));
             }, Promise.resolve()).then(function () {
-                res.render('search_member', {member: results.docs, page: page, query: query, num: results.total, membership: ms_array});
+                res.render('search_member', {
+                    member: results.docs,
+                    page: page,
+                    query: query,
+                    num: results.total,
+                    membership: ms_array
+                });
             });
         })
     });

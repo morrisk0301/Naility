@@ -1,5 +1,4 @@
 const mongoosePaginate = require('mongoose-paginate');
-const timeZone = require('mongoose-timezone');
 let Schema = {};
 
 Schema.createSchema = function(mongoose) {
@@ -23,7 +22,6 @@ Schema.createSchema = function(mongoose) {
     console.log('AppointmentSchema 정의함.');
 
     AppointmentSchema.plugin(mongoosePaginate);
-    AppointmentSchema.plugin(timeZone, { paths: ['ap_date', 'ap_date_end', 'created_at'] });
 
     return AppointmentSchema;
 };

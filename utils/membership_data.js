@@ -4,7 +4,8 @@ function checkMembershipLeft(database, member_id){
             'ms_member_id': member_id
         }, function(err, results){
             let value = 0;
-            results.reduce(function (total, item) {
+            results.reduce(function (total, item, counter) {
+                console.log(counter);
                 return total.then(async function () {
                     value += item.ms_value;
                 })

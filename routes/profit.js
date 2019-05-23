@@ -50,13 +50,59 @@ module.exports = function (router) {
         }, {
             $group: {
                 _id: {
-                    "year": {"$year": "$created_at"},
-                    "month": {"$month": "$created_at"},
-                    "day": {"$dayOfMonth": "$created_at"}
+                    "year": {"$year": {date:'$created_at',timezone:'Asia/Seoul'}},
+                    "month": {"$month": {date:'$created_at',timezone:'Asia/Seoul'}},
+                    "day": {"$dayOfMonth": {date:'$created_at',timezone:'Asia/Seoul'}}
                 },
                 count: {$sum: "$pf_value"}
             }
         }]).exec(function (err, data) {
+            if (err) {
+                throw(err);
+            } else {
+                res.json(data);
+            }
+        });
+    });
+
+    router.get('/profit_rank', checkLogin, function(req, res){
+        const database = req.app.get('database');
+
+        database.ProfitModel.aggregate([{
+            $match: {}
+        }, {
+            $group: {
+                _id: {
+                    "id": "$pf_member_id",
+                    "name": "$pf_member_name",
+                    "phone": "$pf_member_phone"
+                },
+                count: {$sum: "$pf_value"}
+            }
+        }]).sort({count: -1}).limit(5).exec(function (err, data) {
+            if (err) {
+                throw(err);
+            } else {
+                res.json(data);
+            }
+        });
+    });
+
+    router.get('/profit_method', checkLogin, function(req, res){
+        const database = req.app.get('database');
+
+        database.ProfitModel.aggregate([{
+            $match: {}
+        }, {
+            $group: {
+                _id: {
+                    "method": "$pf_member_id",
+                    "name": "$pf_member_name",
+                    "phone": "$pf_member_phone"
+                },
+                count: {$sum: "$pf_value"}
+            }
+        }]).sort({count: -1}).limit(5).exec(function (err, data) {
             if (err) {
                 throw(err);
             } else {

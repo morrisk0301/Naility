@@ -168,14 +168,12 @@
                                             <th class="column-title">번호 </th>
                                             <th class="column-title">회원 이름 </th>
                                             <th class="column-title">휴대폰 번호</th>
-                                            <th class="column-title">회원권 잔액</th>
                                             <th class="column-title no-link last"><span class="nobr">생성일 </span></th>
                                         </tr>
                                         </thead>
 
                                         <tbody>
                                         <%for(var i=0;i<member.length;i++){
-                                            const ms = membership.find(ms_item => ms_item.member_id === member[i].member_id);
                                         if(i%2===0){%>
                                         <tr class="even pointer">
                                             <td class="a-center">
@@ -184,7 +182,6 @@
                                             <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
                                             <td class=" "><%=member[i].member_name%></td>
                                             <td class=" "><%=member[i].member_phone%></td>
-                                            <td class=" "><%=ms.membership%></td>
                                             <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
                                             </td>
                                         </tr>
@@ -196,7 +193,6 @@
                                             <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
                                             <td class=" "><%=member[i].member_name%></td>
                                             <td class=" "><%=member[i].member_phone%></td>
-                                            <td class=" "><%=ms.membership%></td>
                                             <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
                                             </td>
                                         </tr>

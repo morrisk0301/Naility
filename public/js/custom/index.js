@@ -145,6 +145,16 @@ function getProfitData(start, end, total){
     })
 }
 
+function getProfitRank(){
+    return new Promise(function(resolve, reject){
+        fetch('http://'+host+'/profit_rank')
+            .then((res) => res.json())
+            .then((data) => {
+                resolve(data);
+            })
+    })
+}
+
 function daysInMonth (month, year) {
     return new Date(year, month, 0).getDate();
 }
@@ -155,8 +165,8 @@ async function init_flot_chart(){
 
     console.log('init_flot_chart');
 
-    const ap_data = await getAppointmentNum(new Date(moment().startOf('month')), new Date(moment().endOf('month')));
-    const pf_data = await getProfitData(new Date(moment().startOf('month')), new Date(moment().endOf('month')));
+    const ap_data = await getAppointmentNum(new Date(moment().startOf('month')).toUTCString(), new Date(moment().endOf('month')).toUTCString());
+    const pf_data = await getProfitData(new Date(moment().startOf('month')).toUTCString(), new Date(moment().endOf('month')).toUTCString());
     let arr_data = [];
     let arr_data2 = [];
     ap_data.reduce(function (total, item) {
@@ -166,6 +176,7 @@ async function init_flot_chart(){
     }, Promise.resolve()).then(function () {
         $.plot( $("#chart_plot_01"), [ arr_data ],  chart_plot_01_settings );
     });
+    console.log(ap_data);
 
     pf_data.reduce(function (total, item) {
         return total.then(() => {
@@ -292,10 +303,11 @@ window.onload = async function () {
     init_daterangepicker();
     init_flot_chart();
     const memberNum = await getMemberNum();
+    const profitRank = await getProfitRank();
     const apNum = await getAppointmentNum(null, null, true);
     const today = new Date();
-    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toUTCString();
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0).toUTCString();
     const apMonthNum = await getAppointmentNum(firstDay, lastDay, true);
     const date = daysInMonth(new Date().getMonth()+1, new Date().getFullYear());
 
@@ -304,6 +316,21 @@ window.onload = async function () {
     $("#appointment_month_num").text(apMonthNum);
     $("#month").text(new Date().getMonth()+1);
     $("#appointment_dayavg").text(Math.round(apMonthNum/date));
+    $("#pf_rank_1").text(profitRank[0]._id.name);
+    $("#pf_value_1").text(Math.round(profitRank[0].count/10000));
+    $("#pf_pg_1").css({'width' : '100%'});
+    $("#pf_rank_2").text(profitRank[1]._id.name);
+    $("#pf_value_2").text(Math.round(profitRank[1].count/10000));
+    $("#pf_pg_2").css({'width' : Math.round((profitRank[1].count / profitRank[0].count)*100) + '%'});
+    $("#pf_rank_3").text(profitRank[2]._id.name);
+    $("#pf_value_3").text(Math.round(profitRank[2].count/10000));
+    $("#pf_pg_3").css({'width' : Math.round((profitRank[2].count / profitRank[0].count)*100) + '%'});
+    $("#pf_rank_4").text(profitRank[3]._id.name);
+    $("#pf_value_4").text(Math.round(profitRank[3].count/10000));
+    $("#pf_pg_4").css({'width' : Math.round((profitRank[3].count / profitRank[0].count)*100) + '%'});
+    $("#pf_rank_5").text(profitRank[4]._id.name);
+    $("#pf_value_5").text(Math.round(profitRank[4].count/10000));
+    $("#pf_pg_5").css({'width' : Math.round((profitRank[4].count / profitRank[0].count)*100) + '%'});
 
 };
 

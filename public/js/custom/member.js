@@ -28,7 +28,7 @@ $("#btn_member").on("click", function(event){
 
 
 $("#btn_search").on("click", function(event){
-    const query = $("#search_query").val() === "이름" ? "name" : "phone"
+    const query = $("#search_query").val() === "이름" ? "name" : "phone";
     window.location = "/member?search="+$("#search_text").val()+"&query="+ query;
 });
 

@@ -129,8 +129,8 @@ module.exports = function (router) {
 
         database.AppointmentModel.find({
             "created_at": {
-                "$gte": firstDay,
-                "$lt": lastDay
+                "$gte": {date:firstDay,timezone:'Asia/Seoul'},
+                "$lt": {date:lastDay,timezone:'Asia/Seoul'}
             }
         }).count(function (err, result) {
             res.json(result);
@@ -202,9 +202,9 @@ module.exports = function (router) {
             }, {
                 $group: {
                     _id: {
-                        "year": {"$year": "$ap_date"},
-                        "month": {"$month": "$ap_date"},
-                        "day": {"$dayOfMonth": "$ap_date"}
+                        "year": {"$year": {date:'$ap_date',timezone:'Asia/Seoul'}},
+                        "month": {"$month": {date:'$ap_date',timezone:'Asia/Seoul'}},
+                        "day": {"$dayOfMonth": {date:'$ap_date',timezone:'Asia/Seoul'}}
                     },
                     count: {$sum: 1}
                 }
