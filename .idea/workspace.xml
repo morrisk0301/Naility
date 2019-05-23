@@ -2,39 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7168c74f-f465-4bb6-a424-0a01130c311f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/profit_schema.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/custom/add_profit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/custom/profit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/profit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/add_profit.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/profit.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/build/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/js/custom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/add_appointment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/appointment_calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/appointment_calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/appointment_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/appointment_schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/member_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/member_schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/membership_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/membership_schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/procedure_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/procedure_schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/profit_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/profit_schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/user_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/user_schema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/custom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/member.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/member.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/procedure.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/procedure.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/search_member.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/search_member.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/search_procedure.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/search_procedure.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/appointment.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/appointment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/member.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/member.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/membership.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/membership.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/add_appointment.ejs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/appointment.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/appointment.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/appointment_calendar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/appointment_calendar.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/auth_user.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/auth_user.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/edit_membership.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/edit_membership.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/profit.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/profit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/end_appointment.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/end_appointment.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/member.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/member.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/membership.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/membership.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/procedure.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/procedure.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/search_member.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/search_member.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -50,56 +31,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/appointment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="56" lean-forward="true" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
+            <state relative-caret-position="420">
+              <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/profit.ejs">
+        <entry file="file://$PROJECT_DIR$/database/profit_schema.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="85" column="73" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="73" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/search_member.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="104" column="120" selection-start-line="104" selection-start-column="120" selection-end-line="104" selection-end-column="120" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#th#6;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/member.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="181" column="95" selection-start-line="181" selection-start-column="80" selection-end-line="181" selection-end-column="95" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/custom/search_member.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/member.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="68" column="133" selection-start-line="68" selection-start-column="133" selection-end-line="68" selection-end-column="133" />
+            <state relative-caret-position="378">
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -107,17 +49,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="83" column="73" lean-forward="true" selection-start-line="83" selection-start-column="73" selection-end-line="83" selection-end-column="73" />
+            <state relative-caret-position="349">
+              <caret line="469" column="53" selection-start-line="469" selection-start-column="53" selection-end-line="469" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/procedure.js">
+        <entry file="file://$PROJECT_DIR$/routes/profit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+            <state relative-caret-position="353">
+              <caret line="61" column="20" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/profit.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="191" column="44" selection-start-line="191" selection-start-column="44" selection-end-line="191" selection-end-column="305" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/appointment_calendar.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-862">
+              <caret line="200" column="36" selection-start-line="200" selection-start-column="36" selection-end-line="200" selection-end-column="140" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/custom/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="107" column="36" lean-forward="true" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -133,18 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>마감</find>
-      <find>date</find>
-      <find>취소</find>
-      <find>날짜별</find>
-      <find>init_char</find>
-      <find>chart</find>
-      <find>chart_plot</find>
-      <find>chart_plot_02</find>
-      <find>ini</find>
-      <find>예약 수</find>
-      <find>날짜벼</find>
-      <find>chart_plot_01</find>
       <find>arr_dat1</find>
       <find>날짜별 예</find>
       <find>Reportra</find>
@@ -163,6 +120,18 @@
       <find>1</find>
       <find>.fine(</find>
       <find>ap_t</find>
+      <find>window.</find>
+      <find>addPro</find>
+      <find>addpro</find>
+      <find>add</find>
+      <find>회원권</find>
+      <find>취소</find>
+      <find>gte</find>
+      <find>start</find>
+      <find>appointment_nu</find>
+      <find>지난</find>
+      <find>console.l</find>
+      <find>console.log</find>
     </findStrings>
     <replaceStrings>
       <replace>./</replace>
@@ -174,57 +143,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/add_procedure.ejs" />
-        <option value="$PROJECT_DIR$/public/js/custom/appointment.js" />
-        <option value="$PROJECT_DIR$/public/js/custom/auth_user.js" />
         <option value="$PROJECT_DIR$/public/js/custom/edtit_membership.js" />
         <option value="$PROJECT_DIR$/views/error.ejs" />
         <option value="$PROJECT_DIR$/views/login.ejs" />
         <option value="$PROJECT_DIR$/public/js/custom/membership.js" />
         <option value="$PROJECT_DIR$/public/js/custom/view_appointment.js" />
         <option value="$PROJECT_DIR$/public/calendar.html" />
-        <option value="$PROJECT_DIR$/public/js/custom/edit_membership.js" />
-        <option value="$PROJECT_DIR$/database/appointment_schema.js" />
         <option value="$PROJECT_DIR$/public/js/custom/add_member.js" />
         <option value="$PROJECT_DIR$/views/add_member.ejs" />
         <option value="$PROJECT_DIR$/public/build/js/custom.js" />
         <option value="$PROJECT_DIR$/public/js/custom/login.js" />
-        <option value="$PROJECT_DIR$/public/js/custom/index.js" />
-        <option value="$PROJECT_DIR$/routes/procedure.js" />
-        <option value="$PROJECT_DIR$/views/search_procedure.ejs" />
-        <option value="$PROJECT_DIR$/public/js/custom/search_procedure.js" />
         <option value="$PROJECT_DIR$/public/js/custom/appointment_calendar.js" />
         <option value="$PROJECT_DIR$/config/config.js" />
         <option value="$PROJECT_DIR$/database/database.js" />
-        <option value="$PROJECT_DIR$/database/membership_schema.js" />
         <option value="$PROJECT_DIR$/views/add_profit.ejs.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/database/profit_schema.js" />
-        <option value="$PROJECT_DIR$/routes/appointment.js" />
-        <option value="$PROJECT_DIR$/routes/membership.js" />
         <option value="$PROJECT_DIR$/public/js/custom/add_appointment.js" />
         <option value="$PROJECT_DIR$/views/add_appointment.ejs" />
-        <option value="$PROJECT_DIR$/views/index.ejs" />
-        <option value="$PROJECT_DIR$/routes/profit.js" />
         <option value="$PROJECT_DIR$/public/js/custom/profit.js" />
-        <option value="$PROJECT_DIR$/public/js/custom/end_appointment.js" />
         <option value="$PROJECT_DIR$/views/view_appointment.ejs" />
         <option value="$PROJECT_DIR$/public/js/custom/procedure.js" />
         <option value="$PROJECT_DIR$/public/js/custom/add_profit.js" />
         <option value="$PROJECT_DIR$/views/add_profit.ejs" />
         <option value="$PROJECT_DIR$/views/appointment.ejs" />
-        <option value="$PROJECT_DIR$/views/appointment_calendar.ejs" />
         <option value="$PROJECT_DIR$/views/auth_user.ejs" />
         <option value="$PROJECT_DIR$/views/edit_membership.ejs" />
-        <option value="$PROJECT_DIR$/views/end_appointment.ejs" />
         <option value="$PROJECT_DIR$/views/membership.ejs" />
-        <option value="$PROJECT_DIR$/views/procedure.ejs" />
-        <option value="$PROJECT_DIR$/views/profit.ejs" />
         <option value="$PROJECT_DIR$/public/js/custom/member.js" />
         <option value="$PROJECT_DIR$/routes/member.js" />
         <option value="$PROJECT_DIR$/public/js/custom/search_member.js" />
         <option value="$PROJECT_DIR$/views/member.ejs" />
         <option value="$PROJECT_DIR$/views/search_member.ejs" />
+        <option value="$PROJECT_DIR$/public/js/custom/end_appointment.js" />
+        <option value="$PROJECT_DIR$/views/search_procedure.ejs" />
+        <option value="$PROJECT_DIR$/routes/procedure.js" />
+        <option value="$PROJECT_DIR$/public/js/custom/search_procedure.js" />
+        <option value="$PROJECT_DIR$/views/appointment_calendar.ejs" />
+        <option value="$PROJECT_DIR$/public/js/custom/edit_membership.js" />
+        <option value="$PROJECT_DIR$/views/procedure.ejs" />
+        <option value="$PROJECT_DIR$/routes/membership.js" />
+        <option value="$PROJECT_DIR$/views/end_appointment.ejs" />
+        <option value="$PROJECT_DIR$/routes/appointment.js" />
+        <option value="$PROJECT_DIR$/views/index.ejs" />
+        <option value="$PROJECT_DIR$/database/profit_schema.js" />
+        <option value="$PROJECT_DIR$/views/profit.ejs" />
+        <option value="$PROJECT_DIR$/database/membership_schema.js" />
+        <option value="$PROJECT_DIR$/database/procedure_schema.js" />
+        <option value="$PROJECT_DIR$/database/member_schema.js" />
+        <option value="$PROJECT_DIR$/database/user_schema.js" />
+        <option value="$PROJECT_DIR$/database/appointment_schema.js" />
+        <option value="$PROJECT_DIR$/routes/profit.js" />
+        <option value="$PROJECT_DIR$/public/js/custom/index.js" />
       </list>
     </option>
   </component>
@@ -375,7 +344,7 @@
       <updated>1558346093147</updated>
       <workItem from="1558346094287" duration="512000" />
       <workItem from="1558350175342" duration="31665000" />
-      <workItem from="1558500107162" duration="6781000" />
+      <workItem from="1558500107162" duration="18989000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1558351951098</created>
@@ -398,11 +367,25 @@
       <option name="project" value="LOCAL" />
       <updated>1558424890110</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update">
+      <created>1558507897016</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1558507897017</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update">
+      <created>1558512565793</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1558512565793</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38958000" />
+    <option name="totallyTimeSpent" value="51166000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
@@ -414,13 +397,13 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36894074" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994614" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32944345" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -434,21 +417,19 @@
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/js/custom/index.js</url>
+          <line>46</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/add_member.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="183" column="4" selection-start-line="183" selection-start-column="4" selection-end-line="183" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/add_member.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-254">
-          <caret column="50" selection-start-column="50" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/custom/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -456,27 +437,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/search_procedure.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="180" column="31" selection-start-line="180" selection-start-column="31" selection-end-line="180" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/procedure_schema.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="103" selection-start-line="8" selection-start-column="103" selection-end-line="8" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/membership_schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -509,20 +473,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/profit_schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/profit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="24" column="26" lean-forward="true" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/custom/add_profit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-71">
@@ -534,41 +484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/search_procedure.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="27" column="29" lean-forward="true" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/profit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/appointment_calendar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="97" column="38" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/edit_membership.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="100" column="41" selection-start-line="100" selection-start-column="41" selection-end-line="100" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/end_appointment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="51" column="48" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -593,31 +508,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6392">
-          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/membership.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1772">
-          <caret column="21" selection-start-column="21" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/database.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
@@ -638,20 +532,6 @@
     <entry file="file://$PROJECT_DIR$/utils/category.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/procedure.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="83" column="73" lean-forward="true" selection-start-line="83" selection-start-column="73" selection-end-line="83" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/add_procedure.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
@@ -663,20 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="458">
           <caret line="85" column="73" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/appointment.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="85" column="73" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/appointment_calendar.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="87" column="73" selection-start-line="87" selection-start-column="73" selection-end-line="87" selection-end-column="73" />
         </state>
       </provider>
     </entry>
@@ -694,48 +560,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/end_appointment.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="85" column="73" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/membership.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="85" column="73" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/procedure.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="85" column="73" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/profit.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="85" column="73" selection-start-line="85" selection-start-column="73" selection-end-line="85" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/member_schema.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/appointment_schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/appointment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="56" lean-forward="true" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -746,24 +574,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/member.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="68" column="133" selection-start-line="68" selection-start-column="133" selection-end-line="68" selection-end-column="133" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/member.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
           <caret line="181" column="95" selection-start-line="181" selection-start-column="80" selection-end-line="181" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/search_member.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>
@@ -774,6 +588,187 @@
           <folding>
             <element signature="n#style#0;n#a#0;n#th#6;n#tr#0;n#thead#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/search_member.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/member.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="68" column="133" selection-start-line="68" selection-start-column="133" selection-end-line="68" selection-end-column="133" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/appointment.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/search_procedure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="13" column="72" selection-start-line="13" selection-start-column="72" selection-end-line="13" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/appointment_calendar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="97" column="38" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/search_procedure.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="65" column="62" selection-start-line="65" selection-start-column="62" selection-end-line="65" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/procedure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/membership.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/procedure.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="142" column="27" lean-forward="true" selection-start-line="142" selection-start-column="27" selection-end-line="142" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/edit_membership.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-761">
+          <caret line="39" column="22" lean-forward="true" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/end_appointment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/end_appointment.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="280" column="34" lean-forward="true" selection-start-line="280" selection-start-column="34" selection-end-line="280" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/membership.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1401">
+          <caret line="67" column="8" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/appointment_calendar.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-862">
+          <caret line="200" column="36" selection-start-line="200" selection-start-column="36" selection-end-line="200" selection-end-column="140" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/profit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="469" column="53" selection-start-line="469" selection-start-column="53" selection-end-line="469" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/profit.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="191" column="44" selection-start-line="191" selection-start-column="44" selection-end-line="191" selection-end-column="305" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/membership_schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/procedure_schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/member_schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/user_schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="55" column="4" lean-forward="true" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/appointment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="146" lean-forward="true" selection-start-line="146" selection-end-line="146" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/profit_schema.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/appointment_schema.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/profit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="61" column="20" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="107" column="36" lean-forward="true" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
         </state>
       </provider>
     </entry>

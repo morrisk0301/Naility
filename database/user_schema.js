@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const mongoosePaginate = require('mongoose-paginate');
+const timeZone = require('mongoose-timezone');
 
 let Schema = {};
 
@@ -54,6 +55,7 @@ Schema.createSchema = function(mongoose) {
     });
     
     UserSchema.plugin(mongoosePaginate);
+    UserSchema.plugin(timeZone, { paths: ['created_at'] });
 
     console.log('UserSchema 정의함.');
 

@@ -111,23 +111,6 @@ module.exports = function (router) {
         });
     });
 
-    router.get('/appointment_num', checkLogin, function (req, res) {
-        const database = req.app.get('database');
-        const query = req.query.query;
-        const start = req.query.start;
-        const end = req.query.end;
-
-        const searchQuery = query === 'date' ?
-            {"created_at": {
-                "$gte": start,
-                "$lt": end
-            }} : {};
-
-        database.AppointmentModel.find(searchQuery).count(function (err, count) {
-            res.json(count);
-        })
-    });
-
     router.get('/appoint_unfinished_num', function (req, res) {
         const database = req.app.get('database');
 
@@ -190,6 +173,49 @@ module.exports = function (router) {
         }, function (err, results) {
             res.json(results);
         })
+    });
+
+    router.get('/appointment_num', checkLogin, function(req, res){
+        const database = req.app.get('database');
+        const start = req.query.start;
+        const end = req.query.end;
+        const total = req.query.total;
+
+        if(total){
+            const searchQuery = !start ? {} :
+                {"created_at": {
+                        "$gte": new Date(start),
+                        "$lt": new Date(end)
+                    }};
+            database.AppointmentModel.find(searchQuery).count(function (err, count) {
+                res.json(count);
+            })
+        }
+        else {
+            database.AppointmentModel.aggregate([{
+                $match: {
+                    ap_date: {
+                        $gte: new Date(start),
+                        $lt: new Date(end),
+                    }
+                }
+            }, {
+                $group: {
+                    _id: {
+                        "year": {"$year": "$ap_date"},
+                        "month": {"$month": "$ap_date"},
+                        "day": {"$dayOfMonth": "$ap_date"}
+                    },
+                    count: {$sum: 1}
+                }
+            }]).exec(function (err, data) {
+                if (err) {
+                    throw(err);
+                } else {
+                    res.json(data);
+                }
+            });
+        }
     });
 
     router.post('/appointment', checkLogin, async function (req, res) {

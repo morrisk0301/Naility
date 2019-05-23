@@ -1,4 +1,5 @@
 const mongoosePaginate = require('mongoose-paginate');
+const timeZone = require('mongoose-timezone');
 let Schema = {};
 
 Schema.createSchema = function(mongoose) {
@@ -15,6 +16,7 @@ Schema.createSchema = function(mongoose) {
     console.log('MembershipSchema 정의함.');
 
     MembershipSchema.plugin(mongoosePaginate);
+    MembershipSchema.plugin(timeZone, { paths: ['created_at'] });
 
     return MembershipSchema;
 };
