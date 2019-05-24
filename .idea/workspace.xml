@@ -3,29 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7168c74f-f465-4bb6-a424-0a01130c311f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/membership_schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/membership_schema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/add_profit.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/add_profit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/appointment.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/appointment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/edit_membership.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/edit_membership.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/membership.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/membership.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/profit.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/profit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/search_membership.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/search_membership.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/appointment.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/appointment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/membership.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/membership.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/profit.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/profit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/membership_data.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/membership_data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/add_profit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/add_profit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/appointment.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/appointment.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/edit_membership.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/edit_membership.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/end_appointment.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/end_appointment.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/membership.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/membership.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/profit.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/profit.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/search_membership.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/search_membership.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/view_appointment.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/view_appointment.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/appointment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="115" column="133" lean-forward="true" selection-start-line="115" selection-start-column="133" selection-end-line="115" selection-end-column="133" />
+            <state relative-caret-position="2415">
+              <caret line="115" column="133" selection-start-line="115" selection-start-column="133" selection-end-line="115" selection-end-column="133" />
             </state>
           </provider>
         </entry>
@@ -89,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/profit.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="169" column="61" lean-forward="true" selection-start-line="169" selection-start-column="61" selection-end-line="169" selection-end-column="61" />
+            <state relative-caret-position="583">
+              <caret line="180" column="49" lean-forward="true" selection-start-line="180" selection-start-column="49" selection-end-line="180" selection-end-column="49" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -104,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/custom/profit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
+            <state relative-caret-position="191">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
             </state>
           </provider>
         </entry>
@@ -121,7 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>autoin</find>
       <find>add</find>
       <find>select</find>
       <find>basic ex</find>
@@ -151,6 +127,7 @@
       <find>gte</find>
       <find>appointme</find>
       <find>getappointmentn</find>
+      <find>pf_type  =</find>
     </findStrings>
     <replaceStrings>
       <replace>./</replace>
@@ -210,9 +187,9 @@
         <option value="$PROJECT_DIR$/views/appointment.ejs" />
         <option value="$PROJECT_DIR$/views/membership.ejs" />
         <option value="$PROJECT_DIR$/public/js/custom/membership.js" />
-        <option value="$PROJECT_DIR$/public/js/custom/profit.js" />
         <option value="$PROJECT_DIR$/routes/profit.js" />
         <option value="$PROJECT_DIR$/views/profit.ejs" />
+        <option value="$PROJECT_DIR$/public/js/custom/profit.js" />
       </list>
     </option>
   </component>
@@ -363,7 +340,7 @@
       <updated>1558346093147</updated>
       <workItem from="1558346094287" duration="512000" />
       <workItem from="1558350175342" duration="31665000" />
-      <workItem from="1558500107162" duration="54431000" />
+      <workItem from="1558500107162" duration="54680000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1558351951098</created>
@@ -435,11 +412,18 @@
       <option name="project" value="LOCAL" />
       <updated>1558697855029</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="update">
+      <created>1558719422508</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1558719422508</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86608000" />
+    <option name="totallyTimeSpent" value="86857000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
@@ -722,13 +706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/appointment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="115" column="133" lean-forward="true" selection-start-line="115" selection-start-column="133" selection-end-line="115" selection-end-column="133" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/custom/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
@@ -784,10 +761,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/profit.js">
+    <entry file="file://$PROJECT_DIR$/views/appointment.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
+        <state relative-caret-position="152">
+          <caret line="168" column="43" lean-forward="true" selection-start-line="168" selection-start-column="43" selection-end-line="168" selection-end-column="43" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/profit.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="583">
+          <caret line="180" column="49" lean-forward="true" selection-start-line="180" selection-start-column="49" selection-end-line="180" selection-end-column="49" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -805,23 +795,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/appointment.ejs">
+    <entry file="file://$PROJECT_DIR$/public/js/custom/profit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="168" column="43" lean-forward="true" selection-start-line="168" selection-start-column="43" selection-end-line="168" selection-end-column="43" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="191">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/profit.ejs">
+    <entry file="file://$PROJECT_DIR$/routes/appointment.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="169" column="61" lean-forward="true" selection-start-line="169" selection-start-column="61" selection-end-line="169" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="2415">
+          <caret line="115" column="133" selection-start-line="115" selection-start-column="133" selection-end-line="115" selection-end-column="133" />
         </state>
       </provider>
     </entry>
