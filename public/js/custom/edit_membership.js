@@ -27,8 +27,13 @@ $("#btn_add").on("click", function(event){
         alert("금액을 올바르게 입력해 주세요");
         return false;
     }
+    else if(new Date($("#exp_date").val()) < new Date() || !$("#exp_date").val()){
+        alert("유효기간을 올바르게 입력해 주세요");
+        return false;
+    }
     if(confirm("정말 충전 하시겠습니까?")) {
         const query = {
+            'member_id': window.add_member_id,
             'value': $("#add_value").val(),
             'method': $("#add_method").val(),
             'type': "충전",
@@ -53,6 +58,10 @@ $("#btn_add").on("click", function(event){
 $("#btn_give").on("click", function(event){
     if(!window.get_searched || !window.give_searched){
         alert("회원을 선택해 주세요");
+        return false;
+    }
+    if($("#give_value").val()<0 || !$("#give_value").val()){
+        alert("금액을 올바르게 입력해 주세요");
         return false;
     }
     if(confirm("정말 양도 하시겠습니까??")) {
@@ -128,3 +137,28 @@ $("#fee").on("input", function(event){
 });
 
 $('#myDatepicker').datetimepicker();
+
+$("#btn_1w").on("click", function(event){
+    $("#exp_date").val(moment().add(7, 'days').format('MM/DD/YYYY hh:mm a'));
+    return false;
+});
+
+$("#btn_1m").on("click", function(event){
+    $("#exp_date").val(moment().add(30, 'days').format('MM/DD/YYYY hh:mm a'));
+    return false;
+});
+
+$("#btn_3m").on("click", function(event){
+    $("#exp_date").val(moment().add(90, 'days').format('MM/DD/YYYY hh:mm a'));
+    return false;
+});
+
+$("#btn_6m").on("click", function(event){
+    $("#exp_date").val(moment().add(180, 'days').format('MM/DD/YYYY hh:mm a'));
+    return false;
+});
+
+$("#btn_1y").on("click", function(event){
+    $("#exp_date").val(moment().add(365, 'days').format('MM/DD/YYYY hh:mm a'));
+    return false;
+});

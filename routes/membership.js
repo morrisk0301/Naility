@@ -30,13 +30,22 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
-        const query = req.query.query ? req.query.query : "";
-        let searchQuery;
+        const start = req.query.start;
+        const end = req.query.end;
+        let searchQuery = {};
 
-        if (query === "name")
-            searchQuery = {'ms_member_name': {$regex: new RegExp(search, "i")}};
-        else if (query === "phone")
-            searchQuery = {'ms_member_phone': {$regex: new RegExp(search, "i")}};
+        if(!search)
+            return res.render('membership', {userID: req.user.user_userID, membership: [], page:1, num:0});
+        if(req.query.name)
+            searchQuery.ms_member_name = {$regex: new RegExp(req.query.name, "i")};
+        if(req.query.phone)
+            searchQuery.ms_member_phone = {$regex: new RegExp(req.query.phone, "i")};
+        if(start && end){
+            searchQuery.ms_exp_date = {
+                "$gte": new Date(start),
+                "$lt": new Date(end)
+            }
+        }
 
         database.MembershipModel.paginate(searchQuery, {
             page: page,
@@ -101,6 +110,7 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const member_id = req.body.member_id;
         const namePhone = await member_data.getNamePhone(database, member_id);
+        console.log(namePhone);
         const exp_date = new Date(req.body.exp_date);
         const ms_data = {
             'msd_value' : req.body.value,

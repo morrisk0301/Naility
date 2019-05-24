@@ -1,7 +1,13 @@
 $("#btn_search_member").on("click", function(event){
     window.open("/member/search?query=ap&name="+$("#ap_name").val(), "회원 검색", "width=500,height=600");
     return false;
-})
+});
+
+$("#btn_add").on("click", function(event){
+    window.open("/add_member?ap=true", "회원 추가", "width=500,height=600");
+    return false;
+});
+
 
 $("#btn_profit").on("click", function(event){
 

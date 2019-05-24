@@ -148,8 +148,8 @@
                                 <br />
                                 <form data-parsley-validate class="form-horizontal form-label-left">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-3">회원 검색<span class="required">*</span></label>
+                                        <div class="col-md-7">
                                             <div class='input-group'>
                                                 <input type="text" class="form-control" name="name" id="add_name" placeholder="회원 이름을 입력하세요 " >
                                                 <span class="input-group-btn">
@@ -160,13 +160,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">충전 금액<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <input type="number" class="form-control" name="add_value" id="add_value">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">결제 수단<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <select class="form-control" id="add_method">
                                                 <option>현금 </option>
                                                 <option>카드 </option>
@@ -176,7 +176,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">유효 기간<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <div class="form-group">
                                                 <div class='input-group date' id='myDatepicker'>
                                                     <input type='text' class="form-control" id="exp_date"/>
@@ -184,6 +184,11 @@
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
                                                 </div>
+                                                <button class="btn btn-dark" id="btn_1w">7일</button>
+                                                <button class="btn btn-dark" id="btn_1m">30일</button>
+                                                <button class="btn btn-dark" id="btn_3m">90일</button>
+                                                <button class="btn btn-dark" id="btn_6m">180일</button>
+                                                <button class="btn btn-dark" id="btn_1y">365일</button>
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +217,7 @@
                                 <form data-parsley-validate class="form-horizontal form-label-left">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">양도 회원 검색<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <div class='input-group'>
                                                 <input type="text" class="form-control" name="name" id="give_name" placeholder="회원 이름을 입력하세요 " >
                                                 <span class="input-group-btn">
@@ -223,14 +228,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">양도 회원권</label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <div class="form-control" id="give_membership">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">양수 회원 검색<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <div class='input-group'>
                                                 <input type="text" class="form-control" name="name" id="get_name" placeholder="회원 이름을 입력하세요 " >
                                                 <span class="input-group-btn">
@@ -241,7 +246,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">양도 금액 <span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <input type="number" class="form-control" name="price" id="give_value">
                                         </div>
                                     </div>
@@ -269,7 +274,7 @@
                                 <form data-parsley-validate class="form-horizontal form-label-left">
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <div class='input-group'>
                                                 <input type="text" class="form-control" name="name" id="refund_name" placeholder="회원 이름을 입력하세요 " >
                                                 <span class="input-group-btn">
@@ -280,14 +285,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">회원권</label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <div class="form-control" id="refund_membership">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">환불 수단<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <select class="form-control" id="refund_method">
                                                 <option>현금 </option>
                                                 <option>카드 </option>
@@ -297,19 +302,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">환불 금액<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <input type="number" class="form-control" name="price" id="refund_value">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">환불 수수료<span class="required">*</span></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <input type="number" class="form-control" name="price" id="fee">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">실 환불 금액<small>(환불 금액 - 환불 수수료)</small></label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="col-md-7">
                                             <div class="form-control" id="refund_real">
                                             </div>
                                         </div>

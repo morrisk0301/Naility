@@ -80,10 +80,31 @@ module.exports = function (router) {
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
         const query = req.query.query;
+        const start = req.query.start;
+        const end = req.query.end;
+        let searchQuery = {};
 
-        if (query !== 'calendar') {
-            const searchQuery = query === "name" ? {'ap_member_name': {$regex: new RegExp(search, "i")}} : {'ap_member_phone': {$regex: new RegExp(search, "i")}};
-
+        if(query === 'calendar'){
+            database.AppointmentModel.find({}).select('ap_id ap_date ap_date_end ap_member_name ap_member_phone ap_procedure_name ap_price').exec(function (err, result) {
+                res.json(result);
+            });
+        }
+        else if(!search){
+            process.nextTick(function(){
+                res.render('appointment', {userID: req.user.user_userID, appointment: [], page:1, num:0});
+            })
+        }
+        else{
+            if(req.query.name)
+                searchQuery.ap_member_name = {$regex: new RegExp(req.query.name, "i")};
+            if(req.query.phone)
+                searchQuery.ap_member_phone = {$regex: new RegExp(req.query.phone, "i")};
+            if(start && end){
+                searchQuery.ap_date = {
+                    "$gte": new Date(start),
+                    "$lt": new Date(end)
+                }
+            }
             database.AppointmentModel.paginate(searchQuery, {
                 page: page,
                 limit: 15,
@@ -91,14 +112,10 @@ module.exports = function (router) {
             }, function (err, results) {
                 if (err)
                     throw err;
-                res.render('appointment', {userID: req.user.user_userID, appointment: results.docs, page: page});
-            })
-        } else {
-            database.AppointmentModel.find({}).select('ap_id ap_date ap_date_end ap_member_name ap_member_phone ap_procedure_name ap_price').exec(function (err, result) {
-                res.json(result);
+                console.log(results);
+                res.render('appointment', {userID: req.user.user_userID, appointment: results.docs, page: page, num: results.total});
             })
         }
-
     });
 
     router.get('/end_appointment', checkLogin, function (req, res) {

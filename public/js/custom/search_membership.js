@@ -25,17 +25,18 @@ window.onload = async function () {
 $("#btn_member").on("click", function(event){
     let check = false;
     $(".checkbox_member").each(function(index, obj){
-        if(this.checked){
-            window.opener.add_searched = true;
-            window.opener.add_member_id = this.id;
-            window.opener.document.getElementById('add_name').value = $("#name_"+this.id.toString()).text();
-            window.opener.document.getElementById('add_name').disabled = true;
-        }
-        else if(query === "membership_get"){
-            window.opener.get_searched = true;
-            window.opener.get_member_id = this.id;
-            window.opener.document.getElementById('get_name').value = $("#name_"+this.id.toString()).text();
-            window.opener.document.getElementById('get_name').disabled = true;
+        if(this.checked) {
+            if (query === 'membership_add') {
+                window.opener.add_searched = true;
+                window.opener.add_member_id = this.id;
+                window.opener.document.getElementById('add_name').value = $("#name_" + this.id.toString()).text();
+                window.opener.document.getElementById('add_name').disabled = true;
+            } else if (query === "membership_get") {
+                window.opener.get_searched = true;
+                window.opener.get_member_id = this.id;
+                window.opener.document.getElementById('get_name').value = $("#name_" + this.id.toString()).text();
+                window.opener.document.getElementById('get_name').disabled = true;
+            }
         }
         window.close();
         check = true;
@@ -60,6 +61,7 @@ $(".flat").on("ifClicked", async function(event){
         const exp_date = new Date(item.ms_exp_date);
         const date = new Date(item.created_at);
         const pointer = counter%2===0 ? 'odd pointer' : 'even pointer';
+        const expired = item.ms_is_expired?"만료":"유효";
         let selector;
         if(query !== "membership_add" && query !== "membership_get"){
             selector = '<td class=" "><button class="btn btn-dark select_ms" id="select'+item.ms_id+'">회원권 선택</button></td>'
@@ -71,6 +73,7 @@ $(".flat").on("ifClicked", async function(event){
             '<td class=" ">'+item.ms_id+'</td>' +
             '<td class=" ">'+item.ms_init_value+'</td>' +
             '<td class=" ">'+value_left.value_left+'</td>' +
+            '<td class=" ">'+expired+'</td>' +
             '<td class="a-right a-right ">'+exp_date.getFullYear()+'년 '+(exp_date.getMonth()+1).toString()+'월 '+ exp_date.getDate()+'일 '+exp_date.getHours()+'시 '+exp_date.getMinutes()+'분 '+'</td>' +
             '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
             '<td class=" "><a target="_blank" class="btn btn-dark" href="/membership/'+item.ms_id+'?query=search">조회</a>' + selector)

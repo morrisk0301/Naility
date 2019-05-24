@@ -2,18 +2,33 @@ const checkLogin = require('../utils/check_login');
 const member_data = require('../utils/member_data');
 
 module.exports = function (router) {
-
     router.get('/profit', checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
-        const query = req.query.query ? req.query.query : "";
-        let searchQuery;
+        const start = req.query.start;
+        const end = req.query.end;
+        let searchQuery = {};
 
-        if (query === "name")
-            searchQuery = {'ms_member_name': {$regex: new RegExp(search, "i")}};
-        else if (query === "phone")
-            searchQuery = {'ms_member_phone': {$regex: new RegExp(search, "i")}};
+        if(!search)
+            return res.render('profit', {userID: req.user.user_userID, profit: [], page:1, num:0});
+        if(req.query.name)
+            searchQuery.pf_member_name = {$regex: new RegExp(req.query.name, "i")};
+        if(req.query.phone)
+            searchQuery.pf_member_phone = {$regex: new RegExp(req.query.phone, "i")};
+        if(req.query.type)
+            searchQuery.pf_type = {$regex: new RegExp(req.query.type, "i")};
+        if(req.query.category)
+            searchQuery.pf_category = {$regex: new RegExp(req.query.category, "i")};
+        if(req.query.method)
+            searchQuery.pf_method = {$regex: new RegExp(req.query.method, "i")};
+
+        if(start && end){
+            searchQuery.created_at = {
+                "$gte": new Date(start),
+                "$lt": new Date(end)
+            }
+        }
 
         database.ProfitModel.paginate(searchQuery, {
             page: page,

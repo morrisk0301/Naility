@@ -65,7 +65,7 @@
                         <div class="x_content">
                             <br />
                             <form data-parsley-validate class="form-horizontal form-label-left">
-                                <%if(modify){%>
+                                <%if(modify && ap.ap_is_finished){%>
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 이름 </label>
                                     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -279,7 +279,7 @@
 <script src="../build/js/custom.min.js"></script>
 <script src="../js/custom/view_appointment.js"></script>
 <script type="text/javascript">
-    const blacklist = "<%=ap.ap_blacklist%>" === "true"
+    const blacklist = "<%=ap.ap_blacklist%>" === "true";
 </script>
 
 </body>

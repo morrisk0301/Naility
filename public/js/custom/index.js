@@ -176,7 +176,6 @@ async function init_flot_chart(){
     }, Promise.resolve()).then(function () {
         $.plot( $("#chart_plot_01"), [ arr_data ],  chart_plot_01_settings );
     });
-    console.log(ap_data);
 
     pf_data.reduce(function (total, item) {
         return total.then(() => {
@@ -194,24 +193,14 @@ async function init_flot_chart(){
             }], chart_plot_02_settings);
     });
 
-
-
-
-
     if ($("#chart_plot_01").length){
         console.log('Plot1');
-
         $.plot( $("#chart_plot_01"), [ arr_data ],  chart_plot_01_settings );
     }
 
-
     if ($("#chart_plot_02").length){
         console.log('Plot2');
-
-
-
     }
-
 }
 
 function init_daterangepicker() {

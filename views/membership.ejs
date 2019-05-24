@@ -133,22 +133,8 @@
                     <div class="title_left">
                         <h3>회원권 </h3>
                     </div>
+                    <div class="clearfix"></div>
 
-                    <div class="title_right">
-                        <div class="col-md-9 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                                <select id="search_query" class="form-control" name="method" id="method">
-                                    <option>이름</option>
-                                    <option>휴대폰 번호 </option>
-                                </select>
-                                <span class="input-group-btn"></span>
-                                <input type="text" class="form-control" id="search_text" placeholder="회원권 검색(이름, 휴대폰 번호 등)">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" id="btn_search" type="button">검색 </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="row">
@@ -160,46 +146,69 @@
                             </div>
 
                             <div class="x_content">
+                                <form class="form-horizontal form-label-left input_mask">
+                                    <div class=" col-md-3 form-group has-feedback">
+                                        <input type="text" class="form-control has-feedback-left" id="search_name" placeholder="회원 이름">
+                                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    <div class="col-md-4 form-group has-feedback">
+                                        <input type="text" class="form-control has-feedback-left" id="search_phone" placeholder="휴대폰 번호">
+                                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                                    </div>
+
+                                    <div class="col-md-3 form-group ">
+                                        <div id="reportrange" class="form-control" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                            <span></span> <b class="caret"></b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 form-group has-feedback">
+                                        <button class="btn btn-dark pull-left" id="btn_search" >검색하기</button>
+                                    </div>
+                                </form><br>
+                                <div class="clearfix"></div>
                                 <div class="table-responsive">
                                     <table class="table table-striped jambo_table bulk_action">
                                         <thead>
                                         <tr class="headings">
-                                            <th class="column-title">번호 </th>
-                                            <th class="column-title">회원 이름 </th>
+                                            <th class="column-title">회원권 ID </th>
+                                            <th class="column-title">회원권 이름 </th>
                                             <th class="column-title">휴대폰 번호 </th>
-                                            <th class="column-title">금액 </th>
-                                            <th class="column-title">종류 </th>
-                                            <th class="column-title no-link last"><span class="nobr">생성일 </span>
-                                            </th>
-                                            <th class="bulk-actions" colspan="7">
-                                                <a class="antoo" style="color:#fff; font-weight:500;">시술 선택 <i class="fa fa-chevron-down"></i></a>
-                                            </th>
+                                            <th class="column-title">회원권 금액</th>
+                                            <th class="column-title">유효 여부 </th>
+                                            <th class="column-title">유효기간 </th>
+                                            <th class="column-title">등록일 </th>
+                                            <th class="column-title">사용 기록 </th>
                                         </tr>
                                         </thead>
-
                                         <tbody>
-                                        <%for(let i=0;i<membership.length;i++){
-                                        if(i%2===0){%>
-                                        <tr class="even pointer">
-                                            <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
-                                            <td class=" "><%=membership[i].ms_member_name%></td>
-                                            <td class=" "><%=membership[i].ms_member_phone%></td>
-                                            <td class=" "><%=membership[i].ms_value%></td>
-                                            <td class=" "><%=membership[i].ms_type%></td>
-                                            <td class="a-right a-right "><%=membership[i].created_at%></td>
-                                            </td>
-                                        </tr>
-                                        <%}else{%>
-                                        <tr class="odd pointer">
-                                            <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
-                                            <td class=" "><%=membership[i].ms_member_name%></td>
-                                            <td class=" "><%=membership[i].ms_member_phone%></td>
-                                            <td class=" "><%=membership[i].ms_value%></td>
-                                            <td class=" "><%=membership[i].ms_type%></td>
-                                            <td class="a-right a-right "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 '%></td>
-                                            </td>
-                                        </tr>
-                                        <%}}%>
+                                            <%for(let i=0;i<membership.length;i++){
+                                                const is_expired = membership[i].ms_is_expired ? "만료" : "유효";
+                                            if(i%2===0){%>
+                                            <tr class="even pointer">
+                                                <td class=" "><%=membership[i].ms_id%></td>
+                                                <td class=" "><%=membership[i].ms_member_name%></td>
+                                                <td class=" "><%=membership[i].ms_member_phone%></td>
+                                                <td class=" "><%=membership[i].ms_init_value%></td>
+                                                <td class=" "><%=is_expired%></td>
+                                                <td class=" "><%=membership[i].ms_exp_date.getFullYear() + '년 '+ (membership[i].ms_exp_date.getMonth() + 1).toString() + '월 ' + membership[i].ms_exp_date.getDate() + '일 ' + membership[i].ms_exp_date.getHours() + '시 ' + membership[i].ms_exp_date.getMinutes() + '분 '%></td>
+                                                <td class=" "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 ' + membership[i].created_at.getHours() + '시 ' + membership[i].created_at.getMinutes() + '분 '%></td>
+                                                <td class=" "><a target="_blank" class="btn btn-dark" href="/membership/<%=membership[i].ms_id%>?query=search">조회</a></td>
+                                            </tr>
+                                            <%}else{%>
+                                            <tr class="odd pointer">
+                                                <td class=" "><%=membership[i].ms_id%></td>
+                                                <td class=" "><%=membership[i].ms_member_name%></td>
+                                                <td class=" "><%=membership[i].ms_member_phone%></td>
+                                                <td class=" "><%=membership[i].ms_init_value%></td>
+                                                <td class=" "><%=is_expired%></td>
+                                                <td class=" "><%=membership[i].ms_exp_date.getFullYear() + '년 '+ (membership[i].ms_exp_date.getMonth() + 1).toString() + '월 ' + membership[i].ms_exp_date.getDate() + '일 ' + membership[i].ms_exp_date.getHours() + '시 ' + membership[i].ms_exp_date.getMinutes() + '분 '%></td>
+                                                <td class=" "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 ' + membership[i].created_at.getHours() + '시 ' + membership[i].created_at.getMinutes() + '분 '%></td>
+                                                <td class=" "><a target="_blank" class="btn btn-dark" href="/membership/<%=membership[i].ms_id%>?query=search">조회</a></td>
+                                            </tr>
+                                            <%}}%>
                                         </tbody>
                                     </table>
                                     <div class="text-center"id="page-selection"></div>
@@ -257,9 +266,12 @@
 <!-- starrr -->
 <script src="./vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
-<script src="./build/js/custom.min.js"></script>
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
 <script src="./js/custom/membership.js"></script>
+<script src="./vendors/moment/min/moment.min.js"></script>
+<script src="./vendors/moment/locale/ko.js"></script>
+<script src="./vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="./build/js/custom.js"></script>
 <script type="text/javascript">
     const page_num = "<%=num%>"
 </script>

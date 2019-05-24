@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const cron = require('node-cron');
 const autoIncrement = require('mongoose-auto-increment-fix');
+const ms_data = require('../utils/membership_data');
 
 let database = {};
 
@@ -22,6 +24,10 @@ function connect(app, config) {
     database.db.on('open', async function () {
         console.log('데이터베이스에 연결되었습니다. : ' + config.db_url);
         await createSchema(app, config);
+        cron.schedule('* 3 * * *', async () => {
+            console.log('검증 미완료 유저 초기화 시작!');
+            await ms_data.expireMembership(database);
+        });
     });
     database.db.on('disconnected', connect);
 }

@@ -18,6 +18,7 @@ Schema.createSchema = function(mongoose) {
         , ms_data: [MembershipDetailSchema]
         , ms_init_value: {type: Number, required: true}
         , ms_exp_date: {type: Date, required: true}
+        , ms_is_expired: {type: Boolean, 'default': false}
         , created_at: {type: Date, 'default': Date.now}
     });
 
