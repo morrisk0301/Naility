@@ -38,6 +38,8 @@ module.exports = function (router) {
         const name = req.query.name ? req.query.name : "";
         const page = req.query.page ? req.query.page : 1;
         const query = req.query.query ? req.query.query : "";
+        let render = query === 'ap' ? 'search_member' : 'search_membership';
+        console.log(render);
 
         database.MemberModel.paginate({'member_name': {$regex: new RegExp(name, "i")}}, {
             page: page,
@@ -46,22 +48,11 @@ module.exports = function (router) {
         }, function (err, results) {
             if (err)
                 throw err;
-            let ms_array = [];
-            results.docs.reduce(function (total, item, counter) {
-                return total.then(() => ms_data.checkMembershipLeft(database, item.member_id).then((ms) => {
-                    ms_array.push({
-                        membership: ms,
-                        member_id: item.member_id
-                    })
-                }));
-            }, Promise.resolve()).then(function () {
-                res.render('search_member', {
-                    member: results.docs,
-                    page: page,
-                    query: query,
-                    num: results.total,
-                    membership: ms_array
-                });
+            res.render(render, {
+                member: results.docs,
+                page: page,
+                query: query,
+                num: results.total,
             });
         })
     });
@@ -85,7 +76,7 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const name = req.body.name;
         const phone = req.body.phone;
-        const ap = req.body.ap;
+        const ap = req.body.ap !== 'false';
 
         const newMember = new database.MemberModel({
             'member_name': name,
@@ -98,7 +89,7 @@ module.exports = function (router) {
                 res.write('<script type="text/javascript">alert("회원이 저장되었습니다.");window.opener.location.reload();window.close();</script>');
                 res.end();
             } else
-                res.json(save_result.member_id);
+                res.json({member_id: save_result.member_id, ap: true});
         })
     });
 

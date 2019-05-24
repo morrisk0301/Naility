@@ -1,4 +1,5 @@
 const mongoosePaginate = require('mongoose-paginate');
+const autoIncrement = require('mongoose-auto-increment-fix');
 let Schema = {};
 
 Schema.createSchema = function(mongoose) {
@@ -22,6 +23,7 @@ Schema.createSchema = function(mongoose) {
     console.log('AppointmentSchema 정의함.');
 
     AppointmentSchema.plugin(mongoosePaginate);
+    AppointmentSchema.plugin(autoIncrement.plugin, {model: 'AppointmentModel', field: 'ap_id'});
 
     return AppointmentSchema;
 };

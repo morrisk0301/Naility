@@ -121,7 +121,8 @@ module.exports = function (router) {
             'pf_member_phone': namePhone.member_phone,
             'pf_value': req.body.pf_value,
             'pf_type': req.body.pf_type,
-            'pf_category': req.body.pf_category
+            'pf_category': req.body.pf_category,
+            'pf_method': req.body.pf_method
         });
         newProfit.save(function(err){
             if(err)

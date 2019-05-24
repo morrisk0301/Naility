@@ -3,9 +3,9 @@ const page = location.search.includes("page") ? location.search.split("page")[1]
 const url_string = location.search.split("&page="+page)[0].replace("?", "");
 let id;
 
-function getMemberNum(){
+function getAppointmentNum(){
     return new Promise(function(resolve, reject){
-        fetch('http://'+host+'/appointment_num')
+        fetch('http://'+host+'/appointment_num?total=true')
             .then((res) => res.json())
             .then((data) => {
                 resolve(data);
@@ -14,9 +14,9 @@ function getMemberNum(){
 }
 
 window.onload = async function () {
-    const memberNum = await getMemberNum();
+    const apNum = await getAppointmentNum();
     $('#page-selection').bootpag({
-        total: Math.ceil(memberNum/15),
+        total: Math.ceil(apNum/15),
         page: page
     }).on("page", function(event, num){
         window.location = "/appointment?"+url_string+"&page="+num.toString();

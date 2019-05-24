@@ -23,8 +23,9 @@ $("#btn_profit").on("click", function(event){
         member_id: window.member_id,
         pf_type: $("#pf_type").val(),
         pf_category: $("#pf_category").val(),
-        pf_value: $("#pf_value").val(),
-    }
+        pf_value: $("#pf_type").val()==="환불" ? -parseInt($("#pf_value").val()) : $("#pf_value").val(),
+        pf_method: $("#pf_method").val(),
+    };
     $.ajax({
         url: '/profit',
         type: 'POST',

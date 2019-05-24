@@ -51,7 +51,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>회원 정보 </h3>
+                    <h3> 회원권 검색 </h3>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -59,7 +59,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>회원 관리</h2>
+                            <h2>회원권 기록 조회</h2>
                             <div class="clearfix"></div>
                         </div>
 
@@ -68,80 +68,33 @@
                                 <table class="table table-striped jambo_table">
                                     <thead>
                                     <tr class="headings">
-                                        <th class="column-title">선택</th>
                                         <th class="column-title">번호 </th>
-                                        <th class="column-title">회원 이름 </th>
-                                        <th class="column-title">휴대폰 번호</th>
-                                        <th class="column-title">생성일 </th>
-                                        </th>
-                                        <th class="bulk-actions" colspan="7">
-                                            <a class="antoo" style="color:#fff; font-weight:500;">회원 선택 <i class="fa fa-chevron-down"></i></a>
-                                        </th>
+                                        <th class="column-title">구분 </th>
+                                        <th class="column-title">금액 </th>
+                                        <th class="column-title">발생일 </th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <%for(var i=0;i<member.length;i++){
+                                    <%for(var i=0;i<ms_data.length;i++){
+                                        const date = new Date(ms_data[i].msd_date);
                                     if(i%2===0){%>
                                     <tr class="even pointer">
-                                        <td class="a-center">
-                                            <input type="radio" class="flat checkbox_member" name="table_records" id="<%=member[i].member_id%>">
-                                        </td>
-                                        <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                        <td class=" " id="name_<%=member[i].member_id%>"><%=member[i].member_name%></td>
-                                        <td class=" "><%=member[i].member_phone%></td>
-                                        <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
-                                        </td>
+                                        <td class=" "><%=i+1%></td>
+                                        <td class=" "><%=ms_data[i].msd_type%></td>
+                                        <td class=" "><%=ms_data[i].msd_value%></td>
+                                        <td class="a-right a-right "><%=date.getFullYear() + '년 '+ (date.getMonth() + 1).toString() + '월 ' + date.getDate() + '일 ' + date.getHours() + '시 ' + date.getMinutes()+ '분'%></td>
                                     </tr>
                                     <%}else{%>
                                     <tr class="odd pointer">
-                                        <td class="a-center ">
-                                            <input type="radio" class="flat checkbox_member" name="table_records" id="<%=member[i].member_id%>">
-                                        </td>
-                                        <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                        <td class=" " id="name_<%=member[i].member_id%>"><%=member[i].member_name%></td>
-                                        <td class=" "><%=member[i].member_phone%></td>
-                                        <td class="a-right a-right "><%=member[i].created_at.getFullYear() + '년 '+ (member[i].created_at.getMonth() + 1).toString() + '월 ' + member[i].created_at.getDate() + '일 '%></td>
-                                        </td>
+                                        <td class=" "><%=i+1%></td>
+                                        <td class=" "><%=ms_data[i].msd_type%></td>
+                                        <td class=" "><%=ms_data[i].msd_value%></td>
+                                        <td class="a-right a-right "><%=date.getFullYear() + '년 '+ (date.getMonth() + 1).toString() + '월 ' + date.getDate() + '일 ' + date.getHours() + '시 ' + date.getMinutes()+ '분'%></td>
                                     </tr>
                                     <%}}%>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-dark alignright" id="btn_member">회원 선택</button>
-                                <div class="text-center"id="page-selection"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>예약 기록</h2>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="x_content">
-                            <div class="table-responsive">
-                                <table class="table table-striped jambo_table" id="ap_table">
-                                    <thead>
-                                    <tr class="headings">
-                                        <th class="column-title">번호 </th>
-                                        <th class="column-title">회원 이름 </th>
-                                        <th class="column-title">휴대폰 번호</th>
-                                        <th class="column-title">시술 </th>
-                                        <th class="column-title">불편 손님 여부 </th>
-                                        <th class="column-title">예약일 </th>
-                                        <th class="column-title">상세 </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="ap_tbody">
-                                    </tbody>
-                                </table>
-                                <div class="text-center" id="page-selection"></div>
                             </div>
                         </div>
                     </div>
@@ -206,11 +159,8 @@
 <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 <script src="../vendors/starrr/dist/starrr.js"></script>
 <script src="../build/js/custom.min.js"></script>
-<script src="../vendors/bootpag/lib/jquery.bootpag.min.js"></script>
-<script src="../js/custom/search_member.js"></script>
+<script src="../js/custom/view_appointment.js"></script>
 <script type="text/javascript">
-    const query = "<%=query%>";
-    const page_num = "<%=num%>";
 </script>
 
 </body>

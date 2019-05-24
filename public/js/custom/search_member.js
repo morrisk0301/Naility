@@ -32,30 +32,6 @@ $("#btn_member").on("click", function(event){
                 window.opener.document.getElementById('ap_name').value = $("#name_"+this.id.toString()).text();
                 window.opener.document.getElementById('ap_name').disabled = true;
             }
-            else if(query === "membership_add"){
-                window.opener.add_searched = true;
-                window.opener.add_member_id = this.id;
-                window.opener.document.getElementById('add_name').value = $("#name_"+this.id.toString()).text();
-                window.opener.document.getElementById('add_name').disabled = true;
-            }
-            else if(query === "membership_give"){
-                window.opener.give_searched = true;
-                window.opener.give_member_id = this.id;
-                window.opener.document.getElementById('give_name').value = $("#name_"+this.id.toString()).text();
-                window.opener.document.getElementById('give_name').disabled = true;
-            }
-            else if(query === "membership_get"){
-                window.opener.get_searched = true;
-                window.opener.get_member_id = this.id;
-                window.opener.document.getElementById('get_name').value = $("#name_"+this.id.toString()).text();
-                window.opener.document.getElementById('get_name').disabled = true;
-            }
-            else if(query === "membership_refund"){
-                window.opener.refund_searched = true;
-                window.opener.refund_member_id = this.id;
-                window.opener.document.getElementById('refund_name').value = $("#name_"+this.id.toString()).text();
-                window.opener.document.getElementById('refund_name').disabled = true;
-            }
             window.close();
             check = true;
         }

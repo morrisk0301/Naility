@@ -1,4 +1,5 @@
 const mongoosePaginate = require('mongoose-paginate');
+const autoIncrement = require('mongoose-auto-increment-fix');
 let Schema = {};
 
 Schema.createSchema = function(mongoose) {
@@ -13,6 +14,7 @@ Schema.createSchema = function(mongoose) {
     console.log('MemberSchema 정의함.');
 
     MemberSchema.plugin(mongoosePaginate);
+    MemberSchema.plugin(autoIncrement.plugin, {model: 'MemberModel', field: 'member_id'});
 
     return MemberSchema;
 };

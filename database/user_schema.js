@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const mongoosePaginate = require('mongoose-paginate');
+const autoIncrement = require('mongoose-auto-increment-fix');
 
 let Schema = {};
 
@@ -54,6 +55,7 @@ Schema.createSchema = function(mongoose) {
     });
     
     UserSchema.plugin(mongoosePaginate);
+    UserSchema.plugin(autoIncrement.plugin, {model: 'UserModel', field: 'user_id'});
 
     console.log('UserSchema 정의함.');
 

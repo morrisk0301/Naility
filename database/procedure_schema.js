@@ -1,4 +1,5 @@
 const mongoosePaginate = require('mongoose-paginate');
+const autoIncrement = require('mongoose-auto-increment-fix');
 let Schema = {};
 
 Schema.createSchema = function(mongoose) {
@@ -13,6 +14,7 @@ Schema.createSchema = function(mongoose) {
     console.log('ProcedureSchema 정의함.');
 
     ProcedureSchema.plugin(mongoosePaginate);
+    ProcedureSchema.plugin(autoIncrement.plugin, {model: 'ProcedureModel', field: 'procedure_id'});
 
     return ProcedureSchema;
 };

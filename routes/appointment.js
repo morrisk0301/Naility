@@ -39,7 +39,8 @@ function addProfit(database, ap_data){
             'pf_member_phone': ap_data.ap_member_phone,
             'pf_category': '시술',
             'pf_type': '매출',
-            'pf_value': ap_data.ap_discount_price
+            'pf_value': ap_data.ap_discount_price,
+            'pf_method': ap_data.ap_payment_method
         });
         newProfit.save(function(err){
             if(err)
@@ -153,7 +154,7 @@ module.exports = function (router) {
 
         database.AppointmentModel.findOne({
             'ap_id': ap_id
-        }, async function (err, result) {
+        }, function (err, result) {
             if (!query)
                 return res.json({ap: result});
             else
@@ -264,13 +265,15 @@ module.exports = function (router) {
         database.AppointmentModel.findOne({
             'ap_id': ap_id
         }, async function (err, result) {
-            const membership_value = await ms_data.checkMembershipLeft(database, result.ap_member_id);
-            if(method==="회원권" && membership_value - real_price < 0){
-                process.nextTick(function(){
-                    res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                    res.write('<script type="text/javascript">alert("회원권 잔액이 부족합니다.");window.location.reload();</script>');
-                    res.end();
-                })
+            if(method==="회원권"){
+                const membership_value = await ms_data.checkMembershipLeft(database, result.ap_member_id);
+                if(membership_value - real_price < 0){
+                    process.nextTick(function(){
+                        res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                        res.write('<script type="text/javascript">alert("회원권 잔액이 부족합니다.");window.location.reload();</script>');
+                        res.end();
+                    })
+                }
             }
             else {
                 if (query === 'date') {

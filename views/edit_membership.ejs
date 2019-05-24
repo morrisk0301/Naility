@@ -27,6 +27,8 @@
     <link href="./vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="./vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="./vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="./build/css/custom.min.css" rel="stylesheet">
@@ -89,7 +91,7 @@
                             <li><a><i class="fa fa-envelope-o"></i> 회원권 관리 </a>
                                 <ul class="nav child_menu">
                                     <li><a href="/edit_membership">회원권 관리 </a></li>
-                                    <li><a href="/membership">회원권 조회 </a></li>
+                                    <li><a href="/membership">회원권 검색 </a></li>
                                 </ul>
                             </li>
                             <li><a href="/user"><i class="fa fa-user"></i> 관리자 승인 </a>
@@ -159,7 +161,30 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">충전 금액<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="number" class="form-control" name="price" id="add_value">
+                                            <input type="number" class="form-control" name="add_value" id="add_value">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">결제 수단<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select class="form-control" id="add_method">
+                                                <option>현금 </option>
+                                                <option>카드 </option>
+                                                <option>기타 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">유효 기간<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="form-group">
+                                                <div class='input-group date' id='myDatepicker'>
+                                                    <input type='text' class="form-control" id="exp_date"/>
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
@@ -193,6 +218,13 @@
                                                 <span class="input-group-btn">
                                                     <button id="btn_search_member2" type="button" class="btn btn-primary">검색 </button>
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">양도 회원권</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="form-control" id="give_membership">
                                             </div>
                                         </div>
                                     </div>
@@ -247,6 +279,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">회원권</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="form-control" id="refund_membership">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">환불 수단<span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select class="form-control" id="refund_method">
+                                                <option>현금 </option>
+                                                <option>카드 </option>
+                                                <option>기타 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">환불 금액<span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                             <input type="number" class="form-control" name="price" id="refund_value">
@@ -262,7 +311,6 @@
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">실 환불 금액<small>(환불 금액 - 환불 수수료)</small></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                             <div class="form-control" id="refund_real">
-
                                             </div>
                                         </div>
                                     </div>

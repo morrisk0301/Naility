@@ -89,7 +89,7 @@
                             <li><a><i class="fa fa-envelope-o"></i> 회원권 관리 </a>
                                 <ul class="nav child_menu">
                                     <li><a href="/edit_membership">회원권 관리 </a></li>
-                                    <li><a href="/membership">회원권 조회 </a></li>
+                                    <li><a href="/membership">회원권 검색 </a></li>
                                 </ul>
                             </li>
                             <li><a href="/user"><i class="fa fa-user"></i> 관리자 승인 </a>
@@ -168,6 +168,7 @@
                                             <th class="column-title">번호 </th>
                                             <th class="column-title">매출 구분 </th>
                                             <th class="column-title">매출 종류 </th>
+                                            <th class="column-title">결제 수단 </th>
                                             <th class="column-title">금액 </th>
                                             <th class="column-title">회원 이름 </th>
                                             <th class="column-title">휴대폰 번호 </th>
@@ -186,6 +187,7 @@
                                             <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
                                             <td class=" "><%=profit[i].pf_type%></td>
                                             <td class=" "><%=profit[i].pf_category%></td>
+                                            <td class=" "><%=profit[i].pf_method%></td>
                                             <td class=" "><%=profit[i].pf_value%></td>
                                             <td class=" "><%=profit[i].pf_member_name%></td>
                                             <td class=" "><%=profit[i].pf_member_phone%></td>
@@ -196,6 +198,7 @@
                                             <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
                                             <td class=" "><%=profit[i].pf_type%></td>
                                             <td class=" "><%=profit[i].pf_category%></td>
+                                            <td class=" "><%=profit[i].pf_method%></td>
                                             <td class=" "><%=profit[i].pf_value%></td>
                                             <td class=" "><%=profit[i].pf_member_name%></td>
                                             <td class=" "><%=profit[i].pf_member_phone%></td>

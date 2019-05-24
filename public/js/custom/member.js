@@ -23,7 +23,7 @@ window.onload = async function () {
 };
 
 $("#btn_member").on("click", function(event){
-    window.open("/add_member", "회원 추가", "width=500,height=600");
+    window.open("/add_member?ap=false", "회원 추가", "width=500,height=600");
 });
 
 
@@ -48,7 +48,7 @@ $(".flat").on("ifClicked", async function(event){
                 '<td class=" ">'+item.ap_procedure_name+'</td>' +
                 '<td class=" ">'+blacklist+'</td>' +
                 '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
-                '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
+                '<td class=" "><a target="_blank" class="btn btn-dark"  href="/appointment/'+item.ap_id+'?query=search">조회</a>')
         } else{
             $("#ap_tbody").append('<tr class="even pointer">' +
                 '<td class=" ">'+(counter+1)+'</td>' +
@@ -57,15 +57,16 @@ $(".flat").on("ifClicked", async function(event){
                 '<td class=" ">'+item.ap_procedure_name+'</td>' +
                 '<td class=" ">'+blacklist+'</td>' +
                 '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
-                '<td class=" "><a target="_blank" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
+                '<td class=" "><a target="_blank" class="btn btn-dark" href="/appointment/'+item.ap_id+'?query=search">조회</a>')
         }
     })
 });
 
 $("#btn_member_modify").on('click', function(event){
     let check = false;
-    $(".checkbox_procedure").each(function(index, obj){
+    $(".checkbox_member").each(function(index, obj){
         if(this.checked){
+            console.log(alert);
             check = true;
             window.open("/member/"+id, "회원 수정", "width=500,height=600");
             return false;

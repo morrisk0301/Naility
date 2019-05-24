@@ -37,13 +37,6 @@ function createSchema(app, config) {
                 let curSchema = require(item.file).createSchema(mongoose);
                 console.log('%s 모듈을 불러들인 후 스키마 정의함.', item.file);
 
-                if (counter === 0) curSchema.plugin(autoIncrement.plugin, {model: 'UserModel', field: 'user_id'});
-                if (counter === 1) curSchema.plugin(autoIncrement.plugin, {model: 'ProcedureModel', field: 'procedure_id'});
-                if (counter === 2) curSchema.plugin(autoIncrement.plugin, {model: 'MemberModel', field: 'member_id'});
-                if (counter === 3) curSchema.plugin(autoIncrement.plugin, {model: 'AppointmentModel', field: 'ap_id'});
-                if (counter === 4) curSchema.plugin(autoIncrement.plugin, {model: 'MembershipModel', field: 'ms_id'});
-                if (counter === 4) curSchema.plugin(autoIncrement.plugin, {model: 'ProfitModel', field: 'pf_id'});
-
                 let curModel = mongoose.model(item.collection, curSchema);
                 console.log('%s 컬렉션을 위해 모델 정의함.', item.collection);
 

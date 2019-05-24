@@ -1,5 +1,6 @@
 const member_id = location.pathname.split('/')[2];
 
+
 function checkPhone(phone){
     const regExp = /^\d{3}-\d{3,4}-\d{4}$/;
 
@@ -22,17 +23,17 @@ $("#form_member").on("submit", function(event){
         const query = {
             name: name,
             phone: $("#member_phone").val(),
-            ap: true
-        }
+            ap: ap
+        };
         $.ajax({
             url: '/member',
             type: 'POST',
             data: query,
             success: function (data) {
-                if(!ap)
+                if(!data.ap)
                     document.write(data);
                 else{
-                    window.opener.member_id = data;
+                    window.opener.member_id = data.member_id;
                     window.opener.document.getElementById('ap_name').value = name;
                     window.opener.document.getElementById('ap_name').disabled = true;
                     window.close();

@@ -1,13 +1,12 @@
-function checkMembershipLeft(database, member_id){
+function checkMembershipLeft(database, ms_id){
     return new Promise(function(resolve, reject){
-        database.MembershipModel.find({
-            'ms_member_id': member_id
-        }, function(err, results){
+        database.MembershipModel.findOne({
+            'ms_id': ms_id
+        }, function(err, result){
             let value = 0;
-            results.reduce(function (total, item, counter) {
-                console.log(counter);
+            result.ms_data.reduce(function (total, item, counter) {
                 return total.then(async function () {
-                    value += item.ms_value;
+                    value += item.msd_value;
                 })
             }, Promise.resolve()).then(function () {
                 resolve(value);
