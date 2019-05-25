@@ -61,7 +61,7 @@ window.onload = async function() {
     console.log('init_calendar');
 
     var calendar = $('#calendar').fullCalendar({
-        defaultView: 'agendaDay',
+        defaultView: 'agendaWeek',
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -70,6 +70,8 @@ window.onload = async function() {
         timezone: 'local',
         selectable: true,
         selectHelper: true,
+        minTime: '11:00:00',
+        maxTime: '22:00:00',
         select: function(start, end, allDay) {
             $('#fc_create').click();
             const start_date = new Date(start);
@@ -203,7 +205,7 @@ $("#btn_appointment_new").on("click", function(event){
         alert("시술을 선택해 주세요");
         return false
     }
-    else if(!window.ap_searched && !window.member_id){
+    if(!window.ap_searched && !window.member_id){
         alert("회원을 선택해 주세요");
         return false;
     }

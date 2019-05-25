@@ -23,11 +23,11 @@ $("#btn_add").on("click", function(event){
         alert("회원을 선택해 주세요");
         return false;
     }
-    else if($("#add_value").val() < 0){
+    if($("#add_value").val() < 0){
         alert("금액을 올바르게 입력해 주세요");
         return false;
     }
-    else if(new Date($("#exp_date").val()) < new Date() || !$("#exp_date").val()){
+    if(new Date($("#exp_date").val()) < new Date() || !$("#exp_date").val()){
         alert("유효기간을 올바르게 입력해 주세요");
         return false;
     }
@@ -92,7 +92,7 @@ $("#btn_refund").on("click", function(event){
         alert("회원을 선택해 주세요");
         return false;
     }
-    else if(parseInt($("#refund_real").text()) < 0){
+    if(parseInt($("#refund_real").text()) < 0){
         alert("금액을 올바르게 입력해 주세요");
         return false;
     }

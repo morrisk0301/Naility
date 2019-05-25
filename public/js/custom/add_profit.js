@@ -15,11 +15,11 @@ $("#btn_profit").on("click", function(event){
         alert("회원을 선택해 주세요");
         return false;
     }
-    else if($("#pf_type").val() === "매출 구분을 선택하세요"){
+    if($("#pf_type").val() === "매출 구분을 선택하세요"){
         alert("매출 구분을 선택해 주세요");
         return false;
     }
-    else if($("#pf_category").val() === "매출 종류를 선택하세요"){
+    if($("#pf_category").val() === "매출 종류를 선택하세요"){
         alert("매출 종류를 선택해 주세요");
         return false;
     }

@@ -45,6 +45,7 @@ $(".checkbox_appointment.flat").on("ifClicked", function(event){
                 ("0" + rawDate_end.getMinutes()).slice(-2) + ' ' + ampm_end;
 
             window.procedure = data.ap.ap_procedure_name;
+            window.ap_member_id = data.ap.ap_member_id;
             $("#name").text(data.ap.ap_member_name);
             $("#ap_procedure").val(data.ap.ap_procedure_name);
             $("#date").text(date);
@@ -60,11 +61,16 @@ $("#btn_appointment").on('click', function(event){
         alert("회원을 선택해 주세요");
         return false;
     }
-    else if(!window.procedure){
+    if(!window.procedure){
         alert("시술을 선택해 주세요");
         return false;
-    }else if(!$("#real_price").val()){
+    }
+    if(!$("#real_price").val()){
         alert("실제 가격을 입력해 주세요");
+        return false;
+    }
+    if($("#method").val() === '회원권' && !window.only_ms_id){
+        alert("회원권을 선택해 주세요");
         return false;
     }
     let query = {
@@ -73,6 +79,7 @@ $("#btn_appointment").on('click', function(event){
         'real_price': $("#real_price").val(),
         'method': $("#method").val(),
         'detail': $("#detail").val(),
+        'ms_id': window.only_ms_id,
         'blacklist': blacklist
     };
     if(confirm("마감 하시겠습니까?")){
@@ -118,4 +125,18 @@ $("#btn_appointment_delete").on('click', function(event){
 
 $("#blacklist").on("ifChanged", function(event){
     blacklist = event.target.checked;
+});
+
+$("#method").on("change", function(event){
+    if($("#method").val()==='회원권'){
+        $("#div_method").append('<div class="form-group" id="div_membership">'+
+        '<label class="control-label col-md-3 col-sm-3 col-xs-12">회원권 </label>' +
+        '<div class="col-md-7">' +
+        '<div id="membership" class="form-control"></div></div></div>'
+        );
+        window.open("/member/search?query=membership_only&user="+window.ap_member_id, "회원권 검색", "width=500,height=600");
+    } else{
+        $("#div_membership").empty();
+    }
+    return false;
 });

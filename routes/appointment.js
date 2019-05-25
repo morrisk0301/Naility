@@ -53,23 +53,28 @@ function addProfit(database, ap_data){
     })
 }
 
-function modifyMembership(database, ap_data){
+function modifyMembership(database, ms_id, price){
     return new Promise(async function (resolve, reject){
-        const newMembership = new database.MembershipModel({
-            'ms_member_id': ap_data.ap_member_id,
-            'ms_member_name': ap_data.ap_member_name,
-            'ms_member_phone': ap_data.ap_member_phone,
-            'ms_type': '사용',
-            'ms_value': -ap_data.ap_discount_price
+        const ms_data = {
+            'msd_value' : -price,
+            'msd_type': '사용',
+            'msd_method': '회원권',
+        };
+        database.MembershipModel.findOne({
+            'ms_id': ms_id
+        }, function(err, result){
+            if(err)
+                throw err;
+            result.ms_data.push(ms_data);
+            result.save(function(err){
+                if(err)
+                    reject(err);
+                else{
+                    console.log("회원권 매출 등록 완료!");
+                    resolve(true);
+                }
+            })
         });
-        newMembership.save(function (err) {
-            if (err)
-                reject(err);
-            else {
-                console.log("회원권 매출 등록 완료!");
-                resolve(true);
-            }
-        })
     })
 }
 
@@ -269,6 +274,7 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const query = req.query.query ? req.query.query : false;
         const ap_id = req.params.id;
+        const ms_id = req.body.ms_id;
         const procedure = req.body.procedure ? JSON.parse(req.body.procedure) : "";
         const date = req.body.date;
         const date_end = req.body.date_end;
@@ -278,19 +284,19 @@ module.exports = function (router) {
         const detail = req.body.detail;
         const blacklist = req.body.blacklist;
         const procedure_name = typeof (procedure) === "string" ? procedure : await convertProcedureName(database, procedure);
+        const membership_value = !ms_id ? 0 : await ms_data.checkMembershipLeft(database, ms_id);
 
         database.AppointmentModel.findOne({
             'ap_id': ap_id
         }, async function (err, result) {
-            if(method==="회원권"){
-                const membership_value = await ms_data.checkMembershipLeft(database, result.ap_member_id);
-                if(membership_value - real_price < 0){
-                    process.nextTick(function(){
-                        res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                        res.write('<script type="text/javascript">alert("회원권 잔액이 부족합니다.");window.location.reload();</script>');
-                        res.end();
-                    })
-                }
+            if(err)
+                throw err;
+            if(method==="회원권" && membership_value - real_price < 0){
+                process.nextTick(function(){
+                    res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                    res.write('<script type="text/javascript">alert("회원권 잔액이 부족합니다.");window.location.reload();</script>');
+                    res.end();
+                })
             }
             else {
                 if (query === 'date') {
@@ -325,7 +331,7 @@ module.exports = function (router) {
                     } else {
                         let success;
                         if (result.ap_payment_method === "회원권") {
-                            success = await modifyMembership(database, result);
+                            success = await modifyMembership(database, ms_id, result.ap_discount_price);
                         } else {
                             success = await addProfit(database, result);
                         }

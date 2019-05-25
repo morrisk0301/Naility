@@ -211,7 +211,9 @@
                                         </thead>
 
                                         <tbody>
-                                        <%for(var i=0;i<profit.length;i++){
+                                        <% let sum = 0;
+                                        for(var i=0;i<profit.length;i++){
+                                            sum += profit[i].pf_value;
                                         if(i%2===0){%>
                                         <tr class="even pointer">
                                             <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
@@ -237,6 +239,7 @@
                                         <%}}%>
                                         </tbody>
                                     </table>
+                                    <h3>매출 합계: <%=sum%><button class="btn btn-dark alignright" id="btn_excel">엑셀 다운로드 </button></h3>
                                     <div class="text-center"id="page-selection"></div>
                                 </div>
                             </div>
@@ -260,6 +263,7 @@
 
 <!-- jQuery -->
 <script src="./vendors/jquery/dist/jquery.min.js"></script>
+<script src="./vendors/jquery-cookie/jquery.cookie.js"></script>
 <!-- Bootstrap -->
 <script src="./vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

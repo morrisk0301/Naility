@@ -1,5 +1,6 @@
 const page = location.search.includes("page") ? location.search.split("page")[1][1] : 1;
 const url_string = location.search.split("&page="+page)[0].replace("?", "");
+let checked = [];
 
 window.onload = async function () {
     $('#page-selection').bootpag({
@@ -8,6 +9,13 @@ window.onload = async function () {
     }).on("page", function(event, num){
         window.location = "/procedure/search?"+url_string+"&page="+num.toString();
     });
+    checked = JSON.parse($.cookie('checked'));
+    $(".checkbox_procedure.flat").each(function(index, obj){
+        const checkItem = checked.find(ck_item => ck_item.id === this.id);
+        if(checkItem){
+            $("#"+this.id).iCheck('check');
+        }
+    })
 };
 
 $("#btn_search").on("click", function(event){
@@ -20,16 +28,14 @@ $("#btn_procedure").on("click", function(event){
     let id_array = [];
     let price = 0;
 
-    $(".checkbox_procedure").each(function(index, obj){
-        if(this.checked){
-            id_array.push(this.id);
-            name = name + $("#name_"+this.id.toString()).text()+" ";
-            price += parseInt($("#price_"+this.id.toString()).text());
-        }
+    checked.forEach(function(item){
+        id_array.push(item.id);
+        name = name + item.name +" ";
+        price += item.price;
         check = true;
-    })
+    });
     if(!check){
-        alert("회원을 선택해 주세요");
+        alert("시술을 선택해 주세요");
         return false;
     }
 
@@ -38,6 +44,23 @@ $("#btn_procedure").on("click", function(event){
     window.opener.document.getElementById('ap_procedure').value = name;
     window.opener.document.getElementById('ap_price').textContent = price;
     window.opener.document.getElementById('ap_procedure').disabled = true;
+    $.removeCookie('checked');
     window.close();
     return false;
+});
+
+$(".checkbox_procedure.flat").on("ifClicked", function(event){
+    if(!this.checked){
+        checked.push({
+            id: this.id,
+            name: $("#name_"+this.id.toString()).text(),
+            price: parseInt($("#price_"+this.id.toString()).text())
+        });
+    }else{
+        const checkItem = checked.find(ck_item => ck_item.id === this.id);
+        console.log(checkItem);
+        if(checked.indexOf(checkItem)>-1) checked.splice(checked.indexOf(checkItem), 1);
+    }
+    $.cookie("checked", JSON.stringify(checked));
+    checked = JSON.parse($.cookie("checked"));
 });

@@ -3,6 +3,11 @@ const url_string = location.search.split("&page="+page)[0].replace("?", "");
 const host = location.host;
 let start, end;
 let id;
+const urlParams = new URLSearchParams(window.location.search);
+const nameParam = urlParams.get('name');
+const phoneParam = urlParams.get('phone');
+const startParam = urlParams.get('start');
+const endParam = urlParams.get('end');
 
 function init_daterangepicker() {
     if( typeof ($.fn.daterangepicker) === 'undefined'){ return; }
@@ -13,8 +18,8 @@ function init_daterangepicker() {
     };
 
     var optionSet1 = {
-        startDate: moment(),
-        endDate: moment().add(90, 'days'),
+        startDate: moment(start),
+        endDate: moment(end),
         minDate: '01/01/2019',
         maxDate: '12/31/2100',
         dateLimit: {
@@ -39,7 +44,6 @@ function init_daterangepicker() {
         separator: ' to ',
     };
 
-    $('#reportrange span').html(moment().format('MMMM D, YYYY') + ' - ' + moment().add(90, 'days').format('MMMM D, YYYY'));
     $('#reportrange').daterangepicker(optionSet1, cb);
     $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
         start = new Date(picker.startDate).toUTCString();
@@ -59,6 +63,17 @@ function init_daterangepicker() {
 }
 
 window.onload = async function () {
+    if(nameParam) $("#search_name").val(nameParam);
+    if(phoneParam) $("#search_phone").val(phoneParam);
+    if(!startParam && !endParam){
+        start = new Date(moment()).toUTCString();
+        end = new Date(moment().add(90, 'days')).toUTCString();
+        $('#reportrange span').html(moment().format('MMMM D, YYYY') + ' - ' + moment().add(90, 'days').format('MMMM D, YYYY'));
+    }else{
+        start = new Date(startParam);
+        end = new Date(endParam);
+        $('#reportrange span').html(moment(start).format('MMMM D, YYYY') + ' - ' + moment(end).format('MMMM D, YYYY'));
+    }
     init_daterangepicker();
     $('#page-selection').bootpag({
         total: Math.ceil(parseInt(page_num)/2),
@@ -66,8 +81,6 @@ window.onload = async function () {
     }).on("page", function(event, num){
         window.location = "/membership?"+url_string+"&page="+num.toString();
     });
-    start = new Date(moment()).toUTCString();
-    end = new Date(moment().add(90, 'days')).toUTCString();
 };
 
 $("#btn_search").on("click", function(event){

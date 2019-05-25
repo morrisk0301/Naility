@@ -39,7 +39,6 @@ module.exports = function (router) {
         const page = req.query.page ? req.query.page : 1;
         const query = req.query.query ? req.query.query : "";
         let render = query === 'ap' ? 'search_member' : 'search_membership';
-        console.log(render);
 
         database.MemberModel.paginate({'member_name': {$regex: new RegExp(name, "i")}}, {
             page: page,

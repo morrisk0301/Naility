@@ -1,5 +1,6 @@
 const checkLogin = require('../utils/check_login');
 const member_data = require('../utils/member_data');
+const Excel = require('exceljs');
 
 module.exports = function (router) {
     router.get('/profit', checkLogin, function (req, res) {
@@ -30,20 +31,47 @@ module.exports = function (router) {
             }
         }
 
-        database.ProfitModel.paginate(searchQuery, {
-            page: page,
-            limit: 15,
-            sort: {created_at: -1}
-        }, function (err, results) {
-            if (err)
-                throw err;
-            res.render('profit', {
-                userID: req.user.user_userID,
-                profit: results.docs,
+        if(req.query.excel){
+            database.ProfitModel.find(searchQuery, function(err, result){
+                const workbook = new Excel.Workbook();
+                const worksheet = workbook.addWorksheet('매출 조회');
+                worksheet.columns = [
+                    { header: '매출 ID', key: 'pf_id'},
+                    { header: '회원 ID', key: 'pf_member_id'},
+                    { header: '회원 이름', key: 'pf_member_name'},
+                    { header: '매출 구분', key: 'pf_type' },
+                    { header: '매출 종류', key: 'pf_category' },
+                    { header: '결제 수단', key: 'pf_method' },
+                    { header: '금액', key: 'pf_value' },
+                    { header: '일자', key: 'created_at' },
+                ];
+                result.reduce(function (total, item, counter) {
+                    return total.then(async function () {
+                        worksheet.addRow(item);
+                    })
+                }, Promise.resolve()).then(function () {
+                    workbook.xlsx.writeBuffer().then((buffer) => {
+                        res.json(new Buffer(buffer, 'array'));
+                    });
+                });
+            })
+        }
+        else {
+            database.ProfitModel.paginate(searchQuery, {
                 page: page,
-                num: results.total
-            });
-        })
+                limit: 15,
+                sort: {created_at: -1}
+            }, function (err, results) {
+                if (err)
+                    throw err;
+                res.render('profit', {
+                    userID: req.user.user_userID,
+                    profit: results.docs,
+                    page: page,
+                    num: results.total
+                });
+            })
+        }
     });
 
     router.get('/add_profit', checkLogin, function (req, res) {
