@@ -1,4 +1,4 @@
-const category = ["현금", "카드", "회원권", "기타"];
+const category = ["현금", "카드", "이체", "회원권", "기타"];
 let isBlacklist;
 
 window.onload = async function () {

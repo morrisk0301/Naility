@@ -45,7 +45,7 @@ $(".checkbox_appointment.flat").on("ifClicked", function(event){
                 rawDate_end.getDate()).slice(-2)+'/'+rawDate_end.getFullYear()+' '+(rawDate_end.getHours()%12) + ":"+
                 ("0" + rawDate_end.getMinutes()).slice(-2) + ' ' + ampm_end;
 
-            window.procedure = data.ap.ap_procedure_name;
+            window.procedure = data.ap.ap_procedure_arr;
             window.ap_member_id = data.ap.ap_member_id;
             $("#name").text(data.ap.ap_member_name);
             $("#ap_procedure").val(data.ap.ap_procedure_name);
@@ -81,6 +81,7 @@ $("#btn_appointment").on('click', function(event){
         'method': $("#method").val(),
         'detail': $("#detail").val(),
         'ms_id': window.only_ms_id,
+        'searched': window.pd_searched,
         'blacklist': blacklist
     };
     if(confirm("마감 하시겠습니까?")){

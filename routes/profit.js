@@ -97,7 +97,7 @@ module.exports = function (router) {
                     "year": {"$year": {date:'$created_at',timezone:'Asia/Seoul'}},
                     "month": {"$month": {date:'$created_at',timezone:'Asia/Seoul'}},
                     "day": {"$dayOfMonth": {date:'$created_at',timezone:'Asia/Seoul'}},
-                    "date": {"$dateToString": {date:'$ap_date',timezone:'Asia/Seoul', format: "%Y-%m-%d"}}
+                    "date": {"$dateToString": {date:'$created_at',timezone:'Asia/Seoul', format: "%Y-%m-%d"}}
                 },
                 count: {$sum: "$pf_value"}
             }
@@ -105,6 +105,7 @@ module.exports = function (router) {
             if (err) {
                 throw(err);
             } else {
+                data = data.sort(sort.sortWithDate);
                 res.json(data);
             }
         });
@@ -120,31 +121,7 @@ module.exports = function (router) {
                 _id: {
                     "id": "$pf_member_id",
                     "name": "$pf_member_name",
-                    "phone": "$pf_member_phone"
-                },
-                count: {$sum: "$pf_value"}
-            }
-        }]).sort({count: -1}).limit(5).exec(function (err, data) {
-            if (err) {
-                throw(err);
-            } else {
-                data = data.sort(sort.sortWithDate);
-                res.json(data);
-            }
-        });
-    });
-
-    router.get('/profit_method', checkLogin, function(req, res){
-        const database = req.app.get('database');
-
-        database.ProfitModel.aggregate([{
-            $match: {}
-        }, {
-            $group: {
-                _id: {
-                    "method": "$pf_member_id",
-                    "name": "$pf_member_name",
-                    "phone": "$pf_member_phone"
+                    "phone": "$pf_member_phone",
                 },
                 count: {$sum: "$pf_value"}
             }
@@ -156,6 +133,7 @@ module.exports = function (router) {
             }
         });
     });
+
 
     router.post('/profit', checkLogin, async function (req, res) {
         const database = req.app.get('database');

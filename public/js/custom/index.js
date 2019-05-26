@@ -111,6 +111,7 @@ const chart_plot_02_settings = {
     },
 };
 
+
 function getMemberNum(){
     return new Promise(function(resolve, reject){
         fetch('http://'+host+'/member_num')
@@ -127,6 +128,26 @@ function getAppointmentNum(start, end, total){
         if(start)
             query += "start="+start+"&end="+end;
         fetch('http://'+host+'/appointment_num'+query)
+            .then((res) => res.json())
+            .then((data) => {
+                resolve(data);
+            })
+    })
+}
+
+function getAppointmentMethodRank(){
+    return new Promise(function(resolve, reject){
+        fetch('http://'+host+'/apointment_method_rank')
+            .then((res) => res.json())
+            .then((data) => {
+                resolve(data);
+            })
+    })
+}
+
+function getAppointmentTypeRank(){
+    return new Promise(function(resolve, reject){
+        fetch('http://'+host+'/appointment_type_rank')
             .then((res) => res.json())
             .then((data) => {
                 resolve(data);
@@ -288,11 +309,50 @@ function init_daterangepicker() {
 
 }
 
+function setChart3(profitRank){
+    try{$("#pf_rank_1").text(profitRank[0]._id.name)}catch(e){console.log(e)}
+    try{$("#pf_value_1").text(Math.round(profitRank[0].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_pg_1").css({'width' : '100%'})}catch(e){console.log(e)}
+    try{$("#pf_rank_2").text(profitRank[1]._id.name)}catch(e){console.log(e)}
+    try{$("#pf_value_2").text(Math.round(profitRank[1].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_pg_2").css({'width' : Math.round((profitRank[1].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
+    try{$("#pf_rank_3").text(profitRank[2]._id.name)}catch(e){console.log(e)}
+    try{$("#pf_value_3").text(Math.round(profitRank[2].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_pg_3").css({'width' : Math.round((profitRank[2].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
+    try{$("#pf_rank_4").text(profitRank[3]._id.name)}catch(e){console.log(e)}
+    try{$("#pf_value_4").text(Math.round(profitRank[3].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_pg_4").css({'width' : Math.round((profitRank[3].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
+    try{$("#pf_rank_5").text(profitRank[4]._id.name)}catch(e){console.log(e)}
+    try{$("#pf_value_5").text(Math.round(profitRank[4].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_pg_5").css({'width' : Math.round((profitRank[4].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
+}
+
+function setChart4(apRank){
+    try{$("#pf_method_val_1").text(Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "현금").count/apRank.count*100)+'%')}catch(e){console.log(e)}
+    try{$("#pf_method_val_2").text(Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "카드").count/apRank.count*100)+'%')}catch(e){console.log(e)}
+    try{$("#pf_method_val_3").text(Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "이체").count/apRank.count*100)+'%')}catch(e){console.log(e)}
+    try{$("#pf_method_val_4").text(Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "회원권").count/apRank.count*100)+'%')}catch(e){console.log(e)}
+    try{$("#pf_method_val_5").text(Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "기타").count/apRank.count*100)+'%')}catch(e){console.log(e)}
+}
+
+function setChart5(apTypeRank){
+    apTypeRank.ap_data.forEach(function(item, counter){
+        $("#pf_type_"+(counter+1)).append(item._id.procedure);
+        $("#pf_type_value_"+(counter+1)).text(Math.round(item.count/apTypeRank.count*100)+'%');
+    })
+
+}
+
 window.onload = async function () {
     init_daterangepicker();
     init_flot_chart();
     const memberNum = await getMemberNum();
     const profitRank = await getProfitRank();
+    setChart3(profitRank);
+    const apRank = await getAppointmentMethodRank();
+    setChart4(apRank);
+    const apTypeRank = await getAppointmentTypeRank();
+    setChart5(apTypeRank);
     const apNum = await getAppointmentNum(null, null, true);
     const today = new Date();
     const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).toUTCString();
@@ -305,21 +365,7 @@ window.onload = async function () {
     $("#appointment_month_num").text(apMonthNum);
     $("#month").text(new Date().getMonth()+1);
     $("#appointment_dayavg").text(Math.round(apMonthNum/date));
-    $("#pf_rank_1").text(profitRank[0]._id.name);
-    $("#pf_value_1").text(Math.round(profitRank[0].count/10000));
-    $("#pf_pg_1").css({'width' : '100%'});
-    $("#pf_rank_2").text(profitRank[1]._id.name);
-    $("#pf_value_2").text(Math.round(profitRank[1].count/10000));
-    $("#pf_pg_2").css({'width' : Math.round((profitRank[1].count / profitRank[0].count)*100) + '%'});
-    $("#pf_rank_3").text(profitRank[2]._id.name);
-    $("#pf_value_3").text(Math.round(profitRank[2].count/10000));
-    $("#pf_pg_3").css({'width' : Math.round((profitRank[2].count / profitRank[0].count)*100) + '%'});
-    $("#pf_rank_4").text(profitRank[3]._id.name);
-    $("#pf_value_4").text(Math.round(profitRank[3].count/10000));
-    $("#pf_pg_4").css({'width' : Math.round((profitRank[3].count / profitRank[0].count)*100) + '%'});
-    $("#pf_rank_5").text(profitRank[4]._id.name);
-    $("#pf_value_5").text(Math.round(profitRank[4].count/10000));
-    $("#pf_pg_5").css({'width' : Math.round((profitRank[4].count / profitRank[0].count)*100) + '%'});
+
 
 };
 
