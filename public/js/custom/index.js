@@ -111,14 +111,7 @@ const chart_plot_02_settings = {
     },
 };
 
-function sortWithDate(a, b){
-    console.log(a);
-    if(a._id.date < b._id.date)
-        return -1;
-    if(a.index > b.index)
-        return 1;
-    return 0;
-}
+
 function getMemberNum(){
     return new Promise(function(resolve, reject){
         fetch('http://'+host+'/member_num')
@@ -195,8 +188,6 @@ async function init_flot_chart(){
 
     let ap_data = await getAppointmentNum(new Date(moment().startOf('month')).toUTCString(), new Date(moment().endOf('month')).toUTCString());
     let pf_data = await getProfitData(new Date(moment().startOf('month')).toUTCString(), new Date(moment().endOf('month')).toUTCString());
-    ap_data = ap_data.sort(sortWithDate);
-    pf_data = pf_data.sort(sortWithDate);
     let arr_data = [];
     let arr_data2 = [];
     ap_data.reduce(function (total, item) {
@@ -286,7 +277,6 @@ function init_daterangepicker() {
 
     $('#reportrange2').on('apply.daterangepicker', async function(ev, picker) {
         const pf_data = await getProfitData(picker.startDate.toISOString(), picker.endDate.toISOString() );
-
         let arr_data = [];
         pf_data.reduce(function (total, item) {
             return total.then(() => {
@@ -337,19 +327,20 @@ function setChart3(profitRank){
 }
 
 function setChart4(apRank){
-    const val1 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "현금").count/apRank.count*100);
-    const val2 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "카드").count/apRank.count*100);
-    const val3 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "이체").count/apRank.count*100);
-    const val4 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "회원권").count/apRank.count*100);
-    const val5 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "기타").count/apRank.count*100);
+    let val1 = 0, val2 = 0, val3 = 0, val4 = 0, val5 = 0;
+    if(apRank.ap_data.find(ap_item => ap_item._id.method === "현금")) val1 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "현금").count/apRank.count*100);
+    if(apRank.ap_data.find(ap_item => ap_item._id.method === "카드")) val2 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "카드").count/apRank.count*100);
+    if(apRank.ap_data.find(ap_item => ap_item._id.method === "이체")) val3 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "이체").count/apRank.count*100);
+    if(apRank.ap_data.find(ap_item => ap_item._id.method === "회원권")) val4 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "회원권").count/apRank.count*100);
+    if(apRank.ap_data.find(ap_item => ap_item._id.method === "기타")) val5 = Math.round(apRank.ap_data.find(ap_item => ap_item._id.method === "기타").count/apRank.count*100);
     const label = ["현금", "카드", "이체", "회원권", "기타"];
     const data = [val1, val2, val3, val4, val5];
     init_chart_doughnut(label, data, "dn1");
-    try{$("#pf_method_val_1").text(val1+'%')}catch(e){console.log(e)}
-    try{$("#pf_method_val_2").text(val2+'%')}catch(e){console.log(e)}
-    try{$("#pf_method_val_3").text(val3+'%')}catch(e){console.log(e)}
-    try{$("#pf_method_val_4").text(val4+'%')}catch(e){console.log(e)}
-    try{$("#pf_method_val_5").text(val5+'%')}catch(e){console.log(e)}
+    $("#pf_method_val_1").text(val1+'%');
+    $("#pf_method_val_2").text(val2+'%');
+    $("#pf_method_val_3").text(val3+'%');
+    $("#pf_method_val_4").text(val4+'%');
+    $("#pf_method_val_5").text(val5+'%');
 }
 
 function setChart5(apTypeRank){
