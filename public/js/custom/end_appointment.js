@@ -29,6 +29,7 @@ $("#btn_search_procedure").on("click", function(event){
 
 $(".checkbox_appointment.flat").on("ifClicked", function(event){
     const id = this.id;
+    $("#div_membership").empty();
     $.ajax({
         url: '/appointment/'+id,
         type: 'GET',

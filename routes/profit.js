@@ -1,6 +1,7 @@
 const checkLogin = require('../utils/check_login');
 const member_data = require('../utils/member_data');
 const Excel = require('exceljs');
+const sort = require('../utils/sort');
 
 module.exports = function (router) {
     router.get('/profit', checkLogin, function (req, res) {
@@ -95,7 +96,8 @@ module.exports = function (router) {
                 _id: {
                     "year": {"$year": {date:'$created_at',timezone:'Asia/Seoul'}},
                     "month": {"$month": {date:'$created_at',timezone:'Asia/Seoul'}},
-                    "day": {"$dayOfMonth": {date:'$created_at',timezone:'Asia/Seoul'}}
+                    "day": {"$dayOfMonth": {date:'$created_at',timezone:'Asia/Seoul'}},
+                    "date": {"$dateToString": {date:'$ap_date',timezone:'Asia/Seoul', format: "%Y-%m-%d"}}
                 },
                 count: {$sum: "$pf_value"}
             }
@@ -126,6 +128,7 @@ module.exports = function (router) {
             if (err) {
                 throw(err);
             } else {
+                data = data.sort(sort.sortWithDate);
                 res.json(data);
             }
         });

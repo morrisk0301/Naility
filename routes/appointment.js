@@ -1,6 +1,7 @@
 const checkLogin = require('../utils/check_login');
 const ms_data = require('../utils/membership_data');
 const member_data = require('../utils/member_data');
+const sort = require('../utils/sort');
 
 function convertProcedureName(database, procedure) {
     return new Promise(function (resolve, reject) {
@@ -40,7 +41,8 @@ function addProfit(database, ap_data){
             'pf_category': '시술',
             'pf_type': '매출',
             'pf_value': ap_data.ap_discount_price,
-            'pf_method': ap_data.ap_payment_method
+            'pf_method': ap_data.ap_payment_method,
+            'created_at': ap_data.ap_date
         });
         newProfit.save(function(err){
             if(err)
@@ -227,14 +229,16 @@ module.exports = function (router) {
                     _id: {
                         "year": {"$year": {date:'$ap_date',timezone:'Asia/Seoul'}},
                         "month": {"$month": {date:'$ap_date',timezone:'Asia/Seoul'}},
-                        "day": {"$dayOfMonth": {date:'$ap_date',timezone:'Asia/Seoul'}}
+                        "day": {"$dayOfMonth": {date:'$ap_date',timezone:'Asia/Seoul'}},
+                        "date": {"$dateToString": {date:'$ap_date',timezone:'Asia/Seoul', format: "%Y-%m-%d"}}
                     },
-                    count: {$sum: 1}
-                }
+                    count: {$sum: 1},
+                },
             }]).exec(function (err, data) {
                 if (err) {
                     throw(err);
                 } else {
+                    data = data.sort(sort.sortWithDate);
                     res.json(data);
                 }
             });

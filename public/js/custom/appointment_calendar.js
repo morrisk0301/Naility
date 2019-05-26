@@ -55,8 +55,6 @@ window.onload = async function() {
     await setAppointmentCalendar();
     const event = await getEvent(ap_data);
 
-
-
     if( typeof ($.fn.fullCalendar) === 'undefined'){ return; }
     console.log('init_calendar');
 
@@ -145,7 +143,7 @@ window.onload = async function() {
             }
         },
         editable: true,
-        events: event
+        events: event,
     });
 };
 

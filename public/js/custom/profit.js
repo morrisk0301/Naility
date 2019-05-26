@@ -118,7 +118,7 @@ $("#btn_excel").on("click", async function(event){
         type: 'GET',
         success: function (data) {
             const filename = moment().format('YYYY_MM_DD') + '_매출조회.xlsx';
-            saveByteArray(filename, data);
+            saveByteArray(filename, Buffer.Buffer.from(data));
         }
     });
     //

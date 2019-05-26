@@ -16,7 +16,7 @@ const chart_plot_01_settings = {
             radius: 0,
             show: true
         },
-        shadowSize: 2
+        shadowSize: 2,
     },
     grid: {
         verticalLines: true,
