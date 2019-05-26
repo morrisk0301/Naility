@@ -1,49 +1,5 @@
 const host = location.host;
 
-const chart_plot_01_settings = {
-    series: {
-        lines: {
-            show: false,
-            fill: true
-        },
-        splines: {
-            show: true,
-            tension: 0.4,
-            lineWidth: 1,
-            fill: 0.4
-        },
-        points: {
-            radius: 0,
-            show: true
-        },
-        shadowSize: 2,
-    },
-    grid: {
-        verticalLines: true,
-        hoverable: true,
-        clickable: true,
-        tickColor: "#d5d5d5",
-        borderWidth: 1,
-        color: '#fff'
-    },
-    colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
-    xaxis: {
-        tickColor: "rgba(51, 51, 51, 0.06)",
-        mode: "time",
-        tickSize: [1, "day"],
-        //tickLength: 10,
-        axisLabel: "Date",
-        axisLabelUseCanvas: true,
-        axisLabelFontSizePixels: 12,
-        axisLabelFontFamily: 'Verdana, Arial',
-        axisLabelPadding: 10
-    },
-    yaxis: {
-        ticks: 8,
-        tickColor: "rgba(51, 51, 51, 0.06)",
-    },
-    tooltip: false
-};
 const chart_plot_02_settings = {
     grid: {
         show: true,
@@ -189,39 +145,50 @@ async function init_flot_chart(){
     let ap_data = await getAppointmentNum(new Date(moment().startOf('month')).toUTCString(), new Date(moment().endOf('month')).toUTCString());
     let pf_data = await getProfitData(new Date(moment().startOf('month')).toUTCString(), new Date(moment().endOf('month')).toUTCString());
     let arr_data = [];
+    let arr_label = [];
+    let arr_label2 = [];
     let arr_data2 = [];
+
     ap_data.reduce(function (total, item) {
         return total.then(() => {
-            arr_data.push([gd(item._id.year, item._id.month, item._id.day), item.count])
+            arr_data.push(item.count);
+            arr_label.push(item._id.date);
         });
     }, Promise.resolve()).then(function () {
-        $.plot( $("#chart_plot_01"), [ arr_data ],  chart_plot_01_settings );
+        var ctx = document.getElementById("chart_plot_01");
+        var mybarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: arr_label,
+                datasets: [{
+                    label: '예약 수',
+                    backgroundColor: "#26B99A",
+                    data: arr_data
+                }]
+            },
+        });
     });
 
     pf_data.reduce(function (total, item) {
         return total.then(() => {
-            arr_data2.push([gd(item._id.year, item._id.month, item._id.day), item.count])
+            arr_data2.push(item.count);
+            arr_label2.push(item._id.date);
         });
     }, Promise.resolve()).then(function () {
-        $.plot( $("#chart_plot_02"),
-            [{
-                data: arr_data2,
-                lines: {
-                    fillColor: "rgba(150, 202, 89, 0.12)"
-                },
-                points: {
-                    fillColor: "#fff" }
-            }], chart_plot_02_settings);
+        var ctx = document.getElementById("chart_plot_02");
+        var mybarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: arr_label2,
+                datasets: [{
+                    label: '매출 금액',
+                    backgroundColor: "#03586A",
+                    data: arr_data2
+                }]
+            },
+        });
     });
 
-    if ($("#chart_plot_01").length){
-        console.log('Plot1');
-        $.plot( $("#chart_plot_01"), [ arr_data ],  chart_plot_01_settings );
-    }
-
-    if ($("#chart_plot_02").length){
-        console.log('Plot2');
-    }
 }
 
 function init_daterangepicker() {
@@ -266,32 +233,50 @@ function init_daterangepicker() {
     $('#reportrange').on('apply.daterangepicker', async function(ev, picker) {
         const ap_data = await getAppointmentNum(new Date(picker.startDate), new Date(picker.endDate));
         let arr_data = [];
+        let arr_label = [];
         ap_data.reduce(function (total, item) {
             return total.then(() => {
-                arr_data.push([gd(item._id.year, item._id.month, item._id.day), item.count])
+                arr_data.push(item.count);
+                arr_label.push(item._id.date);
             });
         }, Promise.resolve()).then(function () {
-            $.plot( $("#chart_plot_01"), [ arr_data ],  chart_plot_01_settings );
+            var ctx = document.getElementById("chart_plot_01");
+            var mybarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arr_label,
+                    datasets: [{
+                        label: '예약 수',
+                        backgroundColor: "#26B99A",
+                        data: arr_data
+                    }]
+                },
+            });
         });
     });
 
     $('#reportrange2').on('apply.daterangepicker', async function(ev, picker) {
         const pf_data = await getProfitData(picker.startDate.toISOString(), picker.endDate.toISOString() );
         let arr_data = [];
+        let arr_label = [];
         pf_data.reduce(function (total, item) {
             return total.then(() => {
-                arr_data.push([gd(item._id.year, item._id.month, item._id.day), item.count])
+                arr_data.push(item.count);
+                arr_label.push(item._id.date);
             });
         }, Promise.resolve()).then(function () {
-            $.plot( $("#chart_plot_02"),
-                [{
-                    data: arr_data,
-                    lines: {
-                        fillColor: "rgba(150, 202, 89, 0.12)"
-                    },
-                    points: {
-                        fillColor: "#fff" }
-                }], chart_plot_02_settings);
+            var ctx = document.getElementById("chart_plot_02");
+            var mybarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: arr_label,
+                    datasets: [{
+                        label: '매출 금액',
+                        backgroundColor: "#03586A",
+                        data: arr_data
+                    }]
+                },
+            });
         });
     });
 
