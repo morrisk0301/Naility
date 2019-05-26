@@ -1,5 +1,5 @@
 const checkLogin = require('../utils/check_login');
-const ms_data = require('../utils/membership_data');
+const member_data = require('../utils/member_data');
 
 module.exports = function (router) {
 
@@ -103,7 +103,8 @@ module.exports = function (router) {
         }, function (err, result) {
             result.member_name = name;
             result.member_phone = phone;
-            result.save(function (err) {
+            result.save(async function (err, save_result) {
+                await member_data.modifyNamePhone(database, save_result);
                 res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
                 res.write('<script type="text/javascript">alert("회원이 수정되었습니다.");window.opener.location.reload();window.close();</script>');
                 res.end();

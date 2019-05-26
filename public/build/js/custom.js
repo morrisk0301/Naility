@@ -430,7 +430,7 @@ if (typeof NProgress != 'undefined') {
 	}
 
 
-	function init_chart_doughnut(){
+	function init_chart_doughnut(labels, data, id){
 
 		if( typeof (Chart) === 'undefined'){ return; }
 
@@ -442,15 +442,9 @@ if (typeof NProgress != 'undefined') {
 				type: 'doughnut',
 				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
 				data: {
-					labels: [
-						"Symbian",
-						"Blackberry",
-						"Other",
-						"Android",
-						"IOS"
-					],
+					labels: labels,
 					datasets: [{
-						data: [15, 20, 30, 10, 30],
+						data: data,
 						backgroundColor: [
 							"#BDC3C7",
 							"#9B59B6",
@@ -473,11 +467,9 @@ if (typeof NProgress != 'undefined') {
 				}
 			}
 
-			$('.canvasDoughnut').each(function(){
-
+			$('#'+id).each(function(){
 				var chart_element = $(this);
 				var chart_doughnut = new Chart( chart_element, chart_doughnut_settings);
-
 			});
 
 		}
@@ -4603,7 +4595,6 @@ if (typeof NProgress != 'undefined') {
 		init_select2();
 		init_validator();
 		init_DataTables();
-		init_chart_doughnut();
 		init_gauge();
 		init_PNotify();
 		init_starrr();
