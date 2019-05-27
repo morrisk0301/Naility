@@ -1,8 +1,8 @@
-const checkLogin = require('../utils/check_login');
+const checkAuth = require('../utils/check_auth');
 
 module.exports = function (router, passport) {
 
-    router.get('/user', checkLogin, function (req, res) {
+    router.get('/user', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
 
@@ -13,7 +13,7 @@ module.exports = function (router, passport) {
         })
     });
 
-    router.get('/user/:userID', checkLogin, function (req, res) {
+    router.get('/user/:userID', checkAuth.checkLogin, function (req, res) {
         const userID = req.params.userID;
         const database = req.app.get('database');
 
@@ -27,7 +27,7 @@ module.exports = function (router, passport) {
         })
     });
 
-    router.get('/user_num', checkLogin, function (req, res) {
+    router.get('/user_num', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
 
         database.UserModel.find().count(function (err, count) {
@@ -91,29 +91,7 @@ module.exports = function (router, passport) {
         })(req, res);
     });
 
-    router.put('/withdrawal', function (req, res) {
-        if (!req.user)
-            return res.json({login: false});
-
-        const database = req.app.get('database');
-        const email = req.user.user_email;
-
-        database.UserModel.findOne({
-            'user_email': email
-        }, function (err, result) {
-            if (err)
-                throw err;
-            result.user_is_unregistered = true;
-            result.save(function (err) {
-                if (err)
-                    throw err;
-                req.logout();
-                res.json({withdrawal: true});
-            })
-        })
-    });
-
-    router.put('/user/approve/:id', checkLogin, function (req, res) {
+    router.put('/user/approve/:id', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const userID = req.params.id;
 
@@ -122,16 +100,23 @@ module.exports = function (router, passport) {
         }, function(err, result){
             if (err)
                 throw err;
-            result.user_type = 0;
-            result.save(function(err){
+            if(result.user_type === 0){
                 res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                res.write('<script type="text/javascript">alert("관리자가 승인 되었습니다.");window.location.reload();</script>');
+                res.write('<script type="text/javascript">alert("관리자 계정은 변경이 불가능합니다.");window.location.reload();</script>');
                 res.end();
-            })
+            }
+            else{
+                result.user_type = 2;
+                result.save(function(err){
+                    res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                    res.write('<script type="text/javascript">alert("직원 승인 되었습니다.");window.location.reload();</script>');
+                    res.end();
+                })
+            }
         })
     });
 
-    router.put('/user/disprove/:id', checkLogin, function (req, res) {
+    router.put('/user/disprove/:id', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const userID = req.params.id;
 
@@ -140,12 +125,19 @@ module.exports = function (router, passport) {
         }, function(err, result){
             if (err)
                 throw err;
-            result.user_type = 1;
-            result.save(function(err){
+            if(result.user_type === 0){
                 res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                res.write('<script type="text/javascript">alert("관리자가 승인 취소 되었습니다.");window.location.reload();</script>');
+                res.write('<script type="text/javascript">alert("관리자 계정은 변경이 불가능합니다.");window.location.reload();</script>');
                 res.end();
-            })
+            }
+            else{
+                result.user_type = 1;
+                result.save(function(err){
+                    res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                    res.write('<script type="text/javascript">alert("직원 승인 취소 되었습니다.");window.location.reload();</script>');
+                    res.end();
+                })
+            }
         })
     });
 };

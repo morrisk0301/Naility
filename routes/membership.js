@@ -1,4 +1,4 @@
-const checkLogin = require('../utils/check_login');
+const checkAuth = require('../utils/check_auth');
 const member_data = require('../utils/member_data');
 const ms_data = require('../utils/membership_data');
 
@@ -26,7 +26,7 @@ function modifyProfit(database, is_del, ms_data, query) {
 
 module.exports = function (router) {
 
-    router.get('/membership', checkLogin, function (req, res) {
+    router.get('/membership', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
@@ -63,7 +63,7 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/membership/:id', checkLogin, function (req, res) {
+    router.get('/membership/:id', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const ms_id = req.params.id;
         const query = req.query.query ? req.query.query : false;
@@ -81,7 +81,7 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/membership_member/:id', checkLogin, async function(req, res){
+    router.get('/membership_member/:id', checkAuth.checkLogin, async function(req, res){
         const database = req.app.get('database');
         const member_id = req.params.id;
 
@@ -102,15 +102,14 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/edit_membership', checkLogin, function (req, res) {
+    router.get('/edit_membership', checkAuth.checkAuth, function (req, res) {
         res.render('edit_membership', {userID: req.user.user_userID});
     });
 
-    router.post('/membership', checkLogin, async function (req, res) {
+    router.post('/membership', checkAuth.checkAuthJson, async function (req, res) {
         const database = req.app.get('database');
         const member_id = req.body.member_id;
         const namePhone = await member_data.getNamePhone(database, member_id);
-        console.log(namePhone);
         const exp_date = new Date(req.body.exp_date);
         const ms_data = {
             'msd_value' : req.body.value,
@@ -135,7 +134,7 @@ module.exports = function (router) {
 
     });
 
-    router.put('/membership', checkLogin, async function (req, res){
+    router.put('/membership', checkAuth.checkAuthJson, async function (req, res){
         const database = req.app.get('database');
         const ms_id = req.body.ms_id;
         const get_member_id = req.body.get_member_id;
@@ -213,69 +212,6 @@ module.exports = function (router) {
 
             })
         })
-        /*
-
-        if (type === "충전")
-            value = req.body.value;
-        else if (type === "양도") {
-            value = -req.body.value;
-            get_value = req.body.value;
-            if (membership_value + value < 0)
-                return res.json(false);
-        } else if (type === "환불") {
-            value = -(req.body.value - fee);
-            if (membership_value - req.body.value < 0)
-                return res.json(false);
-        }
-
-        const newMembership = new database.MembershipModel({
-            'ms_member_id': member_id,
-            'ms_member_name': namePhone.member_name,
-            'ms_member_phone': namePhone.member_phone,
-            'ms_value': value,
-            'ms_type': type
-        });
-
-        newMembership.save(async function (err, save_result) {
-            if (err)
-                throw err;
-            if (type === "양도") {
-                const newMembership2 = new database.MembershipModel({
-                    'ms_member_id': get_member_id,
-                    'ms_member_name': get_namePhone.member_name,
-                    'ms_member_phone': get_namePhone.member_phone,
-                    'ms_value': get_value,
-                    'ms_type': "양수"
-                });
-                newMembership2.save(function (err) {
-                    if (err)
-                        throw err;
-                    res.json(true);
-                });
-            } else if (type === "환불") {
-                const newMembership2 = new database.MembershipModel({
-                    'ms_member_id': member_id,
-                    'ms_member_name': namePhone.member_name,
-                    'ms_member_phone': namePhone.member_phone,
-                    'ms_value': -fee,
-                    'ms_type': "수수료"
-                });
-                newMembership2.save(async function (err) {
-                    if (err)
-                        throw err;
-                    await modifyProfit(database, save_result, true);
-                    res.json(true);
-                });
-            } else {
-                await modifyProfit(database, save_result, false);
-                process.nextTick(function () {
-                    res.json(true);
-                })
-
-            }
-        })
-
-         */
     });
 
 };

@@ -1,8 +1,8 @@
-const checkLogin = require('../utils/check_login');
+const checkAuth = require('../utils/check_auth');
 
 module.exports = function (router) {
 
-    router.get('/procedure', checkLogin, function (req, res) {
+    router.get('/procedure', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
@@ -21,7 +21,7 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/procedure/search', checkLogin, function (req, res) {
+    router.get('/procedure/search', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const name = req.query.name ? req.query.name : "";
         const page = req.query.page ? req.query.page : 1;
@@ -37,11 +37,11 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/add_procedure', checkLogin, function (req, res) {
+    router.get('/add_procedure', checkAuth.checkAuth, function (req, res) {
         res.render('add_procedure', {userID: req.user.user_userID, modify: false, procedure: null});
     });
 
-    router.get('/procedure/:id', checkLogin, function (req, res) {
+    router.get('/procedure/:id', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const procedure_id = req.params.id;
         database.ProcedureModel.findOne({
@@ -51,7 +51,7 @@ module.exports = function (router) {
         })
     });
 
-    router.post('/procedure', checkLogin, function (req, res) {
+    router.post('/procedure', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const name = req.body.name;
         const category = req.body.category;
@@ -70,7 +70,7 @@ module.exports = function (router) {
         })
     });
 
-    router.put('/procedure/:id', checkLogin, function (req, res) {
+    router.put('/procedure/:id', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const procedure_id = req.params.id;
         const name = req.body.name;
@@ -91,7 +91,7 @@ module.exports = function (router) {
         })
     });
 
-    router.delete('/procedure/:id', checkLogin, function (req, res) {
+    router.delete('/procedure/:id', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const procedure_id = req.params.id;
 

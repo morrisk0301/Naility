@@ -1,4 +1,4 @@
-const checkLogin = require('../utils/check_login');
+const checkAuth = require('../utils/check_auth');
 const ms_data = require('../utils/membership_data');
 const member_data = require('../utils/member_data');
 const sort = require('../utils/sort');
@@ -95,7 +95,7 @@ function modifyMembership(database, ms_id, price) {
 
 module.exports = function (router) {
 
-    router.get('/appointment', checkLogin, function (req, res) {
+    router.get('/appointment', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
@@ -141,7 +141,7 @@ module.exports = function (router) {
         }
     });
 
-    router.get('/end_appointment', checkLogin, function (req, res) {
+    router.get('/end_appointment', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
 
@@ -152,7 +152,7 @@ module.exports = function (router) {
         });
     });
 
-    router.get('/appoint_unfinished_num', function (req, res) {
+    router.get('/appoint_unfinished_num', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
 
         database.AppointmentModel.find({
@@ -162,7 +162,7 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/appointment_month', checkLogin, function (req, res) {
+    router.get('/appointment_month', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const date = new Date();
         const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -178,16 +178,16 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/view_appointment', checkLogin, function (req, res) {
+    router.get('/view_appointment', checkAuth.checkLogin, function (req, res) {
         res.render('view_appointment', {userID: req.user.user_userID, modify: false});
     });
 
-    router.get('/appointment_calendar', checkLogin, function (req, res) {
+    router.get('/appointment_calendar', checkAuth.checkLogin, function (req, res) {
         res.render('appointment_calendar', {userID: req.user.user_userID});
     });
 
 
-    router.get('/appointment/:id', checkLogin, function (req, res) {
+    router.get('/appointment/:id', checkAuth.checkAuthClose, function (req, res) {
         const database = req.app.get('database');
         const ap_id = req.params.id;
         const query = req.query.query ? req.query.query : false;
@@ -206,7 +206,7 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/appointment_member/:id', checkLogin, function (req, res) {
+    router.get('/appointment_member/:id', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const member_id = req.params.id;
         database.AppointmentModel.find({
@@ -216,7 +216,7 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/appointment_num', checkLogin, function (req, res) {
+    router.get('/appointment_num', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const start = req.query.start;
         const end = req.query.end;
@@ -262,7 +262,7 @@ module.exports = function (router) {
         }
     });
 
-    router.get('/apointment_method_rank', checkLogin, function (req, res) {
+    router.get('/apointment_method_rank', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         database.AppointmentModel.aggregate([{
             $match: {
@@ -288,7 +288,7 @@ module.exports = function (router) {
         });
     });
 
-    router.get('/apointment_method_rank', checkLogin, function (req, res) {
+    router.get('/apointment_method_rank', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         database.AppointmentModel.aggregate([{
             $match: {
@@ -314,7 +314,7 @@ module.exports = function (router) {
         });
     });
 
-    router.get('/appointment_type_rank', checkLogin, function (req, res) {
+    router.get('/appointment_type_rank', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         database.AppointmentModel.aggregate([{
             $match: {
@@ -346,7 +346,7 @@ module.exports = function (router) {
         });
     });
 
-    router.post('/appointment', checkLogin, async function (req, res) {
+    router.post('/appointment', checkAuth.checkLogin, async function (req, res) {
         const database = req.app.get('database');
         const member_id = req.body.member_id;
         const procedure = JSON.parse(req.body.procedure);
@@ -376,7 +376,7 @@ module.exports = function (router) {
         })
     });
 
-    router.put('/appointment/:id', checkLogin, async function (req, res) {
+    router.put('/appointment/:id', checkAuth.checkAuth, async function (req, res) {
         const database = req.app.get('database');
         const query = req.query.query ? req.query.query : false;
         const ap_id = req.params.id;
@@ -455,7 +455,7 @@ module.exports = function (router) {
         })
     });
 
-    router.delete('/appointment/:id', checkLogin, async function (req, res) {
+    router.delete('/appointment/:id', checkAuth.checkAuth, async function (req, res) {
         const database = req.app.get('database');
         const ap_id = req.params.id;
 

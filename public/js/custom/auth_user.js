@@ -23,7 +23,7 @@ window.onload = async function () {
 
 $("#btn_approve").on('click', function(event){
     let check = false;
-    $(".checkbox_procedure").each(function(index, obj){
+    $(".checkbox_user").each(function(index, obj){
         if(this.checked){
             check = true;
             if(confirm("정말 승인 하시겠습니까?")) {
@@ -44,7 +44,7 @@ $("#btn_approve").on('click', function(event){
 
 $("#btn_disprove").on('click', function(event){
     let check = false;
-    $(".checkbox_procedure").each(function(index, obj){
+    $(".checkbox_user").each(function(index, obj){
         if(this.checked){
             check = true;
             if(confirm("정말 승인 취소 하시겠습니까?")) {

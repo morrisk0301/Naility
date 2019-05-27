@@ -152,7 +152,7 @@
                                             <th class="column-title">번호 </th>
                                             <th class="column-title">관리자 ID </th>
                                             <th class="column-title">이름 </th>
-                                            <th class="column-title">승인 여부 </th>
+                                            <th class="column-title">계정 유형 </th>
                                             <th class="column-title">생성일 </th>
                                             </th>
                                             <th class="bulk-actions" colspan="7">
@@ -163,6 +163,10 @@
 
                                         <tbody>
                                         <%for(var i=0;i<user.length;i++){
+                                            let type;
+                                            if(user[i].user_type ===0) type="관리자";
+                                            else if(user[i].user_type ===1) type="미승인 유저";
+                                            else if(user[i].user_type ===2) type="직원";
                                         if(i%2===0){%>
                                         <tr class="even pointer">
                                             <td class="a-center">
@@ -171,7 +175,7 @@
                                             <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
                                             <td class=" "><%=user[i].user_userID%></td>
                                             <td class=" "><%=user[i].user_name%></td>
-                                            <td class=" "><%=user[i].user_type === 0 ? "승인" : "미승인"%></td>
+                                            <td class=" "><%=type%></td>
                                             <td class="a-right a-right "><%=user[i].created_at.getFullYear() + '년 '+ (user[i].created_at.getMonth() + 1).toString() + '월 ' + user[i].created_at.getDate() + '일 '%></td>
                                         </tr>
                                         <%}else{%>
@@ -182,14 +186,14 @@
                                             <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
                                             <td class=" "><%=user[i].user_userID%></td>
                                             <td class=" "><%=user[i].user_name%></td>
-                                            <td class=" "><%=user[i].user_type === 0 ? "승인" : "미승인"%></td>
+                                            <td class=" "><%=type%></td>
                                             <td class="a-right a-right "><%=user[i].created_at.getFullYear() + '년 '+ (user[i].created_at.getMonth() + 1).toString() + '월 ' + user[i].created_at.getDate() + '일 '%></td>
                                         </tr>
                                         <%}}%>
                                         </tbody>
                                     </table>
-                                    <button class="btn btn-dark alignright" id="btn_disprove">관리자 승인 취소 </button>
-                                    <button class="btn btn-dark alignright" id="btn_approve">관리자 승인 </button>
+                                    <button class="btn btn-dark alignright" id="btn_disprove">직원 승인 취소 </button>
+                                    <button class="btn btn-dark alignright" id="btn_approve">직원 승인 </button>
                                     <div class="text-center"id="page-selection"></div>
                                 </div>
                             </div>

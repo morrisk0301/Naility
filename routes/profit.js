@@ -1,10 +1,10 @@
-const checkLogin = require('../utils/check_login');
+const checkAuth = require('../utils/check_auth');
 const member_data = require('../utils/member_data');
 const Excel = require('exceljs');
 const sort = require('../utils/sort');
 
 module.exports = function (router) {
-    router.get('/profit', checkLogin, function (req, res) {
+    router.get('/profit', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
@@ -75,11 +75,11 @@ module.exports = function (router) {
         }
     });
 
-    router.get('/add_profit', checkLogin, function (req, res) {
+    router.get('/add_profit', checkAuth.checkAuth, function (req, res) {
         res.render('add_profit', {userID: req.user.user_userID});
     });
 
-    router.get('/profit_num', checkLogin, function(req, res){
+    router.get('/profit_num', checkAuth.checkLogin, function(req, res){
         const database = req.app.get('database');
         const start = req.query.start;
         const end = req.query.end;
@@ -111,7 +111,7 @@ module.exports = function (router) {
         });
     });
 
-    router.get('/profit_rank', checkLogin, function(req, res){
+    router.get('/profit_rank', checkAuth.checkLogin, function(req, res){
         const database = req.app.get('database');
 
         database.ProfitModel.aggregate([{
@@ -135,7 +135,7 @@ module.exports = function (router) {
     });
 
 
-    router.post('/profit', checkLogin, async function (req, res) {
+    router.post('/profit', checkAuth.checkAuth, async function (req, res) {
         const database = req.app.get('database');
         const namePhone = await member_data.getNamePhone(database, req.body.member_id);
 

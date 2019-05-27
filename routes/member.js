@@ -1,9 +1,9 @@
-const checkLogin = require('../utils/check_login');
+const checkAuth = require('../utils/check_auth');
 const member_data = require('../utils/member_data');
 
 module.exports = function (router) {
 
-    router.get('/member', checkLogin, function (req, res) {
+    router.get('/member', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
@@ -26,14 +26,14 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/member_num', checkLogin, function (req, res) {
+    router.get('/member_num', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         database.MemberModel.find({}).count(function (err, result) {
             res.json(result);
         })
     });
 
-    router.get('/member/search', checkLogin, function (req, res) {
+    router.get('/member/search', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const name = req.query.name ? req.query.name : "";
         const page = req.query.page ? req.query.page : 1;
@@ -56,12 +56,12 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/add_member', checkLogin, function (req, res) {
+    router.get('/add_member', checkAuth.checkLogin, function (req, res) {
         const ap = req.query.ap ? req.query.ap : false;
         res.render('add_member', {userID: req.user.user_userID, modify: false, member: null, ap: ap});
     });
 
-    router.get('/member/:id', checkLogin, function (req, res) {
+    router.get('/member/:id', checkAuth.checkAuthClose, function (req, res) {
         const database = req.app.get('database');
         const member_id = req.params.id;
         database.MemberModel.findOne({
@@ -71,7 +71,7 @@ module.exports = function (router) {
         })
     });
 
-    router.post('/member', checkLogin, function (req, res) {
+    router.post('/member', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const name = req.body.name;
         const phone = req.body.phone;
@@ -92,7 +92,7 @@ module.exports = function (router) {
         })
     });
 
-    router.put('/member/:id', checkLogin, function (req, res) {
+    router.put('/member/:id', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const member_id = req.params.id;
         const name = req.body.name;
@@ -112,7 +112,7 @@ module.exports = function (router) {
         })
     });
 
-    router.delete('/member/:id', checkLogin, function (req, res) {
+    router.delete('/member/:id', checkAuth.checkAuth, function (req, res) {
         const database = req.app.get('database');
         const member_id = req.params.id;
 
