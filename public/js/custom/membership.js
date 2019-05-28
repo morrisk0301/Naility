@@ -23,7 +23,7 @@ function init_daterangepicker() {
         minDate: '01/01/2019',
         maxDate: '12/31/2100',
         dateLimit: {
-            days: 60
+            days: 730
         },
         showDropdowns: true,
         showWeekNumbers: true,

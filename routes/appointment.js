@@ -130,7 +130,6 @@ module.exports = function (router) {
             }, function (err, results) {
                 if (err)
                     throw err;
-                console.log(results);
                 res.render('appointment', {
                     userID: req.user.user_userID,
                     appointment: results.docs,
