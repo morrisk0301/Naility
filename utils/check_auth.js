@@ -1,4 +1,6 @@
 function checkAuth(req, res, next){
+    req.session._garbage = Date();
+    req.session.touch();
     if(!req.user)
         res.redirect('login');
     else if(req.user.user_type !== 0){
@@ -11,6 +13,8 @@ function checkAuth(req, res, next){
 }
 
 function checkAuthClose(req, res, next){
+    req.session._garbage = Date();
+    req.session.touch();
     if(!req.user)
         res.redirect('login');
     else if(req.user.user_type !== 0){
@@ -23,6 +27,8 @@ function checkAuthClose(req, res, next){
 }
 
 function checkAuthJson(req, res, next){
+    req.session._garbage = Date();
+    req.session.touch();
     if(!req.user)
         res.redirect('login');
     else if(req.user.user_type !== 0){
@@ -33,6 +39,8 @@ function checkAuthJson(req, res, next){
 }
 
 function checkLogin(req, res, next){
+    req.session._garbage = Date();
+    req.session.touch();
     if(!req.user)
         res.redirect('login');
     else if(req.user.user_type !== 0 && req.user.user_type !== 2)
