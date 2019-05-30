@@ -48,8 +48,9 @@ function getProcedureName(database, procedure_id) {
 function addProfit(database, ap_data) {
     return new Promise(function (resolve, reject) {
         const newProfit = new database.ProfitModel({
-            'pf_category': '시술',
             'pf_type': '매출',
+            'pf_category': '시술',
+            'pf_category_id': ap_data.ap_id,
             'pf_value': ap_data.ap_discount_price,
             'pf_method': ap_data.ap_payment_method,
             'member_data': ap_data.member_data,
@@ -66,11 +67,25 @@ function addProfit(database, ap_data) {
     })
 }
 
-function modifyMembership(database, ms_id, price) {
+function deleteProfit(database, ap_id) {
+    return new Promise(function (resolve, reject) {
+        database.ProfitModel.deleteOne({
+            'pf_category': '시술',
+            'pf_category_id': ap_id
+        }, function(err){
+            if(err)
+                console.log(err);
+            console.log('매출 제거 완료!');
+            resolve(true);
+        });
+    })
+}
+
+function modifyMembership(database, ms_id, price, change) {
     return new Promise(async function (resolve, reject) {
         const ms_data = {
             'msd_value': -price,
-            'msd_type': '사용',
+            'msd_type': !change ? '사용': '기타',
             'msd_method': '회원권',
         };
         database.MembershipModel.findOne({
@@ -87,6 +102,23 @@ function modifyMembership(database, ms_id, price) {
                     resolve(true);
                 }
             })
+        });
+    })
+}
+
+function modifyMethod(database, ap_id, ap_method) {
+    return new Promise(function (resolve, reject) {
+        database.ProfitModel.findOne({
+            'pf_category': '시술',
+            'pf_category_id': ap_id
+        }, function(err, result){
+            if(err)
+                console.log(err);
+            result.pf_method = ap_method;
+            result.save(function(err){
+                console.log('매출 변경 완료!');
+                resolve(true);
+            });
         });
     })
 }
@@ -216,7 +248,7 @@ module.exports = function (router) {
 
         database.AppointmentModel.find({
             'member_data': {$in:search_ids}
-        }, function (err, results) {
+        }).populate('member_data').exec(function(err, results) {
             res.json(results);
         })
     });
@@ -358,6 +390,7 @@ module.exports = function (router) {
     });
 
     router.put('/appointment/:id', checkAuth.checkAuth, async function (req, res) {
+        console.log(req.body);
         const database = req.app.get('database');
         const query = req.query.query ? req.query.query : false;
         const ap_id = req.params.id;
@@ -373,6 +406,9 @@ module.exports = function (router) {
         const procedure_name = !req.body.searched ? false: await convertProcedureName(database, procedure);
         const procedure_arr = !req.body.searched ? procedure: await convertProcedureArr(database, procedure);
         const membership_value = !ms_id ? 0 : await ms_data.checkMembershipLeft(database, ms_id);
+        let no_mem = false;
+        let yes_mem = false;
+        let diff_method = false;
 
         database.AppointmentModel.findOne({
             'ap_id': ap_id
@@ -399,6 +435,15 @@ module.exports = function (router) {
                         result.ap_price = price;
                         result.ap_discount_price = real_price;
                     }
+                    if(result.ap_payment_method === "회원권" && method !== "회원권"){
+                        no_mem = true;
+                        result.ap_ms_id = null;
+                    }
+                    if(result.ap_payment_method !== "회원권" && method === "회원권"){
+                        yes_mem = true;
+                        result.ap_ms_id = ms_id;
+                    }
+                    if(result.ap_payment_method !== method) diff_method = true;
                     result.ap_payment_method = method;
                     result.ap_detail = detail;
                     result.ap_blacklist = blacklist;
@@ -411,6 +456,16 @@ module.exports = function (router) {
                     if (query === 'date')
                         return res.json(true);
                     else if (query === "modify") {
+                        if (yes_mem) {
+                            await modifyMembership(database, ms_id, result.ap_discount_price);
+                            await deleteProfit(database, result.ap_id);
+                        }
+                        else if(no_mem){
+                            await addProfit(database, result);
+                            await modifyMembership(database, ms_id, -result.ap_discount_price, true);
+                        }
+                        else if(diff_method)
+                            await modifyMethod(database, result.ap_id, result.ap_payment_method);
                         process.nextTick(function () {
                             res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
                             res.write('<script type="text/javascript">alert("예약이 수정되었습니다.");window.opener.location.reload();window.close();</script>');

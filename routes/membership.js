@@ -5,8 +5,9 @@ const ms_data = require('../utils/membership_data');
 function modifyProfit(database, is_del, ms_data, query) {
     return new Promise(function (resolve, reject) {
         const newProfit = new database.ProfitModel({
-            'pf_category': '회원권',
             'pf_type': is_del ? "환불" : "매출",
+            'pf_category': '회원권',
+            'pf_category_id': ms_data.ms_id,
             'pf_method': query.msd_method,
             'pf_value': query.msd_value,
             'member_data': ms_data.member_data,

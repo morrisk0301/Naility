@@ -12,6 +12,7 @@ Schema.createSchema = function(mongoose) {
         , ap_price: {type: Number, required: true}
         , ap_discount_price: {type: Number}
         , ap_payment_method: {type: String}
+        , ap_ms_id: {type: Number}
         , ap_detail: {type: String, 'default': ""}
         , ap_blacklist: {type: Boolean}
         , ap_is_finished: {type: Boolean, 'default': false}

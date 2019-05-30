@@ -61,7 +61,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12" id="test">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>예약 상세정보 </h2>
+                            <h4>예약 상세정보 </h4>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -116,10 +116,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="div_method">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">결제 수단</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <select class="form-control" name="method" id="payment_method">
+                                            <select class="form-control" name="method" id="method">
                                                 <option><%=ap.ap_payment_method%> </option>
                                             </select>
                                         </div>
@@ -282,6 +282,8 @@
 <script src="../js/custom/view_appointment.js"></script>
 <script type="text/javascript">
     const blacklist = "<%=ap.ap_blacklist%>" === "true";
+    const member_id = "<%=ap.member_data[0].member_id%>"
+    const ms_id = "<%=ap.ap_ms_id%>";
 </script>
 
 </body>

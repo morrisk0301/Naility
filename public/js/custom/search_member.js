@@ -55,8 +55,8 @@ $(".flat").on("ifClicked", async function(event){
         if(counter%2===0){
             $("#ap_tbody").append('<tr class="odd pointer">' +
                 '<td class=" ">'+(counter+1)+'</td>' +
-                '<td class=" ">'+item.ap_member_name+'</td>' +
-                '<td class=" ">'+item.ap_member_phone+'</td>' +
+                '<td class=" ">'+item.member_data[0].member_name+'</td>' +
+                '<td class=" ">'+item.member_data[0].member_phone+'</td>' +
                 '<td class=" ">'+item.ap_procedure_name+'</td>' +
                 '<td class=" ">'+blacklist+'</td>' +
                 '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +
@@ -64,8 +64,8 @@ $(".flat").on("ifClicked", async function(event){
         } else{
             $("#ap_tbody").append('<tr class="even pointer">' +
                 '<td class=" ">'+(counter+1)+'</td>' +
-                '<td class=" ">'+item.ap_member_name+'</td>' +
-                '<td class=" ">'+item.ap_member_phone+'</td>' +
+                '<td class=" ">'+item.member_data[0].member_name+'</td>' +
+                '<td class=" ">'+item.member_data[0].member_phone+'</td>' +
                 '<td class=" ">'+item.ap_procedure_name+'</td>' +
                 '<td class=" ">'+blacklist+'</td>' +
                 '<td class="a-right a-right ">'+date.getFullYear()+'년 '+(date.getMonth()+1).toString()+'월 '+ date.getDate()+'일 '+date.getHours()+'시 '+date.getMinutes()+'분 '+'</td>' +

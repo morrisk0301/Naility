@@ -3,6 +3,7 @@ const url_string = location.search.split("&page=" + page)[0].replace("?", "");
 const host = location.host;
 const urlParams = new URLSearchParams(window.location.search);
 const userParam = urlParams.get('user');
+let ms_raw;
 
 function getMembershipInfo(id) {
     return new Promise(function (resolve, reject) {
@@ -18,7 +19,7 @@ function appendTable(id) {
     return new Promise(async function (resolve, reject) {
         $("#ap_tbody").empty();
 
-        const ms_raw = await getMembershipInfo(id);
+        ms_raw = await getMembershipInfo(id);
         const ms_data = ms_raw.ms_data;
 
         ms_data.forEach(function (item, counter) {
@@ -103,12 +104,15 @@ $(document).on("click", ".select_ms", function () {
                 window.opener.document.getElementById('give_name').disabled = true;
                 window.opener.document.getElementById('give_membership').textContent = "회원권 ID: " + ms_id;
             } else if (query === "membership_refund") {
+                const value_left = ms_raw.value.find(value_item => value_item.ms_id === parseInt(ms_id));
                 window.opener.refund_searched = true;
                 window.opener.refund_member_id = this.id;
                 window.opener.refund_ms_id = ms_id;
                 window.opener.document.getElementById('refund_name').value = $("#name_" + this.id.toString()).text();
                 window.opener.document.getElementById('refund_name').disabled = true;
                 window.opener.document.getElementById('refund_membership').textContent = "회원권 ID: " + ms_id;
+                window.opener.document.getElementById('refund_value').value = value_left.value_left;
+                window.opener.document.getElementById('refund_value').disabled = true;
             }
             window.close();
             check = true;

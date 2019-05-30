@@ -9,6 +9,8 @@ Schema.createSchema = function(mongoose) {
         , pf_type: {type: String, required: true}
         , pf_category: {type: String, required: true}
         , pf_method: {type: String, required: true}
+        , pf_category_id: {type: Number}
+        , pf_msd_id: {type: Number}
         , member_data: [{ type: mongoose.Schema.Types.ObjectId, ref: 'member' }]
         , created_at: {type: Date, 'default': Date.now}
     });
