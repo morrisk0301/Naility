@@ -3,6 +3,18 @@ const member_data = require('../utils/member_data');
 const Excel = require('exceljs');
 const sort = require('../utils/sort');
 
+function getTotalSum(database, searchQuery){
+    return new Promise(function(resolve, reject){
+        database.ProfitModel.find(searchQuery, function(err, results){
+            let sum = 0;
+            results.forEach(function(item){
+                sum += item.pf_value;
+            });
+            resolve(sum);
+        })
+    })
+}
+
 module.exports = function (router) {
     router.get('/profit', checkAuth.checkAuth, async function (req, res) {
         const database = req.app.get('database');
@@ -14,7 +26,7 @@ module.exports = function (router) {
         let memSearchQuery = {};
 
         if(!search)
-            return res.render('profit', {userID: req.user.user_userID, profit: [], page:1, num:0});
+            return res.render('profit', {userID: req.user.user_userID, profit: [], page:1, num:0, totalSum:0});
         if(req.query.name)
             memSearchQuery.member_name = {$regex: new RegExp(req.query.name, "i")};
         if(req.query.phone)
@@ -77,14 +89,16 @@ module.exports = function (router) {
                 limit: 15,
                 sort: {created_at: -1},
                 populate: 'member_data'
-            }, function (err, results) {
+            }, async function (err, results) {
                 if (err)
                     throw err;
+                const totalSum = await getTotalSum(database, searchQuery);
                 res.render('profit', {
                     userID: req.user.user_userID,
                     profit: results.docs,
                     page: page,
-                    num: results.total
+                    num: results.total,
+                    totalSum: totalSum
                 });
             })
         }

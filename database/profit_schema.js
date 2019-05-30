@@ -5,10 +5,7 @@ let Schema = {};
 Schema.createSchema = function(mongoose) {
 
     let ProfitSchema = mongoose.Schema({
-        pf_member_id: {type: Number},
-        pf_member_name: {type: String},
-        pf_member_phone: {type: String}
-        , pf_value: {type: Number, required: true}
+        pf_value: {type: Number, required: true}
         , pf_type: {type: String, required: true}
         , pf_category: {type: String, required: true}
         , pf_method: {type: String, required: true}

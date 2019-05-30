@@ -19,7 +19,7 @@ function getEvent(ap_data){
         let event = [];
         ap_data.forEach(function(item){
             const query = {
-                title: item.member_data[0].member_name+'('+item.member_data[0].member_phone+')',
+                title: item.member_data[0].member_name+'['+item.member_data[0].member_contact+']'+'('+item.member_data[0].member_phone+')',
                 start: new Date(item.ap_date),
                 end: new Date(item.ap_date_end),
                 id: item.ap_id
@@ -224,7 +224,7 @@ $("#btn_appointment_new").on("click", function(event){
                 setAppointmentCalendar().then(() =>{
                     $('.antoclose').click();
                     $('#calendar').fullCalendar('renderEvent', {
-                            title: data.member_data[0].member_name+'('+data.member_data[0].member_phone+')',
+                            title: data.member_data[0].member_name+'['+data.member_data[0].member_contact+']'+'('+data.member_data[0].member_phone+')',
                             start: new Date(data.ap_date),
                             end: new Date(data.ap_date_end),
                             id: data.ap_id

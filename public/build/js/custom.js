@@ -446,18 +446,18 @@ if (typeof NProgress != 'undefined') {
 					datasets: [{
 						data: data,
 						backgroundColor: [
-							"#BDC3C7",
+							"#3498DB",
+							"#26B99A",
 							"#9B59B6",
 							"#E74C3C",
-							"#26B99A",
-							"#3498DB"
+							"#BDC3C7"
 						],
 						hoverBackgroundColor: [
-							"#CFD4D8",
-							"#B370CF",
-							"#E95E4F",
-							"#36CAAB",
-							"#49A9EA"
+							"#3498DB",
+							"#26B99A",
+							"#9B59B6",
+							"#E74C3C",
+							"#BDC3C7"
 						]
 					}]
 				},

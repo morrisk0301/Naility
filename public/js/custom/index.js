@@ -1,72 +1,5 @@
 const host = location.host;
-
-const chart_plot_02_settings = {
-    grid: {
-        show: true,
-        aboveData: true,
-        color: "#3f3f3f",
-        labelMargin: 10,
-        axisMargin: 0,
-        borderWidth: 0,
-        borderColor: null,
-        minBorderMargin: 5,
-        clickable: true,
-        hoverable: true,
-        autoHighlight: true,
-        mouseActiveRadius: 100
-    },
-    series: {
-        lines: {
-            show: true,
-            fill: true,
-            lineWidth: 2,
-            steps: false
-        },
-        points: {
-            show: true,
-            radius: 4.5,
-            symbol: "circle",
-            lineWidth: 3.0
-        }
-    },
-    legend: {
-        position: "ne",
-        margin: [0, -25],
-        noColumns: 0,
-        labelBoxBorderColor: null,
-        labelFormatter: function(label, series) {
-            return label + '&nbsp;&nbsp;';
-        },
-        width: 40,
-        height: 1
-    },
-    colors: ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'],
-    shadowSize: 0,
-    tooltip: true,
-    tooltipOpts: {
-        content: "%s: %y.0",
-        xDateFormat: "%d/%m",
-        shifts: {
-            x: -30,
-            y: -50
-        },
-        defaultTheme: false
-    },
-    yaxis: {
-        min: 0
-    },
-    xaxis: {
-        mode: "time",
-        tickSize: [1, "day"],
-        //tickLength: 10,
-        axisLabel: "Date",
-        axisLabelUseCanvas: true,
-        axisLabelFontSizePixels: 12,
-        axisLabelFontFamily: 'Verdana, Arial',
-        axisLabelPadding: 10
-    },
-};
-
+let chart1, chart2;
 
 function getMemberNum(){
     return new Promise(function(resolve, reject){
@@ -136,6 +69,22 @@ function daysInMonth (month, year) {
     return new Date(year, month, 0).getDate();
 }
 
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+
 async function init_flot_chart(){
 
     if( typeof ($.plot) === 'undefined'){ return; }
@@ -155,8 +104,8 @@ async function init_flot_chart(){
             arr_label.push(item._id.date);
         });
     }, Promise.resolve()).then(function () {
-        var ctx = document.getElementById("chart_plot_01");
-        var mybarChart = new Chart(ctx, {
+        const ctx = document.getElementById("chart_plot_01");
+        chart1 = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: arr_label,
@@ -175,8 +124,8 @@ async function init_flot_chart(){
             arr_label2.push(item._id.date);
         });
     }, Promise.resolve()).then(function () {
-        var ctx = document.getElementById("chart_plot_02");
-        var mybarChart = new Chart(ctx, {
+        const ctx = document.getElementById("chart_plot_02");
+        chart2 = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: arr_label2,
@@ -240,18 +189,13 @@ function init_daterangepicker() {
                 arr_label.push(item._id.date);
             });
         }, Promise.resolve()).then(function () {
-            var ctx = document.getElementById("chart_plot_01");
-            var mybarChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: arr_label,
-                    datasets: [{
-                        label: '예약 수',
-                        backgroundColor: "#26B99A",
-                        data: arr_data
-                    }]
-                },
-            });
+            chart1.data.datasets = [{
+                label: '예약 수',
+                backgroundColor: "#26B99A",
+                data: arr_data
+            }];
+            chart1.data.labels = arr_label;
+            chart1.update();
         });
     });
 
@@ -265,18 +209,13 @@ function init_daterangepicker() {
                 arr_label.push(item._id.date);
             });
         }, Promise.resolve()).then(function () {
-            var ctx = document.getElementById("chart_plot_02");
-            var mybarChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: arr_label,
-                    datasets: [{
-                        label: '매출 금액',
-                        backgroundColor: "#03586A",
-                        data: arr_data
-                    }]
-                },
-            });
+            chart2.data.datasets = [{
+                label: '매출 금액',
+                backgroundColor: "#03586A",
+                data: arr_data
+            }];
+            chart2.data.labels = arr_label;
+            chart2.update();
         });
     });
 
@@ -295,19 +234,19 @@ function init_daterangepicker() {
 
 function setChart3(profitRank){
     try{$("#pf_rank_1").text(profitRank[0]._id.name)}catch(e){console.log(e)}
-    try{$("#pf_value_1").text(Math.round(profitRank[0].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_value_1").text(Math.round(profitRank[0].count/1000)/10)}catch(e){console.log(e)}
     try{$("#pf_pg_1").css({'width' : '100%'})}catch(e){console.log(e)}
     try{$("#pf_rank_2").text(profitRank[1]._id.name)}catch(e){console.log(e)}
-    try{$("#pf_value_2").text(Math.round(profitRank[1].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_value_2").text(Math.round(profitRank[1].count/1000)/10)}catch(e){console.log(e)}
     try{$("#pf_pg_2").css({'width' : Math.round((profitRank[1].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
     try{$("#pf_rank_3").text(profitRank[2]._id.name)}catch(e){console.log(e)}
-    try{$("#pf_value_3").text(Math.round(profitRank[2].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_value_3").text(Math.round(profitRank[2].count/1000)/10)}catch(e){console.log(e)}
     try{$("#pf_pg_3").css({'width' : Math.round((profitRank[2].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
     try{$("#pf_rank_4").text(profitRank[3]._id.name)}catch(e){console.log(e)}
-    try{$("#pf_value_4").text(Math.round(profitRank[3].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_value_4").text(Math.round(profitRank[3].count/1000)/10)}catch(e){console.log(e)}
     try{$("#pf_pg_4").css({'width' : Math.round((profitRank[3].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
     try{$("#pf_rank_5").text(profitRank[4]._id.name)}catch(e){console.log(e)}
-    try{$("#pf_value_5").text(Math.round(profitRank[4].count/10000))}catch(e){console.log(e)}
+    try{$("#pf_value_5").text(Math.round(profitRank[4].count/1000)/10)}catch(e){console.log(e)}
     try{$("#pf_pg_5").css({'width' : Math.round((profitRank[4].count / profitRank[0].count)*100) + '%'})}catch(e){console.log(e)}
 }
 

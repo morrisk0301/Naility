@@ -1,5 +1,5 @@
 const member_id = location.pathname.split('/')[2];
-const contact_arr = ["전화", "인스타그램", "페이스북", "로드", "기타"]
+const contact_arr = ["전화", "문자", "카카오톡", "인스타그램", "페이스북", "로드", "지인", "기타"];
 
 
 function checkPhone(phone){

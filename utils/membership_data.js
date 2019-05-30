@@ -54,7 +54,7 @@ function expireMembership(database){
             }
             else {
                 resolve(true);
-
+                /*
                 results.reduce(function (total, item, counter) {
                     return total.then(() => deleteValue(database, item).then((success) => {
 
@@ -62,7 +62,7 @@ function expireMembership(database){
                 }, Promise.resolve()).then(function () {
                     console.log('유효기간 만료 회원권 초기화 완료!');
                     resolve(true);
-                });
+                });*/
             }
         })
     })
