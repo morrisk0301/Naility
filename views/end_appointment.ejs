@@ -164,25 +164,18 @@
                                         <%for(var i=0;i<appointment.length;i++){
                                         if(i%2===0){%>
                                         <tr class="even pointer">
-                                            <td class="a-center">
-                                                <input type="radio" class="checkbox_appointment flat" name="table_records" id="<%=appointment[i].ap_id%>">
-                                            </td>
-                                            <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                            <td class=" "><%=appointment[i].ap_member_name%></td>
-                                            <td class=" "><%=appointment[i].ap_member_phone%></td>
-                                            <td class="a-right a-right "><%=appointment[i].ap_date.getFullYear() + '년 '+ (appointment[i].ap_date.getMonth() + 1).toString() + '월 ' + appointment[i].ap_date.getDate() + '일 ' + appointment[i].ap_date.getHours() + '시 ' + appointment[i].ap_date.getMinutes() + '분 '%></td>
-                                        </tr>
                                         <%}else{%>
                                         <tr class="odd pointer">
+                                        <%}%>
                                             <td class="a-center">
                                                 <input type="radio" class="checkbox_appointment flat" name="table_records" id="<%=appointment[i].ap_id%>">
                                             </td>
                                             <td class=" "><%=(parseInt(page)-1)*5+i+1%></td>
-                                            <td class=" "><%=appointment[i].ap_member_name%></td>
-                                            <td class=" "><%=appointment[i].ap_member_phone%></td>
+                                            <td class=" "><%=appointment[i].member_data[0].member_name%></td>
+                                            <td class=" "><%=appointment[i].member_data[0].member_phone%></td>
                                             <td class="a-right a-right "><%=appointment[i].ap_date.getFullYear() + '년 '+ (appointment[i].ap_date.getMonth() + 1).toString() + '월 ' + appointment[i].ap_date.getDate() + '일 ' + appointment[i].ap_date.getHours() + '시 ' + appointment[i].ap_date.getMinutes() + '분 '%></td>
                                         </tr>
-                                        <%}}%>
+                                        <%}%>
                                         </tbody>
                                     </table>
                                     <div class="text-center"id="page-selection"></div>

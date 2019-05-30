@@ -48,13 +48,11 @@ function getProcedureName(database, procedure_id) {
 function addProfit(database, ap_data) {
     return new Promise(function (resolve, reject) {
         const newProfit = new database.ProfitModel({
-            'pf_member_id': ap_data.ap_member_id,
-            'pf_member_name': ap_data.ap_member_name,
-            'pf_member_phone': ap_data.ap_member_phone,
             'pf_category': '시술',
             'pf_type': '매출',
             'pf_value': ap_data.ap_discount_price,
             'pf_method': ap_data.ap_payment_method,
+            'member_data': ap_data.member_data,
             'created_at': ap_data.ap_date
         });
         newProfit.save(function (err) {
@@ -95,7 +93,7 @@ function modifyMembership(database, ms_id, price) {
 
 module.exports = function (router) {
 
-    router.get('/appointment', checkAuth.checkLogin, function (req, res) {
+    router.get('/appointment', checkAuth.checkLogin, async function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
@@ -103,9 +101,10 @@ module.exports = function (router) {
         const start = req.query.start;
         const end = req.query.end;
         let searchQuery = {};
+        let memSearchQuerh = {};
 
         if (query === 'calendar') {
-            database.AppointmentModel.find({}).select('ap_id ap_date ap_date_end ap_member_name ap_member_phone ap_procedure_name ap_price').exec(function (err, result) {
+            database.AppointmentModel.find({}).populate('member_data').select('ap_id ap_date ap_date_end member_data ap_procedure_name ap_price').exec(function (err, result) {
                 res.json(result);
             });
         } else if (!search) {
@@ -114,9 +113,12 @@ module.exports = function (router) {
             })
         } else {
             if (req.query.name)
-                searchQuery.ap_member_name = {$regex: new RegExp(req.query.name, "i")};
+                memSearchQuerh.member_name = {$regex: new RegExp(req.query.name, "i")};
             if (req.query.phone)
-                searchQuery.ap_member_phone = {$regex: new RegExp(req.query.phone, "i")};
+                memSearchQuerh.member_phone = {$regex: new RegExp(req.query.phone, "i")};
+
+            const search_ids = await member_data.getIds(database, memSearchQuerh);
+            searchQuery.member_data = {$in:search_ids};
             if (start && end) {
                 searchQuery.ap_date = {
                     "$gte": new Date(start),
@@ -126,7 +128,8 @@ module.exports = function (router) {
             database.AppointmentModel.paginate(searchQuery, {
                 page: page,
                 limit: 15,
-                sort: {created_at: -1}
+                sort: {created_at: -1},
+                populate: 'member_data'
             }, function (err, results) {
                 if (err)
                     throw err;
@@ -146,7 +149,7 @@ module.exports = function (router) {
 
         database.AppointmentModel.paginate({
             'ap_is_finished': false
-        }, {page: page, limit: 5, sort: {created_at: -1}}, function (err, results) {
+        }, {page: page, limit: 5, sort: {created_at: -1}, populate:'member_data'}, function (err, results) {
             res.render('end_appointment', {userID: req.user.user_userID, appointment: results.docs, page: page});
         });
     });
@@ -193,7 +196,7 @@ module.exports = function (router) {
 
         database.AppointmentModel.findOne({
             'ap_id': ap_id
-        }, function (err, result) {
+        }).populate('member_data').exec(function (err, result) {
             if (!query)
                 return res.json({ap: result});
             else
@@ -205,11 +208,14 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/appointment_member/:id', checkAuth.checkLogin, function (req, res) {
+    router.get('/appointment_member/:id', checkAuth.checkLogin, async function (req, res) {
         const database = req.app.get('database');
         const member_id = req.params.id;
+        const memSearchQuery = {member_id: member_id};
+        const search_ids = await member_data.getIds(database, memSearchQuery);
+
         database.AppointmentModel.find({
-            'ap_member_id': member_id
+            'member_data': {$in:search_ids}
         }, function (err, results) {
             res.json(results);
         })
@@ -261,33 +267,8 @@ module.exports = function (router) {
         }
     });
 
-    router.get('/apointment_method_rank', checkAuth.checkLogin, function (req, res) {
-        const database = req.app.get('database');
-        database.AppointmentModel.aggregate([{
-            $match: {
-                'ap_is_finished': true,
-            }
-        }, {
-            $group: {
-                _id: {
-                    "method": "$ap_payment_method",
-                },
-                count: {$sum: "$ap_discount_price"}
-            }
-        }]).sort({count: -1}).limit(5).exec(function (err, data) {
-            if (err) {
-                throw(err);
-            } else {
-                let sum = 0;
-                data.forEach(function(item){
-                    sum += item.count;
-                });
-                res.json({ap_data: data, count: sum });
-            }
-        });
-    });
 
-    router.get('/apointment_method_rank', checkAuth.checkLogin, function (req, res) {
+    router.get('/appointment_method_rank', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         database.AppointmentModel.aggregate([{
             $match: {
@@ -352,26 +333,27 @@ module.exports = function (router) {
         const date = req.body.date;
         const date_end = req.body.date_end;
         const price = req.body.price;
-        const namePhone = await member_data.getNamePhone(database, member_id);
+        const objId = await member_data.getOneId(database, member_id);
         const procedure_name = await convertProcedureName(database, procedure);
         const procedure_arr = await convertProcedureArr(database, procedure);
 
         const newAppointment = new database.AppointmentModel({
-            'ap_member_id': member_id,
-            'ap_member_name': namePhone.member_name,
-            'ap_member_phone': namePhone.member_phone,
             'ap_procedure_name': procedure_name,
             'ap_procedure_arr': procedure_arr,
             'ap_date': date,
             'ap_date_end': date_end,
-            'ap_price': price
+            'ap_price': price,
+            'member_data': objId._id
         });
 
         newAppointment.save(function (err, result) {
             if (err) {
                 res.json({err: err});
-            } else
-                res.json(result)
+            } else{
+                newAppointment.populate({path:'member_data'}, function(err, result){
+                    res.json(result);
+                })
+            }
         })
     });
 

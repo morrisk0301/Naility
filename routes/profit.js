@@ -4,20 +4,25 @@ const Excel = require('exceljs');
 const sort = require('../utils/sort');
 
 module.exports = function (router) {
-    router.get('/profit', checkAuth.checkAuth, function (req, res) {
+    router.get('/profit', checkAuth.checkAuth, async function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
         const start = req.query.start;
         const end = req.query.end;
         let searchQuery = {};
+        let memSearchQuery = {};
 
         if(!search)
             return res.render('profit', {userID: req.user.user_userID, profit: [], page:1, num:0});
         if(req.query.name)
-            searchQuery.pf_member_name = {$regex: new RegExp(req.query.name, "i")};
+            memSearchQuery.member_name = {$regex: new RegExp(req.query.name, "i")};
         if(req.query.phone)
-            searchQuery.pf_member_phone = {$regex: new RegExp(req.query.phone, "i")};
+            memSearchQuery.member_phone = {$regex: new RegExp(req.query.phone, "i")};
+
+        const search_ids = await member_data.getIds(database, memSearchQuery);
+        searchQuery.member_data = {$in:search_ids};
+
         if(req.query.type)
             searchQuery.pf_type = {$regex: new RegExp(req.query.type, "i")};
         if(req.query.category)
@@ -31,9 +36,8 @@ module.exports = function (router) {
                 "$lt": new Date(end)
             }
         }
-
         if(req.query.excel){
-            database.ProfitModel.find(searchQuery, function(err, result){
+            database.ProfitModel.find(searchQuery).populate('member_data').exec(function(err, result){
                 const workbook = new Excel.Workbook();
                 const worksheet = workbook.addWorksheet('매출 조회');
                 worksheet.columns = [
@@ -48,7 +52,17 @@ module.exports = function (router) {
                 ];
                 result.reduce(function (total, item, counter) {
                     return total.then(async function () {
-                        worksheet.addRow(item);
+                        worksheet.addRow({
+                            'pf_id': item.pf_id,
+                            'pf_member_id': item.member_data[0].member_id,
+                            'pf_member_name': item.member_data[0].member_name,
+                            'pf_member_phone': item.member_data[0].member_phone,
+                            'pf_type': item.pf_type,
+                            'pf_category': item.pf_category,
+                            'pf_method': item.pf_method,
+                            'pf_value': item.pf_value,
+                            'created_at': item.created_at
+                        });
                     })
                 }, Promise.resolve()).then(function () {
                     workbook.xlsx.writeBuffer().then((buffer) => {
@@ -61,7 +75,8 @@ module.exports = function (router) {
             database.ProfitModel.paginate(searchQuery, {
                 page: page,
                 limit: 15,
-                sort: {created_at: -1}
+                sort: {created_at: -1},
+                populate: 'member_data'
             }, function (err, results) {
                 if (err)
                     throw err;
@@ -115,17 +130,25 @@ module.exports = function (router) {
         const database = req.app.get('database');
 
         database.ProfitModel.aggregate([{
-            $match: {}
+                "$lookup": {
+                    "from": "members",
+                    "localField": "member_data",
+                    "foreignField": "_id",
+                    "as": "member_data"
+                }
         }, {
-            $group: {
-                _id: {
-                    "id": "$pf_member_id",
-                    "name": "$pf_member_name",
-                    "phone": "$pf_member_phone",
-                },
-                count: {$sum: "$pf_value"}
+            $unwind: '$member_data',
+        }, {
+                $group: {
+                    _id: {
+                        "id": "$member_data.member_id",
+                        "name": "$member_data.member_name",
+                        "phone": "$member_data.member_phone",
+                    },
+                    count: {$sum: "$pf_value"}
+                }
             }
-        }]).sort({count: -1}).limit(5).exec(function (err, data) {
+    ]).sort({count: -1}).limit(5).exec(function (err, data) {
             if (err) {
                 throw(err);
             } else {
@@ -137,16 +160,14 @@ module.exports = function (router) {
 
     router.post('/profit', checkAuth.checkAuth, async function (req, res) {
         const database = req.app.get('database');
-        const namePhone = await member_data.getNamePhone(database, req.body.member_id);
+        const ojbId = await member_data.getOneId(database, req.body.member_id);
 
         const newProfit = new database.ProfitModel({
-            'pf_member_id': req.body.member_id,
-            'pf_member_name': namePhone.member_name,
-            'pf_member_phone': namePhone.member_phone,
             'pf_value': req.body.pf_value,
             'pf_type': req.body.pf_type,
             'pf_category': req.body.pf_category,
-            'pf_method': req.body.pf_method
+            'pf_method': req.body.pf_method,
+            'member_data': ojbId._id
         });
         newProfit.save(function(err){
             if(err)

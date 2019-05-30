@@ -76,7 +76,7 @@ window.onload = async function () {
     }
     init_daterangepicker();
     $('#page-selection').bootpag({
-        total: Math.ceil(parseInt(page_num)/2),
+        total: Math.ceil(parseInt(page_num)/15),
         page: page
     }).on("page", function(event, num){
         window.location = "/membership?"+url_string+"&page="+num.toString();

@@ -114,7 +114,7 @@ $("#btn_excel").on("click", async function(event){
     const method = $("#search_method").val() === "결제 수단" ? "" : $("#search_method").val();
     const query = "name="+$("#search_name").val()+"&phone="+$("#search_phone").val()+"&type="+type+"&category="+category+"&method="+method+"&start="+start+"&end="+end;
     $.ajax({
-        url: '/profit?search=true&excel=true&/'+query,
+        url: '/profit?search=true&excel=true&'+query,
         type: 'GET',
         success: function (data) {
             const filename = moment().format('YYYY_MM_DD') + '_매출조회.xlsx';

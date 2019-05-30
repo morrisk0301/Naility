@@ -7,6 +7,7 @@ Schema.createSchema = function(mongoose) {
     let MemberSchema = mongoose.Schema({
         member_name: {type: String, required: true}
         , member_phone: {type: String, required: true}
+        , member_contact: {type: String, required: true}
         , created_at: {type: Date, 'default': Date.now}
     });
 

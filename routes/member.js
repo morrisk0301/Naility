@@ -1,5 +1,4 @@
 const checkAuth = require('../utils/check_auth');
-const member_data = require('../utils/member_data');
 
 module.exports = function (router) {
 
@@ -58,7 +57,7 @@ module.exports = function (router) {
 
     router.get('/add_member', checkAuth.checkLogin, function (req, res) {
         const ap = req.query.ap ? req.query.ap : false;
-        res.render('add_member', {userID: req.user.user_userID, modify: false, member: null, ap: ap});
+        res.render('add_member', {userID: req.user.user_userID, modify: false, member: [], ap: ap});
     });
 
     router.get('/member/:id', checkAuth.checkAuthClose, function (req, res) {
@@ -75,11 +74,13 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const name = req.body.name;
         const phone = req.body.phone;
+        const contact = req.body.contact;
         const ap = req.body.ap !== 'false';
 
         const newMember = new database.MemberModel({
             'member_name': name,
-            'member_phone': phone
+            'member_phone': phone,
+            'member_contact': contact
         });
 
         newMember.save(function (err, save_result) {
@@ -97,35 +98,21 @@ module.exports = function (router) {
         const member_id = req.params.id;
         const name = req.body.name;
         const phone = req.body.phone;
+        const contact = req.body.contact;
 
         database.MemberModel.findOne({
             'member_id': member_id
         }, function (err, result) {
             result.member_name = name;
             result.member_phone = phone;
-            result.save(async function (err, save_result) {
-                await member_data.modifyNamePhone(database, save_result);
+            result.member_contact = contact;
+            result.save(function (err) {
                 res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
                 res.write('<script type="text/javascript">alert("회원이 수정되었습니다.");window.opener.location.reload();window.close();</script>');
                 res.end();
             })
         })
     });
-
-    router.delete('/member/:id', checkAuth.checkAuth, function (req, res) {
-        const database = req.app.get('database');
-        const member_id = req.params.id;
-
-        database.MemberModel.deleteOne({
-            'member_id': member_id
-        }, function (err) {
-            if (err)
-                throw err;
-            res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-            res.write('<script type="text/javascript">alert("회원 삭제되었습니다.");window.location.reload();</script>');
-            res.end();
-        });
-    })
 
 
 };

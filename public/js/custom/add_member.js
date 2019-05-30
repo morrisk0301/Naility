@@ -1,4 +1,5 @@
 const member_id = location.pathname.split('/')[2];
+const contact_arr = ["전화", "인스타그램", "페이스북", "로드", "기타"]
 
 
 function checkPhone(phone){
@@ -18,11 +19,16 @@ function checkPhone(phone){
 }
 
 $("#form_member").on("submit", function(event){
+    if($("#member_contact").val()==="연락 경로를 선택하세요"){
+        alert("연락 경로를 올바르게 선택하세요");
+        return false;
+    }
     if(checkPhone($("#member_phone"))){
         const name = $("#member_name").val();
         const query = {
             name: name,
             phone: $("#member_phone").val(),
+            contact: $("#member_contact").val(),
             ap: ap
         };
         $.ajax({
@@ -45,12 +51,17 @@ $("#form_member").on("submit", function(event){
 })
 
 $("#form_member2").on("submit", function(event){
+    if($("#member_contact2").val()===""){
+        alert("연락 경로를 올바르게 선택하세요");
+        return false;
+    }
     if(checkPhone($("#member_phone2"))){
         const query = {
             name: $("#member_name2").val(),
             phone: $("#member_phone2").val(),
+            contact: $("#member_contact2").val(),
             ap: false
-        }
+        };
         $.ajax({
             url: '/member/'+member_id,
             type: 'PUT',
@@ -66,3 +77,11 @@ $("#form_member2").on("submit", function(event){
     }
     return false;
 });
+
+window.onload = function(){
+    contact_arr.forEach(function(item){
+        if(contact === item)
+            return;
+        $("#member_contact2").append("<option>"+item+"</option>");
+    })
+};

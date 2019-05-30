@@ -19,7 +19,7 @@ function getEvent(ap_data){
         let event = [];
         ap_data.forEach(function(item){
             const query = {
-                title: item.ap_member_name+'('+item.ap_member_phone+')',
+                title: item.member_data[0].member_name+'('+item.member_data[0].member_phone+')',
                 start: new Date(item.ap_date),
                 end: new Date(item.ap_date_end),
                 id: item.ap_id
@@ -101,7 +101,7 @@ window.onload = async function() {
             const ampm = parseInt(start_date.getHours()/12) === 0 ? 'AM' : 'PM';
             const ampm_end = parseInt(end_date.getHours()/12) === 0 ? 'AM' : 'PM';
 
-            $("#ap_name2").text(ap_selected.ap_member_name);
+            $("#ap_name2").text(ap_selected.member_data[0].member_name);
             $("#ap_procedure2").text(ap_selected.ap_procedure_name);
             $("#ap_price2").text(ap_selected.ap_price);
             $("#date2").text(("0" + (start_date.getMonth() + 1)).slice(-2) + '/' + ("0" +
@@ -219,11 +219,12 @@ $("#btn_appointment_new").on("click", function(event){
         type: 'POST',
         data: query,
         success: function (data) {
+            console.log(data);
             if(!data.err){
                 setAppointmentCalendar().then(() =>{
                     $('.antoclose').click();
                     $('#calendar').fullCalendar('renderEvent', {
-                            title: data.ap_member_name+'('+data.ap_member_phone+')',
+                            title: data.member_data[0].member_name+'('+data.member_data[0].member_phone+')',
                             start: new Date(data.ap_date),
                             end: new Date(data.ap_date_end),
                             id: data.ap_id

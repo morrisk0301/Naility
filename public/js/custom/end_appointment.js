@@ -46,8 +46,8 @@ $(".checkbox_appointment.flat").on("ifClicked", function(event){
                 ("0" + rawDate_end.getMinutes()).slice(-2) + ' ' + ampm_end;
 
             window.procedure = data.ap.ap_procedure_arr;
-            window.ap_member_id = data.ap.ap_member_id;
-            $("#name").text(data.ap.ap_member_name);
+            window.ap_member_id = data.ap.member_data[0].member_id;
+            $("#name").text(data.ap.member_data[0].member_name);
             $("#ap_procedure").val(data.ap.ap_procedure_name);
             $("#date").text(date);
             $("#date_end").text(date_end);

@@ -5,13 +5,11 @@ const ms_data = require('../utils/membership_data');
 function modifyProfit(database, is_del, ms_data, query) {
     return new Promise(function (resolve, reject) {
         const newProfit = new database.ProfitModel({
-            'pf_member_id': ms_data.ms_member_id,
-            'pf_member_name': ms_data.ms_member_name,
-            'pf_member_phone': ms_data.ms_member_phone,
             'pf_category': '회원권',
             'pf_type': is_del ? "환불" : "매출",
             'pf_method': query.msd_method,
-            'pf_value': query.msd_value
+            'pf_value': query.msd_value,
+            'member_data': ms_data.member_data,
         });
         newProfit.save(function (err) {
             if (err)
@@ -26,20 +24,24 @@ function modifyProfit(database, is_del, ms_data, query) {
 
 module.exports = function (router) {
 
-    router.get('/membership', checkAuth.checkLogin, function (req, res) {
+    router.get('/membership', checkAuth.checkLogin, async function (req, res) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
         const start = req.query.start;
         const end = req.query.end;
         let searchQuery = {};
+        let memSearchQuerh = {};
 
         if(!search)
             return res.render('membership', {userID: req.user.user_userID, membership: [], page:1, num:0});
         if(req.query.name)
-            searchQuery.ms_member_name = {$regex: new RegExp(req.query.name, "i")};
+            memSearchQuerh.member_name = {$regex: new RegExp(req.query.name, "i")};
         if(req.query.phone)
-            searchQuery.ms_member_phone = {$regex: new RegExp(req.query.phone, "i")};
+            memSearchQuerh.member_phone = {$regex: new RegExp(req.query.phone, "i")};
+
+        const search_ids = await member_data.getIds(database, memSearchQuerh);
+        searchQuery.member_data = {$in:search_ids};
         if(start && end){
             searchQuery.ms_exp_date = {
                 "$gte": new Date(start),
@@ -50,11 +52,12 @@ module.exports = function (router) {
         database.MembershipModel.paginate(searchQuery, {
             page: page,
             limit: 15,
-            sort: {created_at: -1}
+            sort: {created_at: -1},
+            populate: 'member_data'
         }, function (err, results) {
             if (err)
                 throw err;
-            res.render('membership', {
+            res.render('membership',{
                 userID: req.user.user_userID,
                 membership: results.docs,
                 page: page,
@@ -70,7 +73,7 @@ module.exports = function (router) {
 
         database.MembershipModel.findOne({
             'ms_id': ms_id
-        },  function (err, result) {
+        }).populate('member_data').exec(function (err, result) {
             if (!query)
                 return res.json({ap: result});
             else
@@ -84,10 +87,12 @@ module.exports = function (router) {
     router.get('/membership_member/:id', checkAuth.checkLogin, async function(req, res){
         const database = req.app.get('database');
         const member_id = req.params.id;
+        const memSearchQuery = {member_id: member_id};
+        const search_ids = await member_data.getIds(database, memSearchQuery);
 
         database.MembershipModel.find({
-            'ms_member_id': member_id
-        }).sort({created_at: -1}).exec(function(err, results){
+            'member_data': {$in:search_ids}
+        }).populate('member_data').sort({created_at: -1}).exec(function(err, results){
             let value_arr = [];
             results.reduce(function (total, item, counter) {
                 return total.then(() => ms_data.checkMembershipLeft(database, item.ms_id).then((value) => {
@@ -109,7 +114,7 @@ module.exports = function (router) {
     router.post('/membership', checkAuth.checkAuthJson, async function (req, res) {
         const database = req.app.get('database');
         const member_id = req.body.member_id;
-        const namePhone = await member_data.getNamePhone(database, member_id);
+        const objId = await member_data.getOneId(database, member_id);
         const exp_date = new Date(req.body.exp_date);
         const ms_data = {
             'msd_value' : req.body.value,
@@ -118,9 +123,7 @@ module.exports = function (router) {
         };
 
         const newMembership = new database.MembershipModel({
-            'ms_member_id': member_id,
-            'ms_member_name': namePhone.member_name,
-            'ms_member_phone': namePhone.member_phone,
+            'member_data': objId._id,
             'ms_exp_date': exp_date,
             'ms_data': ms_data,
             'ms_init_value': req.body.value
@@ -128,8 +131,8 @@ module.exports = function (router) {
         newMembership.save(async function(err, save_result){
             if(err)
                 throw err;
-            res.json(true);
             await modifyProfit(database,false, save_result, ms_data);
+            res.json(true);
         })
 
     });
@@ -139,7 +142,7 @@ module.exports = function (router) {
         const ms_id = req.body.ms_id;
         const get_member_id = req.body.get_member_id;
         const type = req.body.type;
-        const namePhone = await member_data.getNamePhone(database, get_member_id);
+        const objId = await member_data.getOneId(database, get_member_id);
         const fee = req.body.fee ? req.body.fee : 0;
         const membership_value = await ms_data.checkMembershipLeft(database, ms_id);
         let value;
@@ -196,9 +199,7 @@ module.exports = function (router) {
                 }
                 else{
                     const newMembership = new database.MembershipModel({
-                        'ms_member_id': get_member_id,
-                        'ms_member_name': namePhone.member_name,
-                        'ms_member_phone': namePhone.member_phone,
+                        'member_data': objId._id,
                         'ms_exp_date': result.ms_exp_date,
                         'ms_data': query2,
                         'ms_init_value': get_value

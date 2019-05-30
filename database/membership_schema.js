@@ -12,13 +12,11 @@ Schema.createSchema = function(mongoose) {
     });
 
     let MembershipSchema = mongoose.Schema({
-        ms_member_id: {type: Number, required: true}
-        , ms_member_name: {type: String, required: true}
-        , ms_member_phone: {type: String, required: true}
-        , ms_data: [MembershipDetailSchema]
+        ms_data: [MembershipDetailSchema]
         , ms_init_value: {type: Number, required: true}
         , ms_exp_date: {type: Date, required: true}
         , ms_is_expired: {type: Boolean, 'default': false}
+        , member_data: [{ type: mongoose.Schema.Types.ObjectId, ref: 'member' }]
         , created_at: {type: Date, 'default': Date.now}
     });
 

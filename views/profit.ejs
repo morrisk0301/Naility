@@ -217,27 +217,19 @@
                                             sum += profit[i].pf_value;
                                         if(i%2===0){%>
                                         <tr class="even pointer">
-                                            <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
-                                            <td class=" "><%=profit[i].pf_type%></td>
-                                            <td class=" "><%=profit[i].pf_category%></td>
-                                            <td class=" "><%=profit[i].pf_method%></td>
-                                            <td class=" "><%=profit[i].pf_value%></td>
-                                            <td class=" "><%=profit[i].pf_member_name%></td>
-                                            <td class=" "><%=profit[i].pf_member_phone%></td>
-                                            <td class="a-right a-right "><%=profit[i].created_at.getFullYear() + '년 '+ (profit[i].created_at.getMonth() + 1).toString() + '월 ' + profit[i].created_at.getDate() + '일 ' + profit[i].created_at.getHours() + '시 ' + profit[i].created_at.getMinutes() + '분 '%></td>
-                                        </tr>
                                         <%}else{%>
                                         <tr class="odd pointer">
+                                        <%}%>
                                             <td class=" "><%=(parseInt(page)-1)*15+i+1%></td>
                                             <td class=" "><%=profit[i].pf_type%></td>
                                             <td class=" "><%=profit[i].pf_category%></td>
                                             <td class=" "><%=profit[i].pf_method%></td>
                                             <td class=" "><%=profit[i].pf_value%></td>
-                                            <td class=" "><%=profit[i].pf_member_name%></td>
-                                            <td class=" "><%=profit[i].pf_member_phone%></td>
+                                            <td class=" "><%=profit[i].member_data[0].member_name%></td>
+                                            <td class=" "><%=profit[i].member_data[0].member_phone%></td>
                                             <td class="a-right a-right "><%=profit[i].created_at.getFullYear() + '년 '+ (profit[i].created_at.getMonth() + 1).toString() + '월 ' + profit[i].created_at.getDate() + '일 ' + profit[i].created_at.getHours() + '시 ' + profit[i].created_at.getMinutes() + '분 '%></td>
                                         </tr>
-                                        <%}}%>
+                                        <%}%>
                                         </tbody>
                                     </table>
                                     <h3>매출 합계: <%=sum%><button class="btn btn-dark alignright" id="btn_excel">엑셀 다운로드 </button></h3>

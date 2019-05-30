@@ -188,27 +188,19 @@
                                                 const is_expired = membership[i].ms_is_expired ? "만료" : "유효";
                                             if(i%2===0){%>
                                             <tr class="even pointer">
-                                                <td class=" "><%=membership[i].ms_id%></td>
-                                                <td class=" "><%=membership[i].ms_member_name%></td>
-                                                <td class=" "><%=membership[i].ms_member_phone%></td>
-                                                <td class=" "><%=membership[i].ms_init_value%></td>
-                                                <td class=" "><%=is_expired%></td>
-                                                <td class=" "><%=membership[i].ms_exp_date.getFullYear() + '년 '+ (membership[i].ms_exp_date.getMonth() + 1).toString() + '월 ' + membership[i].ms_exp_date.getDate() + '일 ' + membership[i].ms_exp_date.getHours() + '시 ' + membership[i].ms_exp_date.getMinutes() + '분 '%></td>
-                                                <td class=" "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 ' + membership[i].created_at.getHours() + '시 ' + membership[i].created_at.getMinutes() + '분 '%></td>
-                                                <td class=" "><a target="_blank" class="btn btn-dark" href="/membership/<%=membership[i].ms_id%>?query=search">조회</a></td>
-                                            </tr>
                                             <%}else{%>
                                             <tr class="odd pointer">
+                                            <%}%>
                                                 <td class=" "><%=membership[i].ms_id%></td>
-                                                <td class=" "><%=membership[i].ms_member_name%></td>
-                                                <td class=" "><%=membership[i].ms_member_phone%></td>
+                                                <td class=" "><%=membership[i].member_data[0].member_name%></td>
+                                                <td class=" "><%=membership[i].member_data[0].member_phone%></td>
                                                 <td class=" "><%=membership[i].ms_init_value%></td>
                                                 <td class=" "><%=is_expired%></td>
                                                 <td class=" "><%=membership[i].ms_exp_date.getFullYear() + '년 '+ (membership[i].ms_exp_date.getMonth() + 1).toString() + '월 ' + membership[i].ms_exp_date.getDate() + '일 ' + membership[i].ms_exp_date.getHours() + '시 ' + membership[i].ms_exp_date.getMinutes() + '분 '%></td>
                                                 <td class=" "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 ' + membership[i].created_at.getHours() + '시 ' + membership[i].created_at.getMinutes() + '분 '%></td>
                                                 <td class=" "><a target="_blank" class="btn btn-dark" href="/membership/<%=membership[i].ms_id%>?query=search">조회</a></td>
                                             </tr>
-                                            <%}}%>
+                                            <%}%>
                                         </tbody>
                                     </table>
                                     <div class="text-center"id="page-selection"></div>

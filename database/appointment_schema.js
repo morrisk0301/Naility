@@ -5,10 +5,7 @@ let Schema = {};
 Schema.createSchema = function(mongoose) {
 
     let AppointmentSchema = mongoose.Schema({
-        ap_member_id: {type: Number, required: true}
-        , ap_member_name: {type: String, required: true}
-        , ap_member_phone: {type: String, required: true}
-        , ap_procedure_name: {type: String, required: true}
+        ap_procedure_name: {type: String, required: true}
         , ap_procedure_arr: {type: Array, required: true}
         , ap_date: {type: Date, required: true}
         , ap_date_end: {type: Date, required: true}
@@ -18,6 +15,7 @@ Schema.createSchema = function(mongoose) {
         , ap_detail: {type: String, 'default': ""}
         , ap_blacklist: {type: Boolean}
         , ap_is_finished: {type: Boolean, 'default': false}
+        , member_data: [{ type: mongoose.Schema.Types.ObjectId, ref: 'member' }]
         , created_at: {type: Date, 'default': Date.now}
     });
 

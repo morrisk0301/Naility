@@ -93,7 +93,7 @@ function getAppointmentNum(start, end, total){
 
 function getAppointmentMethodRank(){
     return new Promise(function(resolve, reject){
-        fetch('http://'+host+'/apointment_method_rank')
+        fetch('http://'+host+'/appointment_method_rank')
             .then((res) => res.json())
             .then((data) => {
                 resolve(data);
