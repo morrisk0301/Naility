@@ -29,6 +29,11 @@
         };
     };
 
+	var preloader = $('#preloader');
+	$(window).on('load', function() {
+		preloader.fadeOut('slow', function() { $(this).remove(); });
+	});
+
     // smartresize
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
