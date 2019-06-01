@@ -37,7 +37,8 @@ $("#btn_add").on("click", function(event){
             'value': $("#add_value").val(),
             'method': $("#add_method").val(),
             'type': "충전",
-            'exp_date': $("#exp_date").val()
+            'exp_date': $("#exp_date").val(),
+            'bonus': $("#add_bonus").val()
         };
         $.ajax({
             url: '/membership',

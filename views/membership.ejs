@@ -179,6 +179,7 @@
                                             <th class="column-title">회원권 이름 </th>
                                             <th class="column-title">휴대폰 번호 </th>
                                             <th class="column-title">회원권 금액</th>
+                                            <th class="column-title">잔액</th>
                                             <th class="column-title">유효 여부 </th>
                                             <th class="column-title">유효기간 </th>
                                             <th class="column-title">등록일 </th>
@@ -187,6 +188,7 @@
                                         </thead>
                                         <tbody>
                                             <%for(let i=0;i<membership.length;i++){
+                                                const value_left = value.find(value_item => value_item.ms_id === membership[i].ms_id);
                                                 const is_expired = membership[i].ms_is_expired ? "만료" : "유효";
                                             if(i%2===0){%>
                                             <tr class="even pointer">
@@ -197,6 +199,7 @@
                                                 <td class=" "><%=membership[i].member_data[0].member_name%></td>
                                                 <td class=" "><%=membership[i].member_data[0].member_phone%></td>
                                                 <td class=" "><%=membership[i].ms_init_value%></td>
+                                                <td class=" "><%=value_left.value_left%></td>
                                                 <td class=" "><%=is_expired%></td>
                                                 <td class=" "><%=membership[i].ms_exp_date.getFullYear() + '년 '+ (membership[i].ms_exp_date.getMonth() + 1).toString() + '월 ' + membership[i].ms_exp_date.getDate() + '일 ' + membership[i].ms_exp_date.getHours() + '시 ' + membership[i].ms_exp_date.getMinutes() + '분 '%></td>
                                                 <td class=" "><%=membership[i].created_at.getFullYear() + '년 '+ (membership[i].created_at.getMonth() + 1).toString() + '월 ' + membership[i].created_at.getDate() + '일 ' + membership[i].created_at.getHours() + '시 ' + membership[i].created_at.getMinutes() + '분 '%></td>

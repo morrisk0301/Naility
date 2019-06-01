@@ -58,11 +58,22 @@ module.exports = function (router) {
         }, function (err, results) {
             if (err)
                 throw err;
-            res.render('membership',{
-                userID: req.user.user_userID,
-                membership: results.docs,
-                page: page,
-                num: results.total
+            let value_arr = [];
+            results.docs.reduce(function (total, item, counter) {
+                return total.then(() => ms_data.checkMembershipLeft(database, item.ms_id).then((value) => {
+                    value_arr.push({
+                        ms_id: item.ms_id,
+                        value_left: value
+                    });
+                }))
+            }, Promise.resolve()).then(function () {
+                res.render('membership',{
+                    userID: req.user.user_userID,
+                    membership: results.docs,
+                    page: page,
+                    num: results.total,
+                    value: value_arr
+                });
             });
         })
     });
@@ -117,6 +128,14 @@ module.exports = function (router) {
         const member_id = req.body.member_id;
         const objId = await member_data.getOneId(database, member_id);
         const exp_date = new Date(req.body.exp_date);
+        const bonus = req.body.bonus;
+        console.log(bonus);
+        let ms_bonus = {};
+        if(bonus){
+            ms_bonus.msd_value = bonus;
+            ms_bonus.msd_type = '보너스';
+            ms_bonus.msd_method = '기타';
+        }
         const ms_data = {
             'msd_value' : req.body.value,
             'msd_type': '충전',
@@ -126,7 +145,7 @@ module.exports = function (router) {
         const newMembership = new database.MembershipModel({
             'member_data': objId._id,
             'ms_exp_date': exp_date,
-            'ms_data': ms_data,
+            'ms_data': bonus ? [ms_data, ms_bonus] : ms_data,
             'ms_init_value': req.body.value
         });
         newMembership.save(async function(err, save_result){
