@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7168c74f-f465-4bb6-a424-0a01130c311f" name="Default Changelist" comment="">
+    <list default="true" id="7168c74f-f465-4bb6-a424-0a01130c311f" name="Default Changelist" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/appointment_calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/appointment_calendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/custom/member.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/member.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/appointment.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/appointment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/member.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/member.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/custom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/custom/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,15 +17,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/profit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="90" column="16" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/membership.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="4074">
@@ -40,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/custom/appointment_calendar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1994">
+            <state relative-caret-position="3192">
               <caret line="152" column="101" selection-start-line="152" selection-start-column="101" selection-end-line="152" selection-end-column="101" />
             </state>
           </provider>
@@ -56,19 +44,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/js/custom/member.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/custom/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6111">
-              <caret line="291" column="26" selection-start-line="291" selection-start-column="26" selection-end-line="291" selection-end-column="26" />
+            <state relative-caret-position="699">
+              <caret line="126" column="13" selection-start-line="126" selection-start-column="13" selection-end-line="126" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -120,7 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ap_member_phone</find>
       <find>ap_mem</find>
       <find>ap</find>
       <find>apoin</find>
@@ -150,6 +128,7 @@
       <find>find</find>
       <find>created_</find>
       <find>window.</find>
+      <find>my</find>
     </findStrings>
     <replaceStrings>
       <replace>./</replace>
@@ -212,9 +191,9 @@
         <option value="$PROJECT_DIR$/views/membership.ejs" />
         <option value="$PROJECT_DIR$/public/js/custom/appointment_calendar.js" />
         <option value="$PROJECT_DIR$/routes/appointment.js" />
-        <option value="$PROJECT_DIR$/public/js/custom/index.js" />
         <option value="$PROJECT_DIR$/views/member.ejs" />
         <option value="$PROJECT_DIR$/public/js/custom/member.js" />
+        <option value="$PROJECT_DIR$/public/js/custom/index.js" />
       </list>
     </option>
   </component>
@@ -224,10 +203,11 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="966" />
+    <option name="y" value="23" />
     <option name="width" value="954" />
-    <option name="height" value="1200" />
+    <option name="height" value="1094" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -237,6 +217,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -324,7 +305,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -383,7 +363,8 @@
       <workItem from="1559008593742" duration="14604000" />
       <workItem from="1559061663136" duration="34583000" />
       <workItem from="1559461557066" duration="1007000" />
-      <workItem from="1559624699538" duration="151000" />
+      <workItem from="1559624699538" duration="199000" />
+      <workItem from="1559630274446" duration="111000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1558351951098</created>
@@ -574,22 +555,29 @@
       <option name="project" value="LOCAL" />
       <updated>1559384133230</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="update">
+      <created>1559624881754</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1559624881754</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173786000" />
+    <option name="totallyTimeSpent" value="173945000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24960506" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12216956" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.36894074" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36894074" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994614" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -632,13 +620,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/error.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/build/js/custom.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -941,10 +922,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/index.js">
+    <entry file="file://$PROJECT_DIR$/public/js/custom/appointment_calendar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6111">
-          <caret line="291" column="26" selection-start-line="291" selection-start-column="26" selection-end-line="291" selection-end-column="26" />
+        <state relative-caret-position="3192">
+          <caret line="152" column="101" selection-start-line="152" selection-start-column="101" selection-end-line="152" selection-end-column="101" />
         </state>
       </provider>
     </entry>
@@ -976,10 +957,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/appointment_calendar.js">
+    <entry file="file://$PROJECT_DIR$/public/js/custom/login.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/custom/member.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1994">
-          <caret line="152" column="101" selection-start-line="152" selection-start-column="101" selection-end-line="152" selection-end-column="101" />
+        <state relative-caret-position="-353">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>
@@ -990,10 +974,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/custom/member.js">
+    <entry file="file://$PROJECT_DIR$/public/js/custom/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
+        <state relative-caret-position="699">
+          <caret line="126" column="13" selection-start-line="126" selection-start-column="13" selection-end-line="126" selection-end-column="13" />
         </state>
       </provider>
     </entry>

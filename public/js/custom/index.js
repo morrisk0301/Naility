@@ -115,6 +115,16 @@ async function init_flot_chart(){
                     data: arr_data
                 }]
             },
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
         });
     });
 
@@ -135,6 +145,16 @@ async function init_flot_chart(){
                     data: arr_data2
                 }]
             },
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
         });
     });
 
