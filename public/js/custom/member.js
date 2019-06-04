@@ -27,6 +27,14 @@ $("#btn_member").on("click", function(event){
 });
 
 
+$("#search_text").keypress(function(e) {
+    if (e.keyCode == 13){
+        const query = $("#search_query").val() === "이름" ? "name" : "phone";
+        window.location = "/member?search="+$("#search_text").val()+"&query="+ query;
+    }
+});
+
+
 $("#btn_search").on("click", function(event){
     const query = $("#search_query").val() === "이름" ? "name" : "phone";
     window.location = "/member?search="+$("#search_text").val()+"&query="+ query;

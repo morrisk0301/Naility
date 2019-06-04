@@ -70,6 +70,7 @@ window.onload = async function() {
         selectHelper: true,
         minTime: '11:00:00',
         maxTime: '22:00:00',
+        contentHeight: 'auto',
         select: function(start, end, allDay) {
             $('#fc_create').click();
             const start_date = new Date(start);

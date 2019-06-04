@@ -203,7 +203,7 @@ module.exports = function (router) {
         const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
         database.AppointmentModel.find({
-            "created_at": {
+            "ap_date": {
                 "$gte": {date: firstDay, timezone: 'Asia/Seoul'},
                 "$lt": {date: lastDay, timezone: 'Asia/Seoul'}
             }
@@ -262,7 +262,7 @@ module.exports = function (router) {
         if (total) {
             const searchQuery = !start ? {} :
                 {
-                    "created_at": {
+                    "ap_date": {
                         "$gte": new Date(start),
                         "$lt": new Date(end)
                     }
