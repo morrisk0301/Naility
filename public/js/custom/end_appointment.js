@@ -1,5 +1,4 @@
 const host = location.host;
-const page = location.search.split("=")[1];
 let blacklist = false;
 
 function getMemberNum(){

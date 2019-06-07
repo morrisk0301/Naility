@@ -1,5 +1,3 @@
-const page = location.search.includes("page") ? location.search.split("page")[1][1] : 1;
-const url_string = location.search.split("&page="+page)[0].replace("?", "");
 const host = location.host;
 let id;
 
@@ -14,6 +12,7 @@ function getMemberInfo(id){
 }
 
 window.onload = async function () {
+    console.log(page);
     $('#page-selection').bootpag({
         total: Math.ceil(parseInt(page_num)/5),
         page: page,

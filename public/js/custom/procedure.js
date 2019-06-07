@@ -1,4 +1,3 @@
-const page = location.search.includes("page") ? location.search.split("page")[1][1] : 1;
 let id;
 
 

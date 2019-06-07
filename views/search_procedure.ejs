@@ -192,6 +192,8 @@
 <script src="../js/custom/search_procedure.js"></script>
 <script type="text/javascript">
     const page_num = "<%=num%>";
+    const page = parseInt("<%=page%>");
+    const url_string = location.search.split("&page="+page)[0].replace("?", "");
 </script>
 
 </body>

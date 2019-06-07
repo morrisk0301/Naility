@@ -1,6 +1,4 @@
 const host = location.host;
-const page = location.search.includes("page") ? location.search.split("page")[1][1] : 1;
-const url_string = location.search.split("&page="+page)[0].replace("?", "");
 let id;
 let start, end;
 const urlParams = new URLSearchParams(window.location.search);

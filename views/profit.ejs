@@ -296,10 +296,11 @@
 <script src="./vendors/moment/locale/ko.js"></script>
 <script src="./vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="./build/js/custom.js"></script>
-
 <script>
     const page_num = parseInt("<%=num%>");
     const Buffer = require('buffer');
+    const page = parseInt("<%=page%>");
+    const url_string = location.search.split("&page="+page)[0].replace("?", "");
 </script>
 </body>
 </html>

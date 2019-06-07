@@ -211,6 +211,8 @@
 <script type="text/javascript">
     const query = "<%=query%>";
     const page_num = "<%=num%>";
+    const page = parseInt("<%=page%>");
+    const url_string = location.search.split("&page="+page)[0].replace("?", "");
 </script>
 
 </body>
