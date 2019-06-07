@@ -5,7 +5,8 @@ let id;
 window.onload = async function () {
     $('#page-selection').bootpag({
         total: Math.ceil(parseInt(page_num)/15),
-        page: page
+        page: page,
+        maxVisible: 10
     }).on("page", function(event, num){
         window.location = "/procedure?page="+num.toString();
     });

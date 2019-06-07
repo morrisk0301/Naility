@@ -92,7 +92,8 @@ window.onload = async function () {
     init_daterangepicker();
     $('#page-selection').bootpag({
         total: Math.ceil(page_num/15),
-        page: page
+        page: page,
+        maxVisible: 10
     }).on("page", function(event, num){
         window.location = "/profit?"+url_string+"&page="+num.toString();
     });

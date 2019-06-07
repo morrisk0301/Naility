@@ -15,7 +15,8 @@ window.onload = async function () {
     const procedureNum = await getProcedureNum();
     $('#page-selection').bootpag({
         total: Math.ceil(procedureNum/15),
-        page: page
+        page: page,
+        maxVisible: 10
     }).on("page", function(event, num){
         window.location = "/user?page="+num.toString();
     });

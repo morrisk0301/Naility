@@ -16,7 +16,8 @@ window.onload = async function () {
     const memberNum = await getMemberNum();
     $('#page-selection').bootpag({
         total: Math.ceil(memberNum/5),
-        page: page
+        page: page,
+        maxVisible: 10
     }).on("page", function(event, num){
         window.location = "/end_appointment?page="+num.toString();
     })
