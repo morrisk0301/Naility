@@ -136,7 +136,7 @@ module.exports = function (router) {
         let memSearchQuerh = {};
 
         if (query === 'calendar') {
-            database.AppointmentModel.find({}).populate('member_data').select('ap_id ap_date ap_date_end member_data ap_procedure_name ap_price').exec(function (err, result) {
+            database.AppointmentModel.find({}).populate('member_data').select('ap_id ap_date ap_date_end ap_no_show member_data ap_procedure_name ap_price').exec(function (err, result) {
                 res.json(result);
             });
         } else if (!search) {
@@ -390,7 +390,6 @@ module.exports = function (router) {
     });
 
     router.put('/appointment/:id', checkAuth.checkAuth, async function (req, res) {
-        console.log(req.body);
         const database = req.app.get('database');
         const query = req.query.query ? req.query.query : false;
         const ap_id = req.params.id;
@@ -406,6 +405,7 @@ module.exports = function (router) {
         const procedure_name = !req.body.searched ? false: await convertProcedureName(database, procedure);
         const procedure_arr = !req.body.searched ? procedure: await convertProcedureArr(database, procedure);
         const membership_value = !ms_id ? 0 : await ms_data.checkMembershipLeft(database, ms_id);
+        const no_show = req.body.no_show;
         let no_mem = false;
         let yes_mem = false;
         let diff_method = false;
@@ -447,6 +447,7 @@ module.exports = function (router) {
                     result.ap_payment_method = method;
                     result.ap_detail = detail;
                     result.ap_blacklist = blacklist;
+                    result.ap_no_show = no_show;
                     result.ap_is_finished = true;
                 }
 

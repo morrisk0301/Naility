@@ -15,6 +15,7 @@ Schema.createSchema = function(mongoose) {
         , ap_ms_id: {type: Number}
         , ap_detail: {type: String, 'default': ""}
         , ap_blacklist: {type: Boolean}
+        , ap_no_show: {type: Boolean}
         , ap_is_finished: {type: Boolean, 'default': false}
         , member_data: [{ type: mongoose.Schema.Types.ObjectId, ref: 'member' }]
         , created_at: {type: Date, 'default': Date.now}

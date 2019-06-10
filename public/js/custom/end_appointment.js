@@ -109,8 +109,9 @@ $("#btn_appointment_delete").on('click', function(event){
         'price': $("#ap_price").text(),
         'real_price': 0,
         'method': "예약 취소",
-        'detail': "노쇼 회원입니다.",
-        'blacklist': true
+        'detail': "**********노쇼 회원**********\n"+$("#detail").val(),
+        'blacklist': true,
+        'no_show': true
     };
     if(confirm("취소 하시겠습니까?")){
         $.ajax({

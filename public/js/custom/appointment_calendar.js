@@ -22,7 +22,8 @@ function getEvent(ap_data){
                 title: item.member_data[0].member_name+'['+item.member_data[0].member_contact+']'+'('+item.member_data[0].member_phone+')',
                 start: new Date(item.ap_date),
                 end: new Date(item.ap_date_end),
-                id: item.ap_id
+                id: item.ap_id,
+                color: item.ap_no_show ? "#c20000" : ""
             };
             event.push(query);
         });

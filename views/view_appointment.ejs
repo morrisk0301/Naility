@@ -131,9 +131,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">불편 고객 여부 </label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-3">불편 고객 여부 </label>
+                                        <div class="col-md-1">
                                             <input type="checkbox" class="form-control flat" name="blacklist" id="blacklist">
+                                        </div>
+                                        <label class="control-label col-md-1">노쇼 여부 </label>
+                                        <div class="col-md-1">
+                                            <input type="checkbox" class="form-control flat"  name="no_show" id="no_show">
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
@@ -209,9 +213,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">불편 고객 여부 </label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="checkbox" class="form-control flat"  name="blacklist" id="blacklist2">
+                                        <label class="control-label col-md-3">불편 고객 여부 </label>
+                                        <div class="col-md-1">
+                                            <input type="checkbox" class="form-control flat" name="blacklist" id="blacklist2">
+                                        </div>
+                                        <label class="control-label col-md-1">노쇼 여부 </label>
+                                        <div class="col-md-1">
+                                            <input type="checkbox" class="form-control flat"  name="no_show" id="no_show2">
                                         </div>
                                     </div>
                                     <%}%>
@@ -282,6 +290,7 @@
 <script src="../js/custom/view_appointment.js"></script>
 <script type="text/javascript">
     const blacklist = "<%=ap.ap_blacklist%>" === "true";
+    const noShow = "<%=ap.ap_no_show%>" === "true";
     const member_id = "<%=ap.member_data[0].member_id%>"
     const ms_id = "<%=ap.ap_ms_id%>";
 </script>

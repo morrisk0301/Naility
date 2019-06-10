@@ -1,5 +1,6 @@
 const category = ["현금", "카드", "이체", "회원권", "기타"];
 let isBlacklist;
+let isNoShow;
 
 window.onload = async function () {
     const selected = $("#method").val();
@@ -10,6 +11,14 @@ window.onload = async function () {
     else{
         $("#blacklist").iCheck("uncheck");
         $("#blacklist2").iCheck("uncheck");
+    }
+    if(noShow){
+        $("#no_show").iCheck("check");
+        $("#no_show2").iCheck("check");
+    }
+    else{
+        $("#no_show").iCheck("uncheck");
+        $("#no_show2").iCheck("uncheck");
     }
 
     category.forEach(function(item){
@@ -46,6 +55,11 @@ $("#btn_appointment").on("click", function(event){
 $("#blacklist").on("ifChanged", function(event){
     isBlacklist = event.target.checked;
 });
+
+$("#no_show").on("ifChanged", function(event){
+    isNoShow = event.target.checked;
+});
+
 
 $("#method").on("change", function(event){
     if($("#method").val()==='회원권'){
