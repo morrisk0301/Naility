@@ -53,6 +53,7 @@ $(".checkbox_appointment.flat").on("ifClicked", function(event){
             $("#date_end").text(date_end);
             $("#ap_price").text(data.ap.ap_price);
             $("#ap_id").val(id);
+            $("#detail").val(data.ap.ap_detail);
         }
     });
 });

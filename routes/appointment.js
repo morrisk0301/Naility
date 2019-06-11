@@ -136,7 +136,7 @@ module.exports = function (router) {
         let memSearchQuerh = {};
 
         if (query === 'calendar') {
-            database.AppointmentModel.find({}).populate('member_data').select('ap_id ap_date ap_date_end ap_no_show member_data ap_procedure_name ap_price').exec(function (err, result) {
+            database.AppointmentModel.find({}).populate('member_data').select('ap_id ap_date ap_date_end ap_no_show member_data ap_detail ap_procedure_name ap_price').exec(function (err, result) {
                 res.json(result);
             });
         } else if (!search) {
@@ -365,6 +365,7 @@ module.exports = function (router) {
         const date = req.body.date;
         const date_end = req.body.date_end;
         const price = req.body.price;
+        const detail = req.body.detail;
         const objId = await member_data.getOneId(database, member_id);
         const procedure_name = await convertProcedureName(database, procedure);
         const procedure_arr = await convertProcedureArr(database, procedure);
@@ -375,6 +376,7 @@ module.exports = function (router) {
             'ap_date': date,
             'ap_date_end': date_end,
             'ap_price': price,
+            'ap_detail': detail,
             'member_data': objId._id
         });
 

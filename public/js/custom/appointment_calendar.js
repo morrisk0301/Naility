@@ -114,8 +114,7 @@ window.onload = async function() {
                 end_date.getDate()).slice(-2)+'/'+end_date.getFullYear()+' '+ (end_date.getHours()%12) + ":"+
                 ("0" + end_date.getMinutes()).slice(-2) + ' ' + ampm_end
             );
-
-
+            $("#detail2").text(ap_selected.ap_detail);
 
             $(".antosubmit2").on("click", function() {
                 calEvent.title = $("#title2").val();
@@ -214,7 +213,8 @@ $("#btn_appointment_new").on("click", function(event){
         procedure: JSON.stringify(window.procedure),
         date: $("#date").text(),
         date_end: $("#date_end").text(),
-        price: $("#ap_price").text()
+        price: $("#ap_price").text(),
+        detail: $("#detail").val()
     };
     $.ajax({
         url: '/appointment',
