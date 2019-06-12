@@ -46,7 +46,7 @@ $(".flat").on("ifClicked", async function(event){
 
     const member_data = await getMemberInfo(id);
     member_data.forEach(function(item, counter){
-        const blacklist = item.ap_blacklist ? "<a class='glow'>병신임ㅋ</a>" : "일반 손님";
+        const blacklist = item.ap_blacklist ? "<a class='glow'>관심 손님</a>" : "일반 손님";
         const date = new Date(item.ap_date);
         if(counter%2===0){
             $("#ap_tbody").append('<tr class="odd pointer">' +
