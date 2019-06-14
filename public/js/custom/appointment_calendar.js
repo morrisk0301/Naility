@@ -126,20 +126,28 @@ window.onload = async function() {
             calendar.fullCalendar('unselect');
         },
         eventDrop: async function ( event, delta, revertFunc, jsEvent, ui, view ){
-            const success = await modifyDate(event.id, new Date(event.start), new Date(event.end));
-            if(success){
-                await setAppointmentCalendar();
+            if(confirm("예약을 변경하시겠습니까?")) {
+                const success = await modifyDate(event.id, new Date(event.start), new Date(event.end));
+                if (success) {
+                    await setAppointmentCalendar();
+                } else {
+                    alert("이미 마감한 예약은 수정할 수 없습니다.");
+                    revertFunc();
+                }
             }else{
-                alert("이미 마감한 예약은 수정할 수 없습니다.");
                 revertFunc();
             }
         },
         eventResize: async function( event, delta, revertFunc, jsEvent, ui, view ) {
-            const success = await modifyDate(event.id, new Date(event.start), new Date(event.end));
-            if(success){
-                await setAppointmentCalendar();
+            if(confirm("예약을 변경하시겠습니까?")){
+                const success = await modifyDate(event.id, new Date(event.start), new Date(event.end));
+                if(success){
+                    await setAppointmentCalendar();
+                }else{
+                    alert("이미 마감한 예약은 수정할 수 없습니다.");
+                    revertFunc();
+                }
             }else{
-                alert("이미 마감한 예약은 수정할 수 없습니다.");
                 revertFunc();
             }
         },
