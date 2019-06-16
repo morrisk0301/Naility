@@ -1,5 +1,20 @@
 const checkAuth = require('../utils/check_auth');
 
+function checkExistance(database, name, phone){
+    return new Promise(function(resolve, reject){
+        database.MemberModel.findOne({
+            'member_name': name,
+            'member_phone': phone
+        }, function(err, result){
+            console.log(err, result);
+            if(result)
+                resolve(true);
+            else
+                resolve(false);
+        })
+    })
+}
+
 module.exports = function (router) {
 
     router.get('/member', checkAuth.checkLogin, function (req, res) {
@@ -70,27 +85,39 @@ module.exports = function (router) {
         })
     });
 
-    router.post('/member', checkAuth.checkAuth, function (req, res) {
+    router.post('/member', checkAuth.checkAuth, async function (req, res) {
         const database = req.app.get('database');
         const name = req.body.name;
         const phone = req.body.phone;
         const contact = req.body.contact;
         const ap = req.body.ap !== 'false';
 
-        const newMember = new database.MemberModel({
-            'member_name': name,
-            'member_phone': phone,
-            'member_contact': contact
-        });
+        const isExist = await checkExistance(database, name, phone);
+        if(isExist){
+            process.nextTick(function(){
+                if(!ap){
+                    res.json({exist: true, ap: false});
+                }else{
+                    res.json({exist: true, ap: true});
+                }
+            })
+        }
+        else {
+            const newMember = new database.MemberModel({
+                'member_name': name,
+                'member_phone': phone,
+                'member_contact': contact
+            });
 
-        newMember.save(function (err, save_result) {
-            if (!ap) {
-                res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
-                res.write('<script type="text/javascript">alert("회원이 저장되었습니다.");window.opener.location.reload();window.close();</script>');
-                res.end();
-            } else
-                res.json({member_id: save_result.member_id, ap: true});
-        })
+            newMember.save(function (err, save_result) {
+                if (!ap) {
+                    res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'});
+                    res.write('<script type="text/javascript">alert("회원이 저장되었습니다.");window.opener.location.reload();window.close();</script>');
+                    res.end();
+                } else
+                    res.json({member_id: save_result.member_id, ap: true});
+            })
+        }
     });
 
     router.put('/member/:id', checkAuth.checkAuth, function (req, res) {
