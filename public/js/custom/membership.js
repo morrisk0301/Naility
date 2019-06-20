@@ -31,6 +31,7 @@ function init_daterangepicker() {
         ranges: {
             '다음 90일': [moment(), moment().add(90, 'days')],
             '다음 180일': [moment(), moment().add(180, 'days')],
+            '다음 365일': [moment(), moment().add(365, 'days')],
             '이번 달': [moment().startOf('month'), moment().endOf('month')],
             '다음 달': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')]
         },
