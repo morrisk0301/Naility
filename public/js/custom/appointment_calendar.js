@@ -168,8 +168,15 @@ $("#btn_search_procedure2").on("click", function(event){
 });
 
 $("#btn_search_member").on("click", function(event){
-    window.open("/member/search?query=ap&name="+$("#ap_name").val(), "회원 검색", "width=500,height=600");
+    window.open("/member/search?query=ap&name="+$("#ap_name").val()+"&type="+$("#search_type").val(), "회원 검색", "width=500,height=600");
     return false;
+});
+
+$("#ap_name").keypress(function(e) {
+    if (e.keyCode == 13){
+        window.open("/member/search?query=ap&name="+$("#ap_name").val()+"&type="+$("#search_type").val(), "회원 검색", "width=500,height=600");
+        return false;
+    }
 });
 
 

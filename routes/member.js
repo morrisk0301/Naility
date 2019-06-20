@@ -50,11 +50,14 @@ module.exports = function (router) {
     router.get('/member/search', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const name = req.query.name ? req.query.name : "";
+        const type = req.query.type;
         const page = req.query.page ? req.query.page : 1;
         const query = req.query.query ? req.query.query : "";
         let render = query === 'ap' ? 'search_member' : 'search_membership';
 
-        database.MemberModel.paginate({'member_name': {$regex: new RegExp(name, "i")}}, {
+        const searchQuery = type ==="이름" ? {'member_name': {$regex: new RegExp(name, "i")}} : {'member_phone': {$regex: new RegExp(name, "i")}};
+
+        database.MemberModel.paginate(searchQuery, {
             page: page,
             limit: 5,
             sort: {created_at: -1}

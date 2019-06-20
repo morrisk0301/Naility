@@ -193,10 +193,16 @@
                 <div id="testmodal" style="padding: 5px 20px;">
                     <form data-parsley-validate class="form-horizontal form-label-left">
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">회원 검색<span class="required">*</span></label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
+                            <label class="control-label col-md-3">회원 검색<span class="required">*</span></label>
+                            <div class=" col-md-3 form-group has-feedback">
+                                <select class="form-control has-feedback-left" id="search_type">
+                                    <option>휴대폰 번호</option>
+                                    <option>이름 </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
                                 <div class='input-group'>
-                                    <input type="text" class="form-control" name="name" id="ap_name" placeholder="회원 이름을 입력하세요 " >
+                                    <input type="text" class="form-control" name="name" id="ap_name" placeholder="휴대폰 번호/이름" >
                                     <span class="input-group-btn">
                                         <button id="btn_search_member" type="button" class="btn btn-primary">검색 </button>
                                         <button id="btn_add" type="button" class="btn btn-primary">추가 </button>
