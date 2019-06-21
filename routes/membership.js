@@ -23,6 +23,23 @@ function modifyProfit(database, is_del, ms_data, query) {
     })
 }
 
+function updateMember(database, member_id, obj_id){
+    return new Promise(function(resolve, reject){
+        database.MemberModel.findOne({
+            'member_id': member_id
+        }, function(err, result){
+            if(err)
+                reject(err);
+            else{
+                result.ms_data = obj_id;
+                result.save(function(err){
+                    resolve(true);
+                })
+            }
+        })
+    })
+}
+
 module.exports = function (router) {
 
     router.get('/membership', checkAuth.checkLogin, async function (req, res) {
@@ -151,6 +168,7 @@ module.exports = function (router) {
         newMembership.save(async function(err, save_result){
             if(err)
                 throw err;
+            await updateMember(database, member_id, save_result._id);
             await modifyProfit(database,false, save_result, ms_data);
             res.json(true);
         })

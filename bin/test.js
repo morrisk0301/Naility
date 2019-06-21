@@ -43,6 +43,23 @@ database.db.on('error', console.error.bind(console, 'mongoose connection error.'
 database.db.on('open', async function () {
     console.log('데이터베이스에 연결되었습니다. : ' + config.db_url);
     createSchema(app, config).then(() => {
+        database.MembershipModel.find({}).populate('member_data').sort({created: -1}).then((results) => {
+            results.forEach(function(item){
+                database.MemberModel.findOne({
+                    'member_id': item.member_data[0].member_id
+                }, function(err, result){
+                    result.markModified('ms_data');
+                    console.log(result.ms_data);
+                    result.ms_data.push(item._id);
+                    //result.ms_data.length = 0;
+                    result.save(function(err){
+                        if(err){
+                            console.log(err);
+                        }
+                    })
+                })
+            })
+        })
         /*
         database.ProfitModel.find({}).then((results) => {
             for(let i=0;i<results.length;i++){

@@ -9,9 +9,7 @@ function setAppointmentCalendar(){
         fetch('http://'+host+'/appointment?query=calendar')
             .then((res) => res.json())
             .then((data) => {
-                ap_data = data.ap_array;
-                ms_data = data.ms_array;
-                console.log(ap_data.length, ms_data.length);
+                ap_data = data;
                 resolve(true);
             })
     })
@@ -23,10 +21,10 @@ function getEvent(ap_data){
         let event = [];
         ap_data.forEach(async function(item){
             let color;
-            const is_membership = ms_data.find(ms_item => ms_item.ap_id === item.ap_id);
+            console.log(item.member_data[0].ms_data);
             if(item.ap_no_show)
                 color = "#c20000";
-            else if(is_membership.is_membership)
+            else if(item.member_data[0].ms_data.length>0)
                 color = "#c28833";
 
             const query = {
