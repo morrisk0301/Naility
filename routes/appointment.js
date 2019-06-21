@@ -128,10 +128,10 @@ function checkIsMembership(database, member_id){
         const memSearchQuery = {member_id: member_id};
         const search_ids = await member_data.getIds(database, memSearchQuery);
 
-        database.MembershipModel.find({
+        database.MembershipModel.findOne({
             'member_data': {$in:search_ids}
-        }).populate('member_data').sort({created_at: -1}).exec(function(err, results) {
-            if (results.length > 0) {
+        }, function(err, result) {
+            if (result) {
                 resolve(true)
             } else {
                 resolve(false)
