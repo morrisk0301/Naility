@@ -129,7 +129,7 @@ module.exports = function (router) {
         const objId = await member_data.getOneId(database, member_id);
         const exp_date = new Date(req.body.exp_date);
         const bonus = req.body.bonus;
-        console.log(bonus);
+
         let ms_bonus = {};
         if(bonus){
             ms_bonus.msd_value = bonus;

@@ -123,6 +123,39 @@ function modifyMethod(database, ap_id, ap_method) {
     })
 }
 
+function checkIsMembership(database, member_id){
+    return new Promise(async function(resolve, reject){
+        const memSearchQuery = {member_id: member_id};
+        const search_ids = await member_data.getIds(database, memSearchQuery);
+
+        database.MembershipModel.find({
+            'member_data': {$in:search_ids}
+        }).populate('member_data').sort({created_at: -1}).exec(function(err, results) {
+            if (results.length > 0) {
+                resolve(true)
+            } else {
+                resolve(false)
+            }
+        })
+    })
+}
+
+function checkMembership(database, ap_data){
+    return new Promise(function(resolve, reject){
+        let ms_array = [];
+        ap_data.reduce(function (total, item, counter) {
+            return total.then(() => checkIsMembership(database, item.member_data[0].member_id).then(function(is_membership){
+                ms_array.push({
+                    'ap_id': item.ap_id,
+                    'is_membership': is_membership
+                });
+            }))
+        }, Promise.resolve()).then(function () {
+            resolve(ms_array);
+        });
+    })
+}
+
 module.exports = function (router) {
 
     router.get('/appointment', checkAuth.checkLogin, async function (req, res) {
@@ -136,8 +169,9 @@ module.exports = function (router) {
         let memSearchQuerh = {};
 
         if (query === 'calendar') {
-            database.AppointmentModel.find({}).populate('member_data').select('ap_id ap_date ap_date_end ap_no_show member_data ap_detail ap_procedure_name ap_price').exec(function (err, result) {
-                res.json(result);
+            database.AppointmentModel.find({}).populate('member_data').select('ap_id ap_date ap_date_end ap_no_show member_data ap_detail ap_procedure_name ap_price').exec(async function (err, result) {
+                const ms_array = await checkMembership(database, result);
+                res.json({ap_array: result, ms_array: ms_array});
             });
         } else if (!search) {
             process.nextTick(function () {

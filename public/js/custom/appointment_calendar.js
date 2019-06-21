@@ -1,5 +1,6 @@
 const host = location.host;
 let ap_data;
+let ms_data;
 let ap_selected;
 let id_selected;
 
@@ -8,22 +9,32 @@ function setAppointmentCalendar(){
         fetch('http://'+host+'/appointment?query=calendar')
             .then((res) => res.json())
             .then((data) => {
-                ap_data = data;
+                ap_data = data.ap_array;
+                ms_data = data.ms_array;
+                console.log(ap_data.length, ms_data.length);
                 resolve(true);
             })
     })
 }
 
+
 function getEvent(ap_data){
     return new Promise(function(resolve, reject){
         let event = [];
-        ap_data.forEach(function(item){
+        ap_data.forEach(async function(item){
+            let color;
+            const is_membership = ms_data.find(ms_item => ms_item.ap_id === item.ap_id);
+            if(item.ap_no_show)
+                color = "#c20000";
+            else if(is_membership.is_membership)
+                color = "#c28833";
+
             const query = {
                 title: item.member_data[0].member_name+'['+item.member_data[0].member_contact+']'+'('+item.member_data[0].member_phone+')',
                 start: new Date(item.ap_date),
                 end: new Date(item.ap_date_end),
                 id: item.ap_id,
-                color: item.ap_no_show ? "#c20000" : ""
+                color: color
             };
             event.push(query);
         });
