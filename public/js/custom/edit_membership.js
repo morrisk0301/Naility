@@ -1,3 +1,31 @@
+$("#add_name").keypress(function(e) {
+    if (e.keyCode == 13){
+        window.open("/member/search?query=membership_add&name="+$("#add_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    }
+});
+
+$("#give_name").keypress(function(e) {
+    if (e.keyCode == 13){
+        window.open("/member/search?query=membership_give&name="+$("#give_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    }
+});
+
+$("#get_name").keypress(function(e) {
+    if (e.keyCode == 13){
+        window.open("/member/search?query=membership_get&name="+$("#get_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    }
+});
+
+$("#refund_name").keypress(function(e) {
+    if (e.keyCode == 13){
+        window.open("/member/search?query=membership_refund&name="+$("#refund_name").val(), "회원 검색", "width=500,height=600");
+        return false;
+    }
+});
+
 $("#btn_search_member").on("click", function(event){
     window.open("/member/search?query=membership_add&name="+$("#add_name").val(), "회원 검색", "width=500,height=600");
     return false;

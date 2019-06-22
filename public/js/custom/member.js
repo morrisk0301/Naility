@@ -36,8 +36,7 @@ $("#search_text").keypress(function(e) {
 
 
 $("#btn_search").on("click", function(event){
-    const query = $("#search_query").val() === "이름" ? "name" : "phone";
-    window.location = "/member?search="+$("#search_text").val()+"&query="+ query;
+    window.location = "/member?search="+$("#search_text").val()
 });
 
 $(".flat").on("ifClicked", async function(event){

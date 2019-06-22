@@ -21,8 +21,7 @@ module.exports = function (router) {
         const database = req.app.get('database');
         const page = req.query.page ? req.query.page : 1;
         const search = req.query.search ? req.query.search : "";
-        const query = req.query.query;
-        const searchQuery = query === "name" ? {'member_name': {$regex: new RegExp(search, "i")}} : {'member_phone': {$regex: new RegExp(search, "i")}};
+        const searchQuery = {$or: [{'member_name': {$regex: new RegExp(search, "i")}}, {'member_phone': {$regex: new RegExp(search, "i")}}]};
 
         database.MemberModel.paginate(searchQuery, {
             page: page,
@@ -50,12 +49,11 @@ module.exports = function (router) {
     router.get('/member/search', checkAuth.checkLogin, function (req, res) {
         const database = req.app.get('database');
         const name = req.query.name ? req.query.name : "";
-        const type = req.query.type;
         const page = req.query.page ? req.query.page : 1;
         const query = req.query.query ? req.query.query : "";
         let render = query === 'ap' ? 'search_member' : 'search_membership';
 
-        const searchQuery = type ==="이름" ? {'member_name': {$regex: new RegExp(name, "i")}} : {'member_phone': {$regex: new RegExp(name, "i")}};
+        const searchQuery = {$or: [{'member_name': {$regex: new RegExp(name, "i")}}, {'member_phone': {$regex: new RegExp(name, "i")}}]};
 
         database.MemberModel.paginate(searchQuery, {
             page: page,
