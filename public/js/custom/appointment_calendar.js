@@ -245,7 +245,6 @@ $("#btn_appointment_new").on("click", function(event){
         type: 'POST',
         data: query,
         success: function (data) {
-            console.log(data);
             if(!data.err){
                 setAppointmentCalendar().then(() =>{
                     $('.antoclose').click();
@@ -258,6 +257,7 @@ $("#btn_appointment_new").on("click", function(event){
                         true
                     );
                     $('#calendar').fullCalendar('unselect');
+                    $("#detail").val("");
                 });
             }
             else{
