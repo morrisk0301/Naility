@@ -4315,7 +4315,7 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 
 .glow {
-    font-size: 80px;
+    font-size: 20px;
     color: #2398ff;
     text-align: center;
     -webkit-animation: glow 1s ease-in-out infinite alternate;
