@@ -23,16 +23,16 @@ function modifyProfit(database, is_del, ms_data, query) {
     })
 }
 
-function updateMember(database, member_id, obj_id){
-    return new Promise(function(resolve, reject){
+function updateMember(database, member_id, obj_id) {
+    return new Promise(function (resolve, reject) {
         database.MemberModel.findOne({
             'member_id': member_id
-        }, function(err, result){
-            if(err)
+        }, function (err, result) {
+            if (err)
                 reject(err);
-            else{
+            else {
                 result.ms_data = obj_id;
-                result.save(function(err){
+                result.save(function (err) {
                     resolve(true);
                 })
             }
@@ -51,16 +51,16 @@ module.exports = function (router) {
         let searchQuery = {};
         let memSearchQuerh = {};
 
-        if(!search)
-            return res.render('membership', {userID: req.user.user_userID, membership: [], page:1, num:0});
-        if(req.query.name)
+        if (!search)
+            return res.render('membership', {userID: req.user.user_userID, membership: [], page: 1, num: 0});
+        if (req.query.name)
             memSearchQuerh.member_name = {$regex: new RegExp(req.query.name, "i")};
-        if(req.query.phone)
+        if (req.query.phone)
             memSearchQuerh.member_phone = {$regex: new RegExp(req.query.phone, "i")};
 
         const search_ids = await member_data.getIds(database, memSearchQuerh);
-        searchQuery.member_data = {$in:search_ids};
-        if(start && end){
+        searchQuery.member_data = {$in: search_ids};
+        if (start && end) {
             searchQuery.ms_exp_date = {
                 "$gte": new Date(start),
                 "$lt": new Date(end)
@@ -84,7 +84,7 @@ module.exports = function (router) {
                     });
                 }))
             }, Promise.resolve()).then(function () {
-                res.render('membership',{
+                res.render('membership', {
                     userID: req.user.user_userID,
                     membership: results.docs,
                     page: page,
@@ -113,15 +113,15 @@ module.exports = function (router) {
         })
     });
 
-    router.get('/membership_member/:id', checkAuth.checkLogin, async function(req, res){
+    router.get('/membership_member/:id', checkAuth.checkLogin, async function (req, res) {
         const database = req.app.get('database');
         const member_id = req.params.id;
         const memSearchQuery = {member_id: member_id};
         const search_ids = await member_data.getIds(database, memSearchQuery);
 
         database.MembershipModel.find({
-            'member_data': {$in:search_ids}
-        }).populate('member_data').sort({created_at: -1}).exec(function(err, results){
+            'member_data': {$in: search_ids}
+        }).populate('member_data').sort({created_at: -1}).exec(function (err, results) {
             let value_arr = [];
             results.reduce(function (total, item, counter) {
                 return total.then(() => ms_data.checkMembershipLeft(database, item.ms_id).then((value) => {
@@ -148,13 +148,13 @@ module.exports = function (router) {
         const bonus = req.body.bonus;
 
         let ms_bonus = {};
-        if(bonus){
+        if (bonus) {
             ms_bonus.msd_value = bonus;
             ms_bonus.msd_type = '보너스';
             ms_bonus.msd_method = '기타';
         }
         const ms_data = {
-            'msd_value' : req.body.value,
+            'msd_value': req.body.value,
             'msd_type': '충전',
             'msd_method': req.body.method,
         };
@@ -165,19 +165,20 @@ module.exports = function (router) {
             'ms_data': bonus ? [ms_data, ms_bonus] : ms_data,
             'ms_init_value': req.body.value
         });
-        newMembership.save(async function(err, save_result){
-            if(err)
+        newMembership.save(async function (err, save_result) {
+            if (err)
                 throw err;
             await updateMember(database, member_id, save_result._id);
-            await modifyProfit(database,false, save_result, ms_data);
+            await modifyProfit(database, false, save_result, ms_data);
             res.json(true);
         })
 
     });
 
-    router.put('/membership', checkAuth.checkAuthJson, async function (req, res){
+    router.put('/membership', checkAuth.checkAuthJson, async function (req, res) {
         const database = req.app.get('database');
         const ms_id = req.body.ms_id;
+        const deposit_id = req.body.deposit_id;
         const get_member_id = req.body.get_member_id;
         const type = req.body.type;
         const objId = await member_data.getOneId(database, get_member_id);
@@ -217,36 +218,63 @@ module.exports = function (router) {
             };
             if (membership_value - req.body.value < 0)
                 return res.json(false);
+        } else if (type === "송금") {
+            value = -req.body.value;
+            get_value = req.body.value;
+            query = {
+                'msd_value': value,
+                'msd_type': '송금',
+                'msd_method': '기타'
+            };
+            query2 = {
+                'msd_value': get_value,
+                'msd_type': '입금',
+                'msd_method': '기타'
+            };
+            if (membership_value + value < 0)
+                return res.json(false);
         }
 
 
         database.MembershipModel.findOne({
             'ms_id': ms_id
-        }, function(err, result){
-            if(err)
+        }, function (err, result) {
+            if (err)
                 throw err;
             result.ms_data.push(query);
-            if(type === "환불")
+            if (type === "환불")
                 result.ms_data.push(query2);
-            result.save(async function(err, save_result){
-                if(err)
+            result.save(async function (err, save_result) {
+                if (err)
                     throw err;
-                if(type === "환불") {
+                if (type === "환불") {
                     await modifyProfit(database, true, save_result, query);
                     res.json(true);
-                }
-                else{
+                } else if (type === "양도") {
                     const newMembership = new database.MembershipModel({
                         'member_data': objId._id,
                         'ms_exp_date': result.ms_exp_date,
                         'ms_data': query2,
                         'ms_init_value': get_value
                     });
-                    newMembership.save(async function(err){
-                        if(err)
+                    newMembership.save(async function (err) {
+                        if (err)
                             throw err;
                         res.json(true);
                     });
+                } else if (type === "송금") {
+                    database.MembershipModel.findOne({
+                        'ms_id': deposit_id
+                    }, function(err, result){
+                        if(err)
+                            throw err;
+                        result.ms_data.push(query2);
+                        result.save(function(err, result){
+                            if(err)
+                                throw err;
+                            res.json(true)
+                        })
+                    })
                 }
 
             })

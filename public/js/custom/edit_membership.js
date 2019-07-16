@@ -29,22 +29,32 @@ $("#refund_name").keypress(function(e) {
 $("#btn_search_member").on("click", function(event){
     window.open("/member/search?query=membership_add&name="+$("#add_name").val(), "회원 검색", "width=500,height=600");
     return false;
-})
+});
 
 $("#btn_search_member2").on("click", function(event){
     window.open("/member/search?query=membership_give&name="+$("#give_name").val(), "회원 검색", "width=500,height=600");
     return false;
-})
+});
 
 $("#btn_search_member3").on("click", function(event){
     window.open("/member/search?query=membership_get&name="+$("#get_name").val(), "회원 검색", "width=500,height=600");
     return false;
-})
+});
 
 $("#btn_search_member4").on("click", function(event){
     window.open("/member/search?query=membership_refund&name="+$("#refund_name").val(), "회원 검색", "width=500,height=600");
     return false;
-})
+});
+
+$("#btn_search_member5").on("click", function(event){
+    window.open("/member/search?query=membership_transfer&name="+$("#transfer_name").val(), "회원 검색", "width=500,height=600");
+    return false;
+});
+
+$("#btn_search_member6").on("click", function(event){
+    window.open("/member/search?query=membership_deposit&name="+$("#deposit_name").val(), "회원 검색", "width=500,height=600");
+    return false;
+});
 
 $("#btn_add").on("click", function(event){
     if(!window.add_searched){
@@ -148,6 +158,38 @@ $("#btn_refund").on("click", function(event){
             }
         });
     }
+    return false;
+});
+
+$("#btn_transfer").on("click", function(event){
+    if(!window.transfer_searched || !window.deposit_searched){
+        alert("회원을 선택해 주세요");
+        return false;
+    }
+    if($("#transfer_value").val()<0 || !$("#transfer_value").val()){
+        alert("금액을 올바르게 입력해 주세요");
+        return false;
+    }
+    if(confirm("정말 송금 하시겠습니까??")) {
+        const query = {
+            'ms_id': window.transfer_ms_id,
+            'deposit_id': window.deposit_ms_id,
+            'value': $("#transfer_value").val(),
+            'type': "송금"
+        };
+        $.ajax({
+            url: '/membership',
+            type: 'PUT',
+            data: query,
+            success: function (data) {
+                if (data) {
+                    alert("회원권 송금이 완료되었습니다");
+                    window.location.reload();
+                } else
+                    alert("회원권 잔액이 부족합니다.")
+            }
+        });
+    };
     return false;
 });
 

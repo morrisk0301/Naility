@@ -112,6 +112,20 @@ $(document).on("click", ".select_ms", function () {
                 window.opener.document.getElementById('refund_membership').textContent = "회원권 ID: " + ms_id;
                 window.opener.document.getElementById('refund_value').value = value_left.value_left;
                 window.opener.document.getElementById('refund_value').disabled = true;
+            } else if (query === "membership_transfer") {
+                window.opener.transfer_searched = true;
+                window.opener.transfer_member_id = this.id;
+                window.opener.transfer_ms_id = ms_id;
+                window.opener.document.getElementById('transfer_name').value = $("#name_" + this.id.toString()).text();
+                window.opener.document.getElementById('transfer_name').disabled = true;
+                window.opener.document.getElementById('transfer_membership').textContent = "회원권 ID: " + ms_id;
+            } else if (query === "membership_deposit") {
+                window.opener.deposit_searched = true;
+                window.opener.deposit_member_id = this.id;
+                window.opener.deposit_ms_id = ms_id;
+                window.opener.document.getElementById('deposit_name').value = $("#name_" + this.id.toString()).text();
+                window.opener.document.getElementById('deposit_name').disabled = true;
+                window.opener.document.getElementById('deposit_membership').textContent = "회원권 ID: " + ms_id;
             }
             window.close();
             check = true;
