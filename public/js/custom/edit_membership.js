@@ -1,3 +1,5 @@
+let override = false;
+
 $("#add_name").keypress(function(e) {
     if (e.keyCode == 13){
         window.open("/member/search?query=membership_add&name="+$("#add_name").val(), "회원 검색", "width=500,height=600");
@@ -76,8 +78,10 @@ $("#btn_add").on("click", function(event){
             'method': $("#add_method").val(),
             'type': "충전",
             'exp_date': $("#exp_date").val(),
-            'bonus': $("#add_bonus").val()
+            'bonus': $("#add_bonus").val(),
+            'override': override
         };
+        console.log(query);
         $.ajax({
             url: '/membership',
             type: 'POST',
@@ -232,4 +236,8 @@ $("#btn_6m").on("click", function(event){
 $("#btn_1y").on("click", function(event){
     $("#exp_date").val(moment().add(365, 'days').format('MM/DD/YYYY hh:mm a'));
     return false;
+});
+
+$("#override").on("ifChanged", function(event){
+    override = event.target.checked;
 });

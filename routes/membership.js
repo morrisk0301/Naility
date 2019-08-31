@@ -40,6 +40,62 @@ function updateMember(database, member_id, obj_id) {
     })
 }
 
+function addValueInExistingMembership(database, member_id, value, method, bonus, exp_date){
+    return new Promise(async function (resolve, reject) {
+        const ms_id = await getMsId(database, member_id);
+        const query = {
+            'msd_value': value,
+            'msd_type': '충전',
+            'msd_method': method,
+        };
+
+        let ms_bonus = {};
+        if (bonus) {
+            ms_bonus.msd_value = bonus;
+            ms_bonus.msd_type = '보너스';
+            ms_bonus.msd_method = '기타';
+        }
+
+        if(!ms_id){
+            resolve(false)
+        }
+        else{
+            database.MembershipModel.findOne({
+                'ms_id': ms_id
+            }, function (err, result) {
+                if (err)
+                    throw err;
+                result.ms_data.push(query);
+                if(bonus)
+                    result.ms_data.push(ms_bonus);
+                result.ms_exp_date = exp_date;
+                result.ms_init_value = parseInt(result.ms_init_value) + parseInt(value);
+
+                result.save(async function(err, save_result){
+                    if(err)
+                        throw err;
+                    await modifyProfit(database, false, save_result, query);
+                    resolve(true)
+                })
+            })
+        }
+    })
+}
+
+function getMsId(database, member_id) {
+    return new Promise(function (resolve, reject) {
+        database.MemberModel.findOne({
+            'member_id': member_id
+        }).populate('ms_data').exec( (err, result) => {
+            if(result.ms_data.length > 0){
+                resolve(result.ms_data[0].ms_id);
+            }else{
+                resolve(null);
+            }
+        })
+    })
+}
+
 module.exports = function (router) {
 
     router.get('/membership', checkAuth.checkLogin, async function (req, res) {
@@ -146,6 +202,15 @@ module.exports = function (router) {
         const objId = await member_data.getOneId(database, member_id);
         const exp_date = new Date(req.body.exp_date);
         const bonus = req.body.bonus;
+        const override = req.body.override;
+
+        if(override === 'true'){
+            const addSuccess = await addValueInExistingMembership(database, member_id,  req.body.value, req.body.method, bonus, exp_date);
+
+            if(addSuccess){
+                return res.json(true)
+            }
+        }
 
         let ms_bonus = {};
         if (bonus) {

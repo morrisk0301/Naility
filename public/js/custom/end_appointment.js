@@ -127,6 +127,7 @@ $("#btn_appointment_delete").on('click', function(event){
     return false;
 });
 
+
 $("#blacklist").on("ifChanged", function(event){
     blacklist = event.target.checked;
 });
