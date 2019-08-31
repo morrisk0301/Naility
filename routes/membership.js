@@ -69,7 +69,7 @@ function addValueInExistingMembership(database, member_id, value, method, bonus,
                 if(bonus)
                     result.ms_data.push(ms_bonus);
                 result.ms_exp_date = exp_date;
-                result.ms_init_value = parseInt(result.ms_init_value) + parseInt(value);
+                result.ms_init_value = value;
 
                 result.save(async function(err, save_result){
                     if(err)
