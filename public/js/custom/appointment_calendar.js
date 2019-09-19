@@ -24,6 +24,8 @@ function getEvent(ap_data){
             console.log(item.member_data[0].ms_data);
             if(item.ap_no_show)
                 color = "#c20000";
+            else if(item.member_data[0].member_contact == '경인')
+                color = "#8025c2";
             else if(item.member_data[0].ms_data.length>0)
                 color = "#c28833";
 
@@ -248,11 +250,21 @@ $("#btn_appointment_new").on("click", function(event){
             if(!data.err){
                 setAppointmentCalendar().then(() =>{
                     $('.antoclose').click();
+                    let color;
+
+                    if(data.ap_no_show)
+                        color = "#c20000";
+                    else if(data.member_data[0].member_contact == '경인')
+                        color = "#8025c2";
+                    else if(data.member_data[0].ms_data.length>0)
+                        color = "#c28833";
+
                     $('#calendar').fullCalendar('renderEvent', {
                             title: data.member_data[0].member_name+'['+data.member_data[0].member_contact+']'+'('+data.member_data[0].member_phone+')',
                             start: new Date(data.ap_date),
                             end: new Date(data.ap_date_end),
-                            id: data.ap_id
+                            id: data.ap_id,
+                            color: color
                         },
                         true
                     );

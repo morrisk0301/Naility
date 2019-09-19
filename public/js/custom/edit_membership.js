@@ -81,7 +81,6 @@ $("#btn_add").on("click", function(event){
             'bonus': $("#add_bonus").val(),
             'override': override
         };
-        console.log(query);
         $.ajax({
             url: '/membership',
             type: 'POST',
