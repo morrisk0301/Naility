@@ -42,28 +42,8 @@ module.exports = function (router) {
 
     router.get('/member/excel', checkAuth.checkLogin, function(req, res){
         const database = req.app.get('database');
-        database.ProfitModel.aggregate([{
-            "$lookup": {
-                "from": "members",
-                "localField": "member_data",
-                "foreignField": "_id",
-                "as": "member_data"
-            }
-        }, {
-            $unwind: '$member_data',
-        }, {
-            $group: {
-                _id: {
-                    "id": "$member_data.member_id",
-                    "name": "$member_data.member_name",
-                    "phone": "$member_data.member_phone",
-                    "contact": "$member_data.member_contact",
-                    "created_at": "$member_data.created_at",
-                },
-                count: {$sum: "$pf_value"}
-            }
-        }
-        ]).exec(function (err, result) {
+
+        database.MemberModel.find({}).sort({created_at:-1}).exec((err, result) =>{
             if (err)
                 throw(err);
             const workbook = new Excel.Workbook();
@@ -73,16 +53,14 @@ module.exports = function (router) {
                 { header: '연락처', key: 'member_phone'},
                 { header: '연락 경로', key: 'member_contact'},
                 { header: '가입일', key: 'created_at'},
-                { header: '매출', key: 'profit'},
             ];
             result.reduce(function (total, item, counter) {
                 return total.then(async function () {
                     worksheet.addRow({
-                        'member_name': item._id.name,
-                        'member_phone': item._id.phone,
-                        'member_contact': item._id.contact,
-                        'created_at': item._id.created_at,
-                        'profit': item.count,
+                        'member_name': item.member_name,
+                        'member_phone': item.member_phone,
+                        'member_contact': item.member_contact,
+                        'created_at': item.created_at,
                     });
                 })
             }, Promise.resolve()).then(function () {
