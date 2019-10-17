@@ -11,6 +11,14 @@ function getMemberInfo(id){
     })
 }
 
+function saveByteArray(fileName, byte) {
+    const blob = new Blob([byte], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+}
+
 window.onload = async function () {
     console.log(page);
     $('#page-selection').bootpag({
@@ -81,4 +89,16 @@ $("#btn_member_modify").on('click', function(event){
     });
     if(!check)
         alert("회원을 선택해주세요");
+});
+
+$("#btn_excel").on("click", async function(event){
+    $.ajax({
+        url: '/member/excel',
+        type: 'GET',
+        success: function (data) {
+            const filename = moment().format('YYYY_MM_DD') + '_회원조회.xlsx';
+            saveByteArray(filename, Buffer.Buffer.from(data));
+        }
+    });
+    return false;
 });

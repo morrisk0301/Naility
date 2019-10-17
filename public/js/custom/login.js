@@ -22,7 +22,7 @@ $("#login_btn").on("click", function(event){
     $.ajax({
         url: '/login',    //Your api url
         type: 'POST',   //type is any HTTP method
-        data: {userID:"iluvubtch", password:"453mor3013"},      //Data as js object
+        data: {userID:"iluvubtch", password:"123123123"},      //Data as js object
         success: function () {
             window.location = "/"
         }

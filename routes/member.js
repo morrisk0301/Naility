@@ -1,4 +1,5 @@
 const checkAuth = require('../utils/check_auth');
+const Excel = require('exceljs');
 
 function checkExistance(database, name, phone){
     return new Promise(function(resolve, reject){
@@ -37,6 +38,59 @@ module.exports = function (router) {
                 num: results.total
             });
         })
+    });
+
+    router.get('/member/excel', checkAuth.checkLogin, function(req, res){
+        const database = req.app.get('database');
+        database.ProfitModel.aggregate([{
+            "$lookup": {
+                "from": "members",
+                "localField": "member_data",
+                "foreignField": "_id",
+                "as": "member_data"
+            }
+        }, {
+            $unwind: '$member_data',
+        }, {
+            $group: {
+                _id: {
+                    "id": "$member_data.member_id",
+                    "name": "$member_data.member_name",
+                    "phone": "$member_data.member_phone",
+                    "contact": "$member_data.member_contact",
+                    "created_at": "$member_data.created_at",
+                },
+                count: {$sum: "$pf_value"}
+            }
+        }
+        ]).exec(function (err, result) {
+            if (err)
+                throw(err);
+            const workbook = new Excel.Workbook();
+            const worksheet = workbook.addWorksheet('회원 조회');
+            worksheet.columns = [
+                { header: '이름', key: 'member_name'},
+                { header: '연락처', key: 'member_phone'},
+                { header: '연락 경로', key: 'member_contact'},
+                { header: '가입일', key: 'created_at'},
+                { header: '매출', key: 'profit'},
+            ];
+            result.reduce(function (total, item, counter) {
+                return total.then(async function () {
+                    worksheet.addRow({
+                        'member_name': item._id.name,
+                        'member_phone': item._id.phone,
+                        'member_contact': item._id.contact,
+                        'created_at': item._id.created_at,
+                        'profit': item.count,
+                    });
+                })
+            }, Promise.resolve()).then(function () {
+                workbook.xlsx.writeBuffer().then((buffer) => {
+                    res.json(new Buffer(buffer, 'array'));
+                });
+            });
+        });
     });
 
     router.get('/member_num', checkAuth.checkLogin, function (req, res) {

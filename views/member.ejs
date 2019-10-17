@@ -196,6 +196,7 @@
                                         <%}}%>
                                         </tbody>
                                     </table>
+                                    <button class="btn btn-dark alignright" id="btn_excel">엑셀 다운로드</button>
                                     <button class="btn btn-dark alignright" id="btn_member">회원 추가</button>
                                     <button class="btn btn-dark alignright" id="btn_member_modify">회원 수정</button>
                                     <div class="text-center"id="page-selection"></div>
@@ -289,8 +290,10 @@
 <script src="./build/js/custom.min.js"></script>
 <script src="./vendors/bootpag/lib/jquery.bootpag.min.js"></script>
 <script src="./js/custom/member.js"></script>
+<script src="./js/custom/buffer.js"></script>
 <script>
     const page_num = "<%=num%>"
+    const Buffer = require('buffer');
     const page = parseInt("<%=page%>");
     const url_string = location.search.split("&page="+page)[0].replace("?", "");
 </script>
