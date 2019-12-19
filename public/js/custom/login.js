@@ -18,19 +18,6 @@ function verifyID(userID){
 }
 
 
-$("#login_btn").on("click", function(event){
-    $.ajax({
-        url: '/login',    //Your api url
-        type: 'POST',   //type is any HTTP method
-        data: {userID:"iluvubtch", password:"123123123"},      //Data as js object
-        success: function () {
-            window.location = "/"
-        }
-    });
-})
-
-
-
 $("#userID").on('input', async function(event){
     const is_registered = await verifyID($("#userID").val());
     if(is_registered)
