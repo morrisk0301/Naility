@@ -30,6 +30,7 @@ function init_daterangepicker() {
         timePicker12Hour: true,
         ranges: {
             '전체 기간': [moment('2019-01-01'), moment('2100-12-31')],
+            '회원권 기간종료 안내목록': [moment(), moment().add(30, 'days')],
             '다음 60일': [moment(), moment().add(60, 'days')],
         },
         opens: 'left',
