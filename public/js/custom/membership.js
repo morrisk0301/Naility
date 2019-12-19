@@ -29,11 +29,8 @@ function init_daterangepicker() {
         timePickerIncrement: 1,
         timePicker12Hour: true,
         ranges: {
-            '다음 90일': [moment(), moment().add(90, 'days')],
-            '다음 180일': [moment(), moment().add(180, 'days')],
-            '다음 365일': [moment(), moment().add(365, 'days')],
-            '이번 달': [moment().startOf('month'), moment().endOf('month')],
-            '다음 달': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')]
+            '전체 기간': [moment('2019-01-01'), moment('2100-12-31')],
+            '다음 60일': [moment(), moment().add(60, 'days')],
         },
         opens: 'left',
         buttonClasses: ['btn btn-default'],
@@ -65,9 +62,9 @@ window.onload = async function () {
     if(nameParam) $("#search_name").val(nameParam);
     if(phoneParam) $("#search_phone").val(phoneParam);
     if(!startParam && !endParam){
-        start = new Date(moment()).toUTCString();
-        end = new Date(moment().add(90, 'days')).toUTCString();
-        $('#reportrange span').html(moment().format('MMMM D, YYYY') + ' - ' + moment().add(90, 'days').format('MMMM D, YYYY'));
+        start = new Date(moment('2019-01-01')).toUTCString();
+        end = new Date(moment('2100-12-31')).toUTCString();
+        $('#reportrange span').html(moment('2019-01-01').format('MMMM D, YYYY') + ' - ' + moment('2100-12-31').format('MMMM D, YYYY'));
     }else{
         start = new Date(startParam);
         end = new Date(endParam);
